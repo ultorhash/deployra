@@ -1,6 +1,8 @@
-import { Fragment, useState, type JSX } from 'react'
-import { ethers } from 'ethers'
-import SimpleContract from './contracts/SimpleContract.json'
+import { Fragment, useState, type JSX } from 'react';
+import { ethers } from 'ethers';
+import SimpleContract from './contracts/SimpleContract.json';
+import { AppBar, Box, Button } from '@mui/material';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 export const App = (): JSX.Element => {
   const [contractAddress, setContractAddress] = useState<string | null>(null);
@@ -41,16 +43,27 @@ export const App = (): JSX.Element => {
 
   return (
     <Fragment>
-      <h1>Hello</h1>
-      <button onClick={deployContract} disabled={loading}>
-        {loading ? "Deploying..." : "Deploy Contract"}
-      </button>
-
-      {contractAddress && (
-        <p>
-          Contract deployed at: <strong>{contractAddress}</strong>
-        </p>
-      )}
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar
+          position="static"
+          sx={{ p: 1 }}
+        >
+          <Box sx={{ ml: 'auto' }}>
+            <ConnectButton chainStatus="icon" />
+          </Box>
+        </AppBar>
+      </Box>
     </Fragment>
   )
 }
+
+{/* <h1>Hello</h1>
+<button onClick={deployContract} disabled={loading}>
+  {loading ? "Deploying..." : "Deploy Contract"}
+</button>
+
+{contractAddress && (
+  <p>
+    Contract deployed at: <strong>{contractAddress}</strong>
+  </p>
+)} */}
