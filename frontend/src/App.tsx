@@ -1,8 +1,8 @@
 import { Fragment, useState, type JSX } from 'react';
 import { ethers } from 'ethers';
 import SimpleContract from './contracts/SimpleContract.json';
-import { Header, DeployPanel } from './components';
-import { Box } from '@mui/material';
+import { Header, DeployPanel, Footer } from './components';
+import { BottomNavigation, BottomNavigationAction, Box } from '@mui/material';
 
 export const App = (): JSX.Element => {
   const [contractAddress, setContractAddress] = useState<string | null>(null);
@@ -54,6 +54,7 @@ export const App = (): JSX.Element => {
       >
         <DeployPanel />
       </Box>
+      <Footer />
     </Fragment>
   )
 }
