@@ -1,26 +1,22 @@
-import { useState, type JSX } from "react";
+import { Fragment, useState, type JSX } from "react";
 import { Avatar, Box, Card, CardHeader, Tooltip } from "@mui/material";
+import { DeployOption } from "@app-types";
+import { deployOptions } from "./data";
 
 export const DeployPanel = (): JSX.Element => {
-  const logos = ["base.png", "optimism.png", "unichain.png",
-    "soneium.svg", "sonic.svg", "polygon.svg",
-    "hyperEVM.svg", "sei.svg", "scroll.png",
-    "lens.svg", "linea.png", "morph.svg",
-    "berachain.svg", "abstract.png", "mantle.svg" 
-  ];
 
   const rowSize = 7;
   
-  const rows = Array.from({ length: Math.ceil(logos.length / rowSize) }, (_, rowIndex) =>
-    logos.slice(rowIndex * rowSize, rowIndex * rowSize + rowSize)
+  const rows = Array.from({ length: Math.ceil(deployOptions.length / rowSize) }, (_, rowIndex) =>
+    deployOptions.slice(rowIndex * rowSize, rowIndex * rowSize + rowSize)
   );
   
-  const [activeLogo, setActiveLogo] = useState<string>("");
+  const [chain, setChain] = useState<string>("");
 
   const capitalize = (str: string) => str && str[0].toUpperCase() + str.slice(1);
 
-  const handleClick = (logo: any) => {
-    setActiveLogo(logo);
+  const handleClick = (chain: string) => {
+    setChain(chain);
   };
 
   return (
@@ -31,10 +27,7 @@ export const DeployPanel = (): JSX.Element => {
     })}>
       <CardHeader
         title={`Deploy your smart contract`}
-        subheader={activeLogo
-          ? `Selected chain: ${capitalize(activeLogo.replace(/\.(png|svg)$/i, ""))}`
-          : 'Please select chain'
-        }
+        subheader={chain ? `Selected chain: ${chain}` : 'Please select chain'}
         sx={{ textAlign: "center" }}
       />
       <Box
@@ -42,24 +35,29 @@ export const DeployPanel = (): JSX.Element => {
         flexDirection="column"
         gap={2}
       >
-        {rows.map((row: string[], rowIndex: number) => (
+        {rows.map((row: DeployOption[], rowIndex: number) => (
           <Box display="flex" key={rowIndex} gap={2}>
-            {row.map((logo: string, index: number) => (
+            {row.map((option: DeployOption, index: number) => (
               <Box key={index} width={44} height={44}>
                 <Tooltip
-                  title={capitalize(logo.replace(/\.(png|svg)$/i, ""))}
+                  title={
+                    <Fragment>
+                      <p style={{ margin: 0 }}>{option.chain}</p>
+                      <p style={{ margin: 0 }}>Fee: {option.fee}</p>
+                    </Fragment>
+                  }
                   enterTouchDelay={0}
                 >
                   <Avatar
-                    alt={logo}
-                    src={`/assets/logos/${logo}`}
-                    onClick={() => handleClick(logo)}
+                    alt={option.chain}
+                    src={`/assets/logos/${option.icon}`}
+                    onClick={() => handleClick(option.chain)}
                     sx={{
                       width: 44,
                       height: 44,
                       cursor: "pointer",
                       transition: "0.1s",
-                      opacity: activeLogo === logo ? 1 : 0.4
+                      opacity: chain === option.chain ? 1 : 0.4
                     }}
                   />
                 </Tooltip>
