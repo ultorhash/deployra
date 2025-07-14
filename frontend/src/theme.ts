@@ -28,6 +28,13 @@ export const theme = createTheme({
         enterNextDelay: 300,
         leaveDelay: 0
       }
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none'
+        }
+      }
     }
   }
 });

@@ -1,8 +1,19 @@
-import { Fragment, useState, type JSX } from "react";
+import { Fragment, useEffect, useState, type JSX } from "react";
 import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, Tab, Tabs, TextField, Tooltip } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
+import { useChainId,
+  useChains,
+  useSwitchChain,
+  useAccount,
+  useConnect,
+  injected,
+  useWriteContract
+} from "wagmi";
+import { sepolia } from "viem/chains";
 import { DeployOption } from "@app-types";
+import { ethers } from "ethers";
 import { deployOptions } from "./data";
+import Token from "@app-contracts/Token.json";
 
 export const DeployPanel = (): JSX.Element => {
 
@@ -12,21 +23,53 @@ export const DeployPanel = (): JSX.Element => {
     deployOptions.slice(rowIndex * rowSize, rowIndex * rowSize + rowSize)
   );
   
-  const [chain, setChain] = useState<string>("");
   const [value, setValue] = useState(0);
+  const { switchChainAsync } = useSwitchChain();
+  const { address, isConnected } = useAccount();
+  const chains = useChains();
+  const chainId = useChainId();
+  const { connect } = useConnect();
+  const { register, handleSubmit, formState: { errors, isValid } } = useForm();
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [selectedOption, setSelectedOption] = useState<DeployOption>();
+  const [isPending, setIsPending] = useState<boolean>(false);
 
-  const handleClick = (chain: string) => {
-    setChain(chain);
+  const handleClick = (option: DeployOption) => {
+    setSelectedOption(option);
   };
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   }
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = async (data: FieldValues): Promise<void> => {
+    setIsPending(true);
+    console.log(chainId);
+    console.log(sepolia.id);
+
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
+
+    const factory = new ethers.ContractFactory(
+      Token.abi,
+      Token.bytecode,
+      signer
+    );
+
+    try {
+      const contract = await factory.deploy(data.name, data.symbol);
+      console.log("Deploying contract...");
+
+      await contract.waitForDeployment();
+      const address = await contract.getAddress();
+
+      console.log("Token deployed at:", address);
+      alert(`Token deployed at: ${address}`);
+    } catch (err) {
+      console.error("Deploy error:", err);
+    } finally {
+      setIsPending(false);
+    }
   };
 
   function CustomTabPanel(props: any) {
@@ -52,7 +95,7 @@ export const DeployPanel = (): JSX.Element => {
     })}>
       <CardHeader
         title={`Deploy your smart contract`}
-        subheader={chain ? `Selected chain: ${chain}` : 'Please select chain'}
+        subheader={selectedOption?.chain ? `Selected chain: ${selectedOption?.chain}` : 'Please select chain'}
         sx={{ textAlign: "center" }}
       />
       <CardContent>
@@ -82,14 +125,14 @@ export const DeployPanel = (): JSX.Element => {
                     <Avatar
                       alt={option.chain}
                       src={`/assets/logos/${option.icon}`}
-                      onClick={() => handleClick(option.chain)}
+                      onClick={() => handleClick(option)}
                       sx={{
                         width: 44,
                         height: 44,
                         cursor: "pointer",
                         transition: "0.1s",
-                        opacity: chain === option.chain ? 1 : 0.4,
-                        boxShadow: chain === option.chain ? "0 0 8px #000" : "none"
+                        opacity: selectedOption?.chain === option.chain ? 1 : 0.4,
+                        boxShadow: selectedOption?.chain === option.chain ? "0 0 8px #000" : "none"
                       }}
                     />
                   </Tooltip>
@@ -111,15 +154,19 @@ export const DeployPanel = (): JSX.Element => {
                 '& .MuiTabs-indicator': { backgroundColor: theme.palette.text.primary }
               })}
             >
-              <Tab label="Contract" />
               <Tab label="Token" />
+              <Tab label="Contract" />
             </Tabs>
           </Box>
           <CustomTabPanel value={value} index={0}>
-            Item One
-          </CustomTabPanel>
-          <CustomTabPanel value={value} index={1}>
-            <form noValidate onSubmit={handleSubmit(onSubmit)}>
+            <form
+              noValidate
+              method="post"
+              onSubmit={(e) => {
+                e.preventDefault();
+                isConnected ? handleSubmit(onSubmit)() : connect({ connector: injected() })
+              }}
+            >
               <Box
                 sx={{
                   display: 'flex',
@@ -128,27 +175,44 @@ export const DeployPanel = (): JSX.Element => {
                 }}
               >
                 <TextField
+                  fullWidth
                   label="Name"
                   variant="outlined"
-                  fullWidth
+                  autoComplete="off"
                   {...register('name', { required: 'name is required' })}
                   error={!!errors.name}
                   helperText={errors.name && typeof errors.name.message === 'string' ? errors.name.message : ''}
                 />
                 <TextField
+                  fullWidth
                   label="Symbol"
                   variant="outlined"
-                  fullWidth
+                  autoComplete="off"
                   {...register('symbol', { required: 'symbol is required' })}
                   error={!!errors.symbol}
                   helperText={errors.symbol && typeof errors.symbol.message === 'string' ? errors.symbol.message : ''}
                 />
               </Box>
 
-              <Button type="submit" variant="contained" color="primary" fullWidth>
-                Deploy
+              <Button
+                fullWidth
+                type="submit"
+                variant="contained"
+                color="primary"
+                disabled={isPending}
+              >
+                {
+                  isPending
+                    ? "Deploying..."
+                    : isConnected
+                    ? "Deploy"
+                    : "Connect wallet"
+                }
               </Button>
             </form>
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={1}>
+            Item two
           </CustomTabPanel>
         </Box>
       </CardActions>

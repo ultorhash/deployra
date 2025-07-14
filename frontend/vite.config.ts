@@ -11,6 +11,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      "@app-contracts": path.resolve(__dirname, "src/contracts"),
       "@app-types": path.resolve(__dirname, "types/index.ts")
     }
   }

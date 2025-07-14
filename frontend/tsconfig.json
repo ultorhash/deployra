@@ -18,6 +18,7 @@
     "jsx": "react-jsx",
     "baseUrl": "./src",
     "paths": {
+      "@app-contracts/*": ["contracts/*"],
       "@app-types": ["types/index.ts"],
     },
     "typeRoots": ["node_modules/@types", "./types"]
