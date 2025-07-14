@@ -1,19 +1,20 @@
 import { Fragment, useState, type JSX } from "react";
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, Snackbar, Tab, Tabs, TextField, Tooltip } from "@mui/material";
-import { FieldValues, useForm } from "react-hook-form";
+import { Avatar, Box, Card, CardActions, CardContent, CardHeader, Snackbar, Tab, Tabs, Tooltip } from "@mui/material";
+import { FieldValues } from "react-hook-form";
 import MuiAlert from '@mui/material/Alert';
-import { useChainId,
+import {
+  useChainId,
   useChains,
   useSwitchChain,
   useAccount,
-  useConnect,
-  injected
+  useConnect
 } from "wagmi";
 import { sepolia } from "viem/chains";
 import { DeployOption } from "@app-types";
 import { ethers } from "ethers";
 import { deployOptions } from "./data";
 import Token from "@app-contracts/Token.json";
+import { Form } from "components";
 
 export const DeployPanel = (): JSX.Element => {
 
@@ -25,11 +26,9 @@ export const DeployPanel = (): JSX.Element => {
   
   const [value, setValue] = useState(0);
   const { switchChainAsync } = useSwitchChain();
-  const { address, isConnected } = useAccount();
-  const chains = useChains();
+  const { isConnected } = useAccount();
   const chainId = useChainId();
   const { connect } = useConnect();
-  const { register, handleSubmit, formState: { errors, isValid } } = useForm();
 
   const [selectedOption, setSelectedOption] = useState<DeployOption>();
   const [isPending, setIsPending] = useState<boolean>(false);
@@ -189,51 +188,13 @@ export const DeployPanel = (): JSX.Element => {
               </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
-              <form
-                noValidate
-                method="post"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  isConnected ? handleSubmit(onSubmit)() : connect({ connector: injected() })
-                }}
-              >
-                <Box
-                  sx={{
-                    display: 'flex',
-                    gap: 2,
-                    mb: 2
-                  }}
-                >
-                  <TextField
-                    fullWidth
-                    label="Name"
-                    variant="outlined"
-                    autoComplete="off"
-                    {...register('name', { required: 'name is required' })}
-                    error={!!errors.name}
-                    helperText={errors.name && typeof errors.name.message === 'string' ? errors.name.message : ''}
-                  />
-                  <TextField
-                    fullWidth
-                    label="Symbol"
-                    variant="outlined"
-                    autoComplete="off"
-                    {...register('symbol', { required: 'symbol is required' })}
-                    error={!!errors.symbol}
-                    helperText={errors.symbol && typeof errors.symbol.message === 'string' ? errors.symbol.message : ''}
-                  />
-                </Box>
-
-                <Button
-                  fullWidth
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  disabled={isPending}
-                >
-                  {getButtonText()}
-                </Button>
-              </form>
+              <Form
+                isConnected={isConnected}
+                isPending={isPending}
+                onSubmit={onSubmit}
+                connect={connect}
+                getButtonText={getButtonText}
+              />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
               Item two
