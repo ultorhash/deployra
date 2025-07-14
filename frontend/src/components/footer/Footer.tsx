@@ -17,11 +17,13 @@ export const Footer = (): JSX.Element => {
       <BottomNavigationAction
         label="X"
         icon={<X />}
-        sx={{
+        sx={(theme) => ({
           minWidth: 40,
           maxWidth: 40,
-          borderRadius: 2
-        }}
+          borderRadius: 2,
+          color: theme.palette.primary.contrastText,
+          backgroundColor: '#000'
+        })}
       />
     </BottomNavigation>
   )

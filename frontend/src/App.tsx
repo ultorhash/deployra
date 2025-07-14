@@ -45,15 +45,17 @@ export const App = (): JSX.Element => {
     <Fragment>
       <Header />
       <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          m: 2
-        }}
+        sx={(theme) => ({
+          height: 'calc(100vh - 64px - 56px)',
+          backgroundColor: theme.palette.secondary.main,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        })}
       >
         <DeployPanel />
       </Box>
+
       <Footer />
     </Fragment>
   )

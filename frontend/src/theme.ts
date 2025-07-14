@@ -3,20 +3,31 @@ import { createTheme } from '@mui/material/styles';
 export const theme = createTheme({
   palette: {
     primary: {
-      main: '#000000'
+      main: '#5A5A5A',
+      contrastText: '#F5F0E6'
     },
     secondary: {
-      main: '#333333'
+      main: '#A39E93'
     },
     background: {
-      default: '#f5f5f5'
+      default: '#E1E1DC',
+      paper: '#D8D5D0'
     },
     text: {
-      primary: '#FFFFFF',
-      secondary: '#DDDDDD'
+      primary: '#2C2C2C',
+      secondary: '#676767'
     }
   },
   typography: {
     fontFamily: 'Roboto, Arial'
+  },
+  components: {
+    MuiTooltip: {
+      defaultProps: {
+        enterDelay: 300,
+        enterNextDelay: 300,
+        leaveDelay: 0
+      }
+    }
   }
 });

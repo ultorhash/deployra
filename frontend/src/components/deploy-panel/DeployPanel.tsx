@@ -48,8 +48,7 @@ export const DeployPanel = (): JSX.Element => {
   return (
     <Card sx={(theme) => ({
       p: 2,
-      borderRadius: 2,
-      backgroundColor: theme.palette.secondary.main
+      borderRadius: 2
     })}>
       <CardHeader
         title={`Deploy your smart contract`}
@@ -67,15 +66,13 @@ export const DeployPanel = (): JSX.Element => {
               {row.map((option: DeployOption, index: number) => (
                 <Box key={index} width={44} height={44}>
                   <Tooltip
+                    arrow
                     title={
                       <Fragment>
                         <p style={{ margin: 0 }}>{option.chain}</p>
                         <p style={{ margin: 0 }}>Fee: {option.fee}</p>
                       </Fragment>
                     }
-                    arrow={true}
-                    enterDelay={0}
-                    leaveDelay={0}
                     slotProps={{
                       transition: {
                         timeout: 0
@@ -92,7 +89,7 @@ export const DeployPanel = (): JSX.Element => {
                         cursor: "pointer",
                         transition: "0.1s",
                         opacity: chain === option.chain ? 1 : 0.4,
-                        boxShadow: chain === option.chain ? "0 0 8px #FFFFFF" : "none"
+                        boxShadow: chain === option.chain ? "0 0 8px #000" : "none"
                       }}
                     />
                   </Tooltip>
