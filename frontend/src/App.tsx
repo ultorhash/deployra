@@ -1,8 +1,8 @@
 import { Fragment, useState, type JSX } from 'react';
 import { ethers } from 'ethers';
 import SimpleContract from './contracts/SimpleContract.json';
-import { AppBar, Box, Button } from '@mui/material';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { Header, DeployPanel } from './components';
+import { Box } from '@mui/material';
 
 export const App = (): JSX.Element => {
   const [contractAddress, setContractAddress] = useState<string | null>(null);
@@ -43,15 +43,16 @@ export const App = (): JSX.Element => {
 
   return (
     <Fragment>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar
-          position="static"
-          sx={{ p: 1 }}
-        >
-          <Box sx={{ ml: 'auto' }}>
-            <ConnectButton chainStatus="icon" />
-          </Box>
-        </AppBar>
+      <Header />
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          m: 2
+        }}
+      >
+        <DeployPanel />
       </Box>
     </Fragment>
   )
