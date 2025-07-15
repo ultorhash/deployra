@@ -1,11 +1,11 @@
 import { FormProps } from "@app-types";
 import { Box, Button, TextField } from "@mui/material";
 import { JSX } from "react";
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { injected } from "wagmi";
 
 export const Form = (props: FormProps): JSX.Element => {
-  const { isConnected, isPending, onSubmit, connect, getButtonText } = props;
+  const { isConnected, isPending, isOptionSelected, onSubmit, connect, getButtonText } = props;
 
   const {
     register,
@@ -61,7 +61,7 @@ export const Form = (props: FormProps): JSX.Element => {
         type="submit"
         variant="contained"
         color="primary"
-        disabled={isPending}
+        disabled={isPending || !isOptionSelected}
       >
         {getButtonText()}
       </Button>

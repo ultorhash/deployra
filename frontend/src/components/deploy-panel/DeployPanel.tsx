@@ -1,4 +1,4 @@
-import { Fragment, useState, type JSX } from "react";
+import { Fragment, useEffect, useState, type JSX } from "react";
 import { Avatar, Box, Card, CardActions, CardContent, CardHeader, Snackbar, Tab, Tabs, Tooltip } from "@mui/material";
 import { FieldValues } from "react-hook-form";
 import MuiAlert from '@mui/material/Alert';
@@ -7,14 +7,22 @@ import {
   useChains,
   useSwitchChain,
   useAccount,
-  useConnect
+  useConnect,
+  useWriteContract,
+  useConnectorClient,
+  useWalletClient,
+  usePublicClient,
+  useWaitForTransactionReceipt
 } from "wagmi";
 import { sepolia } from "viem/chains";
-import { DeployOption } from "@app-types";
+import { DeployOption, SnackbarState } from "@app-types";
 import { ethers } from "ethers";
 import { deployOptions } from "./data";
 import Token from "@app-contracts/Token.json";
 import { Form } from "components";
+import { UserRejectedRequestError } from "viem";
+import { getWalletClient, writeContract } from "@wagmi/core";
+import { deployContract } from "viem/actions";
 
 export const DeployPanel = (): JSX.Element => {
 
@@ -29,24 +37,23 @@ export const DeployPanel = (): JSX.Element => {
   const { isConnected } = useAccount();
   const chainId = useChainId();
   const { connect } = useConnect();
+  const [txHash, setTxHash] = useState<`0x${string}` | undefined>(undefined);
+  const { data: receipt, isLoading: isPending, isSuccess, isError } = useWaitForTransactionReceipt({ hash: txHash });
 
   const [selectedOption, setSelectedOption] = useState<DeployOption>();
-  const [isPending, setIsPending] = useState<boolean>(false);
+  const { data: walletClient } = useWalletClient();
 
-  const [snackbar, setSnackbar] = useState({
+  const [snackbar, setSnackbar] = useState<SnackbarState>({
     open: false,
     message: "",
-    status: ""
+    severity: "info"
   });
 
-  const handleClick = (option: DeployOption) => {
-    console.log(chainId);
-    console.log(sepolia.id);
-
+  const handleClick = (option: DeployOption): void => {
     if (chainId !== option.chainId) {
       switchChainAsync({ chainId: option.chainId });
     }
-  
+
     setSelectedOption(option);
   };
 
@@ -60,45 +67,46 @@ export const DeployPanel = (): JSX.Element => {
   }
 
   const onSubmit = async (formData: FieldValues): Promise<void> => {
-    setIsPending(true);
-    setSnackbar({
-      open: true,
-      message: 'Deploying...',
-      status: 'waiting',
-    });
-
-    const provider = new ethers.BrowserProvider(window.ethereum);
-    const signer = await provider.getSigner();
-
-    const factory = new ethers.ContractFactory(
-      Token.abi,
-      Token.bytecode,
-      signer
-    );
-
     try {
-      const contract = await factory.deploy(formData.name, formData.symbol);
-      console.log("Deploying contract...");
-      const txHash = contract.deploymentTransaction()?.hash;
+      setSnackbar({ open: true, message: "Confirm in your wallet...", severity: "info" });
 
-      await contract.waitForDeployment();
-      const address = await contract.getAddress();
-
-      console.log("Token deployed at:", address);
-      console.log("Tx hash:", txHash);
-      
-      setSnackbar({
-        open: true,
-        message: "Token deployed successfully!",
-        status: "success"
+      const hash = await walletClient?.deployContract({
+        abi: Token.abi,
+        bytecode: Token.bytecode as `0x${string}`,
+        args: [formData.name, formData.symbol]
       });
 
-    } catch (err) {
-      console.error("Deploy error:", err);
-    } finally {
-      setIsPending(false);
+      if (hash) {
+        setTxHash(hash);
+        setSnackbar({ open: true, message: "Deploying...", severity: "info" });
+      }
+
+    } catch (error: any) {
+      if (
+        error?.code === 4001 ||
+        error?.message?.toLowerCase().includes("user rejected") ||
+        error?.message?.toLowerCase().includes("cancelled")
+      ) {
+        setSnackbar({
+          open: true,
+          message: "Failed to deploy. Transaction rejected",
+          severity: "error"
+        });
+      }
     }
   };
+
+  useEffect(() => {
+    if (isSuccess && receipt?.contractAddress) {
+      setSnackbar({ open: true, message: `Deployed at ${receipt.contractAddress}`, severity: "success" });
+    }
+
+    if (isError) {
+      setSnackbar({ open: true, message: 'Transaction failed or reverted', severity: 'error' });
+    }
+
+    setTxHash(undefined);
+  }, [isSuccess, isError, receipt]);
 
   function CustomTabPanel(props: any) {
     const { children, value, index, ...other } = props;
@@ -191,6 +199,7 @@ export const DeployPanel = (): JSX.Element => {
               <Form
                 isConnected={isConnected}
                 isPending={isPending}
+                isOptionSelected={!!selectedOption}
                 onSubmit={onSubmit}
                 connect={connect}
                 getButtonText={getButtonText}
@@ -205,21 +214,15 @@ export const DeployPanel = (): JSX.Element => {
       <Snackbar
         open={snackbar.open}
         autoHideDuration={5000}
-        onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
+        onClose={() => setSnackbar((prev: SnackbarState) => ({ ...prev, open: false }))}
         message={snackbar.message}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       >
         <MuiAlert
           elevation={6}
           variant="filled"
-          onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
           sx={{ width: '100%' }}
-          severity={
-            snackbar.status === 'success'
-              ? 'success' : snackbar.status === 'error'
-              ? 'error' : snackbar.status === 'waiting'
-              ? 'info' : undefined
-          }
+          severity={snackbar.severity}
         >
           {snackbar.message}
         </MuiAlert>
