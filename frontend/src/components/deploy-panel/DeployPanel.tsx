@@ -1,28 +1,37 @@
 import { Fragment, useEffect, useState, type JSX } from "react";
-import { Avatar, Box, Card, CardActions, CardContent, CardHeader, Snackbar, Tab, Tabs, Tooltip } from "@mui/material";
-import { FieldValues } from "react-hook-form";
-import MuiAlert from '@mui/material/Alert';
 import {
   useChainId,
-  useChains,
   useSwitchChain,
   useAccount,
   useConnect,
-  useWriteContract,
-  useConnectorClient,
   useWalletClient,
-  usePublicClient,
   useWaitForTransactionReceipt
 } from "wagmi";
-import { sepolia } from "viem/chains";
+import {
+  Avatar,
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Divider,
+  IconButton,
+  List,
+  ListItem,
+  Snackbar,
+  Tab,
+  Tabs,
+  Tooltip,
+  Typography
+} from "@mui/material";
+import { FieldValues } from "react-hook-form";
+import MuiAlert from '@mui/material/Alert';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { DeployOption, SnackbarState } from "@app-types";
-import { ethers } from "ethers";
 import { deployOptions } from "./data";
 import Token from "@app-contracts/Token.json";
 import { Form } from "components";
-import { UserRejectedRequestError } from "viem";
-import { getWalletClient, writeContract } from "@wagmi/core";
-import { deployContract } from "viem/actions";
+import { Address } from "viem";
 
 export const DeployPanel = (): JSX.Element => {
 
@@ -37,10 +46,11 @@ export const DeployPanel = (): JSX.Element => {
   const { isConnected } = useAccount();
   const chainId = useChainId();
   const { connect } = useConnect();
-  const [txHash, setTxHash] = useState<`0x${string}` | undefined>(undefined);
+  const [txHash, setTxHash] = useState<Address | undefined>(undefined);
   const { data: receipt, isLoading: isPending, isSuccess, isError } = useWaitForTransactionReceipt({ hash: txHash });
 
   const [selectedOption, setSelectedOption] = useState<DeployOption>();
+  const [deployments, setDeployments] = useState<Address[]>([]);
   const { data: walletClient } = useWalletClient();
 
   const [snackbar, setSnackbar] = useState<SnackbarState>({
@@ -62,6 +72,10 @@ export const DeployPanel = (): JSX.Element => {
     return isPending ? 'Deploying...' : 'Deploy';
   }
 
+  const shortenAddress = (address: Address): string => {
+    return `${address.slice(0, 5)}...${address.slice(-4)}`;
+  }
+
   const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   }
@@ -72,7 +86,7 @@ export const DeployPanel = (): JSX.Element => {
 
       const hash = await walletClient?.deployContract({
         abi: Token.abi,
-        bytecode: Token.bytecode as `0x${string}`,
+        bytecode: Token.bytecode as Address,
         args: [formData.name, formData.symbol]
       });
 
@@ -97,8 +111,10 @@ export const DeployPanel = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if (isSuccess && receipt?.contractAddress) {
+    if (isSuccess && receipt?.contractAddress && txHash) {
       setSnackbar({ open: true, message: `Deployed at ${receipt.contractAddress}`, severity: "success" });
+
+      setDeployments((prev) => [...prev, receipt.contractAddress!]);
     }
 
     if (isError) {
@@ -133,9 +149,9 @@ export const DeployPanel = (): JSX.Element => {
         <CardHeader
           title={`Deploy your smart contract`}
           subheader={selectedOption?.chain ? `Selected chain: ${selectedOption?.chain}` : 'Please select chain'}
-          sx={{ textAlign: "center" }}
+          sx={{ textAlign: "center", pb: 3 }}
         />
-        <CardContent>
+        <CardContent sx={{ py: 0 }}>
           <Box
             display="flex"
             flexDirection="column"
@@ -178,8 +194,6 @@ export const DeployPanel = (): JSX.Element => {
               </Box>
             ))}
           </Box>
-        </CardContent>
-        <CardActions>
           <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <Tabs
@@ -209,6 +223,39 @@ export const DeployPanel = (): JSX.Element => {
               Item two
             </CustomTabPanel>
           </Box>
+        </CardContent>
+        <CardActions sx={{ py: 0 }}>
+          <List sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+            {deployments.map((address) => {
+              return (
+                <ListItem
+                  key={address}
+                  sx={{ p: 0 }}
+                >
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      width: '100%'
+                    }}
+                  >
+                    <Typography variant="body2">
+                     Address: {shortenAddress(address as Address)}
+                    </Typography>
+                    <IconButton
+                      size="small"
+                      edge="end"
+                      aria-label="copy txHash"
+                      onClick={() => navigator.clipboard.writeText(address)}
+                    >
+                      <ContentCopyIcon fontSize="small" />
+                    </IconButton>
+                  </Box>
+                </ListItem>
+              );
+            })}
+          </List>
         </CardActions>
       </Card>
       <Snackbar

@@ -1,7 +1,7 @@
 import { FieldValues } from "react-hook-form";
 import { Config } from "wagmi";
 import { ConnectMutate } from "wagmi/query";
-import { DeployOption } from "./deploy-option.type";
+import { DeployOption } from "./deploy.type";
 
 export type FormProps = {
   isConnected: boolean;
