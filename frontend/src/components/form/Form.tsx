@@ -29,6 +29,7 @@ export const Form = (props: FormProps): JSX.Element => {
         <TextField
           fullWidth
           label="Name"
+          size="small"
           variant="outlined"
           autoComplete="off"
           {...register('name', { required: 'name is required' })}
@@ -38,6 +39,7 @@ export const Form = (props: FormProps): JSX.Element => {
         <TextField
           fullWidth
           label="Symbol"
+          size="small"
           variant="outlined"
           autoComplete="off"
           {...register('symbol', { required: 'symbol is required' })}

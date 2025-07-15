@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { WagmiProvider } from 'wagmi';
 import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import { ThemeProvider } from '@mui/material';
+import { GlobalStyles, ThemeProvider } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { base, optimism, sepolia, unichain } from 'wagmi/chains';
 import { App } from './App.tsx';
@@ -26,6 +26,18 @@ createRoot(document.getElementById('root')!).render(
       <RainbowKitProvider>
         <ThemeProvider theme={theme}>
           <CssBaseline />
+          <GlobalStyles
+            styles={{
+              '*::-webkit-scrollbar': { width: '0.4em' },
+              '*::-webkit-scrollbar-track': { WebkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)' },
+              '*::-webkit-scrollbar-thumb': { backgroundColor: 'rgba(0,0,0,.1)', outline: '1px solid slategrey' },
+              '*::-webkit-scrollbar-button': {
+                display: 'none',
+                width: 0,
+                height: 0
+              }
+            }}
+          />
           <App />
         </ThemeProvider>
       </RainbowKitProvider>

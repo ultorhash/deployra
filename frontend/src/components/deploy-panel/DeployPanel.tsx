@@ -14,7 +14,6 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  Divider,
   IconButton,
   List,
   ListItem,
@@ -24,14 +23,14 @@ import {
   Tooltip,
   Typography
 } from "@mui/material";
-import { FieldValues } from "react-hook-form";
-import MuiAlert from '@mui/material/Alert';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { FieldValues, useForm } from "react-hook-form";
 import { DeployOption, SnackbarState } from "@app-types";
 import { deployOptions } from "./data";
-import Token from "@app-contracts/Token.json";
 import { Form } from "components";
 import { Address } from "viem";
+import MuiAlert from '@mui/material/Alert';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import Token from "@app-contracts/Token.json";
 
 export const DeployPanel = (): JSX.Element => {
 
@@ -114,7 +113,7 @@ export const DeployPanel = (): JSX.Element => {
     if (isSuccess && receipt?.contractAddress && txHash) {
       setSnackbar({ open: true, message: `Deployed at ${receipt.contractAddress}`, severity: "success" });
 
-      setDeployments((prev) => [...prev, receipt.contractAddress!]);
+      setDeployments((prev) => [...prev, txHash]);
     }
 
     if (isError) {
@@ -144,7 +143,9 @@ export const DeployPanel = (): JSX.Element => {
     <Fragment>
       <Card sx={{
         p: 2,
-        borderRadius: 2
+        borderRadius: 2,
+        zIndex: 10,
+        boxShadow: '0 0 10px rgba(225, 225, 220, 0.2)'
       }}>
         <CardHeader
           title={`Deploy your smart contract`}
@@ -185,7 +186,7 @@ export const DeployPanel = (): JSX.Element => {
                           cursor: "pointer",
                           transition: "0.1s",
                           opacity: selectedOption?.chain === option.chain ? 1 : 0.4,
-                          boxShadow: selectedOption?.chain === option.chain ? "0 0 8px #000" : "none"
+                          boxShadow: selectedOption?.chain === option.chain ? "0 0 12px #FFF" : "none"
                         }}
                       />
                     </Tooltip>
@@ -206,8 +207,8 @@ export const DeployPanel = (): JSX.Element => {
                   '& .MuiTabs-indicator': { backgroundColor: theme.palette.text.primary },
                 })}
               >
-                <Tab label="Token" />
-                <Tab label="Contract" />
+                <Tab disableRipple label="Token" />
+                <Tab disableRipple label="Contract" />
               </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
@@ -221,13 +222,24 @@ export const DeployPanel = (): JSX.Element => {
               />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
-              Item two
+              Coming soon...
             </CustomTabPanel>
           </Box>
         </CardContent>
         <CardActions sx={{ py: 0 }}>
-          <List sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-            {deployments.map((address) => {
+          <List
+            sx={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              overflowY: 'auto',
+              maxHeight: 3 * 38,
+              gap: 0.5,
+              mr: 1,
+              mt: 1
+            }}
+          >
+            {deployments.map((address: Address) => {
               return (
                 <ListItem
                   key={address}
@@ -242,7 +254,7 @@ export const DeployPanel = (): JSX.Element => {
                     }}
                   >
                     <Typography variant="body2">
-                      Address: {shortenAddress(address as Address)}
+                      Tx: {shortenAddress(address)}
                     </Typography>
                     <IconButton
                       size="small"

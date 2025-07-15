@@ -11,7 +11,7 @@ export const Footer = (): JSX.Element => {
       bottom: 0,
       left: 0,
       right: 0,
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: theme.palette.secondary.main,
       p: 1
     })}>
       <BottomNavigationAction
