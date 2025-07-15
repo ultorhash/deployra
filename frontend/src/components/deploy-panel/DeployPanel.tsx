@@ -135,17 +135,17 @@ export const DeployPanel = (): JSX.Element => {
         aria-labelledby={`simple-tab-${index}`}
         {...other}
       >
-        {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+        {value === index && <Box sx={{ pt: 2 }}>{children}</Box>}
       </div>
     );
   }
 
   return (
     <Fragment>
-      <Card sx={(theme) => ({
+      <Card sx={{
         p: 2,
         borderRadius: 2
-      })}>
+      }}>
         <CardHeader
           title={`Deploy your smart contract`}
           subheader={selectedOption?.chain ? `Selected chain: ${selectedOption?.chain}` : 'Please select chain'}
@@ -195,14 +195,15 @@ export const DeployPanel = (): JSX.Element => {
             ))}
           </Box>
           <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Box>
               <Tabs
                 aria-label="deploy type"
                 value={value}
                 onChange={handleChange}
                 sx={(theme) => ({
+                  mt: 2,
                   '& .Mui-selected': { color: theme.palette.text.primary },
-                  '& .MuiTabs-indicator': { backgroundColor: theme.palette.text.primary }
+                  '& .MuiTabs-indicator': { backgroundColor: theme.palette.text.primary },
                 })}
               >
                 <Tab label="Token" />
@@ -230,7 +231,7 @@ export const DeployPanel = (): JSX.Element => {
               return (
                 <ListItem
                   key={address}
-                  sx={{ p: 0 }}
+                  sx={{ py: 0 }}
                 >
                   <Box
                     sx={{
@@ -241,7 +242,7 @@ export const DeployPanel = (): JSX.Element => {
                     }}
                   >
                     <Typography variant="body2">
-                     Address: {shortenAddress(address as Address)}
+                      Address: {shortenAddress(address as Address)}
                     </Typography>
                     <IconButton
                       size="small"

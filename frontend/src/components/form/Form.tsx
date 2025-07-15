@@ -7,11 +7,7 @@ import { injected } from "wagmi";
 export const Form = (props: FormProps): JSX.Element => {
   const { isConnected, isPending, isOptionSelected, onSubmit, connect, getButtonText } = props;
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       name: '',
       symbol: ''
@@ -29,13 +25,7 @@ export const Form = (props: FormProps): JSX.Element => {
           : connect({ connector: injected() });
       }}
     >
-      <Box
-        sx={{
-          display: 'flex',
-          gap: 2,
-          mb: 2
-        }}
-      >
+      <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
         <TextField
           fullWidth
           label="Name"
