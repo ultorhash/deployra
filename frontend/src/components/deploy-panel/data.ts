@@ -38,12 +38,6 @@ export const deployOptions: DeployOption[] = [
     fee: 0.000005
   },
   {
-    chain: "HyperEVM",
-    chainId: 999,
-    icon: "hyperevm.svg",
-    fee: 0.000005
-  },
-  {
     chain: "Sei",
     chainId: 1329,
     icon: "sei.svg",
