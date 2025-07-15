@@ -1,45 +1,9 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "C:\\Users\\rajsk\\Desktop\\Crypto Projects\\mintro\\onchain\\contracts\\SimpleContract.sol": {
-      "lastModificationDate": 1752437553856,
-      "contentHash": "8bd896e89d7e84b628679cd7db25f7c4",
-      "sourceName": "contracts/SimpleContract.sol",
-      "solcConfig": {
-        "version": "0.8.28",
-        "settings": {
-          "evmVersion": "paris",
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.20"
-      ],
-      "artifacts": [
-        "SimpleContract"
-      ]
-    },
     "C:\\Users\\rajsk\\Desktop\\Crypto Projects\\mintro\\onchain\\contracts\\Token.sol": {
-      "lastModificationDate": 1752513373028,
-      "contentHash": "1627dfc5e38a983652e8ef76e9ab2cd2",
+      "lastModificationDate": 1752608017612,
+      "contentHash": "2ed43643a0bea2ddec8bea5e7ae98e20",
       "sourceName": "contracts/Token.sol",
       "solcConfig": {
         "version": "0.8.28",

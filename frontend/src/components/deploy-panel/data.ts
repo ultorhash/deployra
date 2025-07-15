@@ -89,6 +89,6 @@ export const deployOptions: DeployOption[] = [
     chain: "Sepolia Testnet",
     chainId: 11155111,
     icon: "sepolia.png",
-    fee: 0.000005
+    fee: 0.0005
   }
 ];

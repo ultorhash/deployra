@@ -27,7 +27,7 @@ import { FieldValues, useForm } from "react-hook-form";
 import { DeployOption, SnackbarState } from "@app-types";
 import { deployOptions } from "./data";
 import { Form } from "components";
-import { Address } from "viem";
+import { Address, parseEther } from "viem";
 import MuiAlert from '@mui/material/Alert';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Token from "@app-contracts/Token.json";
@@ -79,14 +79,15 @@ export const DeployPanel = (): JSX.Element => {
     setValue(newValue);
   }
 
-  const onSubmit = async (formData: FieldValues): Promise<void> => {
+  const onSubmit = async (formData: FieldValues, fee: number): Promise<void> => {
     try {
       setSnackbar({ open: true, message: "Confirm in your wallet...", severity: "info" });
 
       const hash = await walletClient?.deployContract({
         abi: Token.abi,
         bytecode: Token.bytecode as Address,
-        args: [formData.name, formData.symbol]
+        args: [formData.name, formData.symbol, parseEther(fee.toString())],
+        value: parseEther(fee.toString())
       });
 
       if (hash) {
@@ -216,7 +217,7 @@ export const DeployPanel = (): JSX.Element => {
                 isConnected={isConnected}
                 isPending={isPending}
                 isOptionSelected={!!selectedOption}
-                onSubmit={onSubmit}
+                onSubmit={(formData) => onSubmit(formData, selectedOption!.fee)}
                 connect={connect}
                 getButtonText={getButtonText}
               />
