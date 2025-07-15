@@ -283,6 +283,7 @@ export const DeployPanel = (): JSX.Element => {
           variant="filled"
           sx={{ width: '100%' }}
           severity={snackbar.severity}
+          onClose={() => setSnackbar((prev: SnackbarState) => ({ ...prev, open: false }))}
         >
           {snackbar.message}
         </MuiAlert>

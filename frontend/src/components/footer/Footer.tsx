@@ -24,6 +24,7 @@ export const Footer = (): JSX.Element => {
           color: theme.palette.primary.contrastText,
           backgroundColor: '#000'
         })}
+        onClick={() => window.open('https://x.com/UltorDeFi', '_blank')}
       />
     </BottomNavigation>
   )

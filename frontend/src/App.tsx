@@ -1,6 +1,6 @@
 import { Fragment, type JSX } from 'react';
 import { Box } from '@mui/material';
-import { Header, DeployPanel, Footer } from './components';
+import { Header, DeployPanel, Footer } from '@app-components/index';
 
 export const App = (): JSX.Element => {
   return (
