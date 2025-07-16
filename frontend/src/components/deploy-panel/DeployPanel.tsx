@@ -23,7 +23,7 @@ import {
   Tooltip,
   Typography
 } from "@mui/material";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues } from "react-hook-form";
 import { DeployOption, SnackbarState } from "@app-types";
 import { deployOptions } from "./data";
 import { Form } from "components";
