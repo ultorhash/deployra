@@ -69,7 +69,12 @@ export const theme = createTheme({
           backgroundColor: '#1E2C4D',
           color: 'white',
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: 'white'
+            borderColor: '#1E2C4D'
+          },
+          '&:hover': {
+            '.MuiOutlinedInput-notchedOutline': {
+              borderColor: '#1E2C4D'
+            }
           }
         }
       }

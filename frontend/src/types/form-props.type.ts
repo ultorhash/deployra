@@ -5,6 +5,7 @@ import { ConnectMutate } from "wagmi/query";
 export type FormProps = {
   isConnected: boolean;
   isPending: boolean;
+  isSwitchPending: boolean;
   isOptionSelected: boolean;
   onSubmit: (data: FieldValues) => Promise<void>;
   connect: ConnectMutate<Config, unknown>;

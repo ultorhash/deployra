@@ -33,50 +33,48 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Token from "@app-contracts/Token.json";
 
 export const DeployPanel = (): JSX.Element => {
-
   const rowSize = 9;
-  
   const rows = Array.from({ length: Math.ceil(deployOptions.length / rowSize) }, (_, rowIndex) =>
     deployOptions.slice(rowIndex * rowSize, rowIndex * rowSize + rowSize)
   );
   
-  const [value, setValue] = useState(0);
-  const { switchChainAsync } = useSwitchChain();
-  const { isConnected } = useAccount();
-  const chainId = useChainId();
-  const { connect } = useConnect();
-  const [txHash, setTxHash] = useState<Address | undefined>(undefined);
-  const { data: receipt, isLoading: isPending, isSuccess, isError } = useWaitForTransactionReceipt({ hash: txHash });
-
-  const [selectedOption, setSelectedOption] = useState<DeployOption>();
   const [deployments, setDeployments] = useState<Address[]>([]);
-  const { data: walletClient } = useWalletClient();
-
+  const [txHash, setTxHash] = useState<Address | undefined>(undefined);
+  const [selectedOption, setSelectedOption] = useState<DeployOption>();
+  const [tab, setTab] = useState<number>(0);
   const [snackbar, setSnackbar] = useState<SnackbarState>({
     open: false,
     message: "",
     severity: "info"
   });
 
+  const { data: receipt, isLoading: isPending, isSuccess, isError } = useWaitForTransactionReceipt({ hash: txHash });
+  const { data: walletClient } = useWalletClient();
+  const { switchChain, isPending: isSwitchPending } = useSwitchChain();
+  const { isConnected } = useAccount();
+  const { connect } = useConnect();
+  const chainId = useChainId();
+
   const handleClick = (option: DeployOption): void => {
     if (chainId !== option.chainId) {
-      switchChainAsync({ chainId: option.chainId });
+      switchChain({ chainId: option.chainId });
     }
 
     setSelectedOption(option);
   };
 
   const getButtonText = (): string => {
-    if (!isConnected) return 'Connect wallet';
-    return isPending ? 'Deploying...' : 'Deploy';
+    if (!isConnected) return "Connect wallet";
+    if (isSwitchPending) return "Switching chain...";
+    return isPending ? "Deploying..." : "Deploy";
   }
 
   const shortenAddress = (address: Address): string => {
     return `${address.slice(0, 5)}...${address.slice(-4)}`;
   }
 
-  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+  const handleChange = (_: React.SyntheticEvent, newValue: number): void => {
+    setTab(newValue);
   }
 
   const onSubmit = async (formData: FieldValues, fee: number): Promise<void> => {
@@ -124,15 +122,15 @@ export const DeployPanel = (): JSX.Element => {
     setTxHash(undefined);
   }, [isSuccess, isError, receipt]);
 
-  function CustomTabPanel(props: any) {
+  const TabPanel = (props: any): JSX.Element => {
     const { children, value, index, ...other } = props;
 
     return (
       <div
         role="tabpanel"
+        id={`tabpanel-${index}`}
+        aria-labelledby={`tabpanel-${index}`}
         hidden={value !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
         {...other}
       >
         {value === index && <Box sx={{ pt: 2 }}>{children}</Box>}
@@ -200,7 +198,7 @@ export const DeployPanel = (): JSX.Element => {
             <Box>
               <Tabs
                 aria-label="deploy type"
-                value={value}
+                value={tab}
                 onChange={handleChange}
                 sx={(theme) => ({
                   mt: 2,
@@ -212,8 +210,12 @@ export const DeployPanel = (): JSX.Element => {
                 <Tab disableRipple label="Contract" />
               </Tabs>
             </Box>
-            <CustomTabPanel value={value} index={0}>
+            <TabPanel
+              value={tab}
+              index={0}
+            >
               <Form
+                isSwitchPending={isSwitchPending}
                 isConnected={isConnected}
                 isPending={isPending}
                 isOptionSelected={!!selectedOption}
@@ -221,10 +223,13 @@ export const DeployPanel = (): JSX.Element => {
                 connect={connect}
                 getButtonText={getButtonText}
               />
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={1}>
+            </TabPanel>
+            <TabPanel
+              value={tab}
+              index={1}
+            >
               Coming soon...
-            </CustomTabPanel>
+            </TabPanel>
           </Box>
         </CardContent>
         <CardActions sx={{ py: 0 }}>
