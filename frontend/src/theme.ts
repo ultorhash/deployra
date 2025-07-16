@@ -19,7 +19,7 @@ export const theme = createTheme({
     }
   },
   typography: {
-    fontFamily: 'Roboto, Arial'
+    fontFamily: '"Montserrat", sans-serif'
   },
   components: {
     MuiTooltip: {
