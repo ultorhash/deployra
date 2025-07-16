@@ -20,7 +20,7 @@ export const Header = (): JSX.Element => {
             component="div"
             sx={{ flexGrow: 1, fontStyle: 'italic' }}
           >
-            Mintro
+            Deployra
           </Typography>
           <ConnectButton chainStatus="icon" />
         </Toolbar>

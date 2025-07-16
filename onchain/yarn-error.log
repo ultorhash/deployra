@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: EPERM: operation not permitted, unlink 'C:\Users\rajsk\Desktop\Crypto Projects\mintro\onchain\node_modules\@nomicfoundation\solidity-analyzer-win32-x64-msvc\solidity-analyzer.win32-x64-msvc.node'
+  Error: EPERM: operation not permitted, unlink 'C:\Users\rajsk\Desktop\Crypto Projects\deployra\onchain\node_modules\@nomicfoundation\solidity-analyzer-win32-x64-msvc\solidity-analyzer.win32-x64-msvc.node'
 
 npm manifest: 
   {
