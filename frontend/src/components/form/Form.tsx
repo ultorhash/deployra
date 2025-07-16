@@ -28,7 +28,7 @@ export const Form = (props: FormProps): JSX.Element => {
           : connect({ connector: injected() });
       }}
     >
-      <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+      <Box sx={{ display: 'flex', gap: 1, mb: 1 }}>
         <TextField
           fullWidth
           label="Name"

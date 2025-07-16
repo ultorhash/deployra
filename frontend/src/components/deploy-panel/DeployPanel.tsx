@@ -33,10 +33,13 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Token from "@app-contracts/Token.json";
 
 export const DeployPanel = (): JSX.Element => {
-  const rowSize = 9;
-  const rows = Array.from({ length: Math.ceil(deployOptions.length / rowSize) }, (_, rowIndex) =>
+  const rowSize = 10;
+  const rows = Array.from({ length: Math.ceil(deployOptions.length / rowSize) }, (_, rowIndex: number) =>
     deployOptions.slice(rowIndex * rowSize, rowIndex * rowSize + rowSize)
   );
+
+  const mainnetRows = rows.map(row => row.filter(option => option.type === "mainnet")).filter(row => row.length > 0);
+  const testnetRows = rows.map(row => row.filter(option => option.type === "testnet")).filter(row => row.length > 0);
   
   const [deployments, setDeployments] = useState<Address[]>([]);
   const [txHash, setTxHash] = useState<Address | undefined>(undefined);
@@ -138,6 +141,53 @@ export const DeployPanel = (): JSX.Element => {
     );
   }
 
+  const renderRows = (
+    rows: DeployOption[][],
+    selectedOption: DeployOption | undefined,
+    handleClick: (option: DeployOption) => void
+  ) => (
+    rows.map((row: DeployOption[], rowIndex) => (
+      <Box
+        display="flex"
+        key={rowIndex}
+        gap={2}
+      >
+        {row.map((option: DeployOption, index: number) => (
+          <Box
+            key={index}
+            width={36}
+            height={36}
+          >
+            <Tooltip
+              arrow
+              title={
+                <Fragment>
+                  <p style={{ margin: 0 }}>{option.chain}</p>
+                  <p style={{ margin: 0 }}>Fee: {option.fee}</p>
+                </Fragment>
+              }
+              slotProps={{ transition: { timeout: 0 } }}
+            >
+              <Avatar
+                alt={option.chain}
+                src={`/assets/logos/${option.icon}`}
+                onClick={() => handleClick(option)}
+                sx={{
+                  width: 36,
+                  height: 36,
+                  cursor: "pointer",
+                  transition: "0.1s",
+                  opacity: selectedOption?.chain === option.chain ? 1 : 0.4,
+                  boxShadow: selectedOption?.chain === option.chain ? "0 0 12px #FFF" : "none"
+                }}
+              />
+            </Tooltip>
+          </Box>
+        ))}
+      </Box>
+    ))
+  );
+
   return (
     <Fragment>
       <Card sx={{
@@ -149,50 +199,15 @@ export const DeployPanel = (): JSX.Element => {
         <CardHeader
           title={`Deploy your smart contract`}
           subheader={selectedOption?.chain ? `Selected chain: ${selectedOption?.chain}` : 'Please select chain'}
-          sx={{ textAlign: "center", pb: 3 }}
+          sx={{ textAlign: "center", py: 1 }}
         />
         <CardContent sx={{ py: 0 }}>
-          <Box
-            display="flex"
-            flexDirection="column"
-            gap={2}
-          >
-            {rows.map((row: DeployOption[], rowIndex: number) => (
-              <Box display="flex" key={rowIndex} gap={2}>
-                {row.map((option: DeployOption, index: number) => (
-                  <Box key={index} width={44} height={44}>
-                    <Tooltip
-                      arrow
-                      title={
-                        <Fragment>
-                          <p style={{ margin: 0 }}>{option.chain}</p>
-                          <p style={{ margin: 0 }}>Fee: {option.fee}</p>
-                        </Fragment>
-                      }
-                      slotProps={{
-                        transition: {
-                          timeout: 0
-                        }
-                      }}
-                    >
-                      <Avatar
-                        alt={option.chain}
-                        src={`/assets/logos/${option.icon}`}
-                        onClick={() => handleClick(option)}
-                        sx={{
-                          width: 44,
-                          height: 44,
-                          cursor: "pointer",
-                          transition: "0.1s",
-                          opacity: selectedOption?.chain === option.chain ? 1 : 0.4,
-                          boxShadow: selectedOption?.chain === option.chain ? "0 0 12px #FFF" : "none"
-                        }}
-                      />
-                    </Tooltip>
-                  </Box>
-                ))}
-              </Box>
-            ))}
+          <Box display="flex" flexDirection="column" gap={2}>
+            <Typography variant="subtitle2">Mainnets</Typography>
+            {renderRows(mainnetRows, selectedOption, handleClick)}
+
+            <Typography variant="subtitle2" mt={2}>Testnets</Typography>
+            {renderRows(testnetRows, selectedOption, handleClick)}
           </Box>
           <Box sx={{ width: '100%' }}>
             <Box>
