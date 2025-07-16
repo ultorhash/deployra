@@ -1,2 +1,2 @@
-# mintro
-Multi-chain contract deploy application
+# Deployra
+Application for deploying contracts & tokens on multiple chains
