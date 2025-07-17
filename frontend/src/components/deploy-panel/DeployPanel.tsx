@@ -57,17 +57,18 @@ export const DeployPanel = (): JSX.Element => {
 
   const { data: receipt, isLoading: isPending, isSuccess, isError } = useWaitForTransactionReceipt({ hash: txHash });
   const { data: walletClient } = useWalletClient();
-  const { switchChain, isPending: isSwitchPending } = useSwitchChain();
+  const { switchChainAsync, isPending: isSwitchPending } = useSwitchChain();
   const { isConnected } = useAccount();
   const { connect } = useConnect();
   const chainId = useChainId();
 
-  const handleClick = (option: DeployOption): void => {
+  const handleClick = async (option: DeployOption): Promise<void> => {
     if (chainId !== option.chainId) {
-      switchChain({ chainId: option.chainId });
+      await switchChainAsync({ chainId: option.chainId });
+      setSelectedOption(option);
+    } else {
+      setSelectedOption(option);
     }
-
-    setSelectedOption(option);
   };
 
   const getButtonText = (): string => {
