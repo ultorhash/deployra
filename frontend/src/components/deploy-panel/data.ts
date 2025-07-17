@@ -12,7 +12,7 @@ export const deployOptions: DeployOption[] = [
   { chain: "Lens", chainId: 232, type: "mainnet", icon: "lens.svg", fee: 0.1 },
   { chain: "Linea", chainId: 59144, type: "mainnet", icon: "linea.png", fee: 0.000045 },
   { chain: "Morph", chainId: 2818, type: "mainnet", icon: "morph.svg", fee: 0.000045 },
-  { chain: "Berachain", chainId: 80085, type: "mainnet", icon: "berachain.svg", fee: 0.06 },
+  { chain: "Berachain", chainId: 80094, type: "mainnet", icon: "berachain.svg", fee: 0.06 },
   { chain: "Abstract", chainId: 2741, type: "mainnet", icon: "abstract.png", fee: 0.000045 },
   { chain: "Mantle", chainId: 5000, type: "mainnet", icon: "mantle.svg", fee: 0.2 },
   { chain: "Ink", chainId: 57073, type: "mainnet", icon: "ink.svg", fee: 0.000045 },

@@ -21,7 +21,7 @@ export const App = (): JSX.Element => {
           }
         })}
       >
-        {[...Array(100)].map((_, i: number) => (
+        {[...Array(75)].map((_, i: number) => (
           <Box
             key={i}
             sx={{

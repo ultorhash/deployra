@@ -41,11 +41,14 @@ export const DeployPanel = (): JSX.Element => {
 
   const mainnetRows = makeRows(mainnetOptions);
   const testnetRows = makeRows(testnetOptions);
+
+  const iconSize = 36;
   
   const [deployments, setDeployments] = useState<Address[]>([]);
   const [txHash, setTxHash] = useState<Address | undefined>(undefined);
   const [selectedOption, setSelectedOption] = useState<DeployOption>();
-  const [tab, setTab] = useState<number>(0);
+  const [deployTab, setDeployTab] = useState<number>(0);
+  const [networkTab, setNetworkTab] = useState<number>(0);
   const [snackbar, setSnackbar] = useState<SnackbarState>({
     open: false,
     message: "",
@@ -77,9 +80,13 @@ export const DeployPanel = (): JSX.Element => {
     return `${address.slice(0, 5)}...${address.slice(-4)}`;
   }
 
-  const handleChange = (_: React.SyntheticEvent, newValue: number): void => {
-    setTab(newValue);
+  const handleDeployTypeChange = (_: React.SyntheticEvent, newValue: number): void => {
+    setDeployTab(newValue);
   }
+
+  const handleNetworkTypeChange = (_: React.SyntheticEvent, newValue: number): void => {
+    setNetworkTab(newValue);
+  } 
 
   const onSubmit = async (formData: FieldValues, fee: number): Promise<void> => {
     try {
@@ -147,46 +154,57 @@ export const DeployPanel = (): JSX.Element => {
     selectedOption: DeployOption | undefined,
     handleClick: (option: DeployOption) => void
   ) => (
-    rows.map((row: DeployOption[], rowIndex) => (
-      <Box
-        display="flex"
-        key={rowIndex}
-        gap={2}
-      >
-        {row.map((option: DeployOption, index: number) => (
-          <Box
-            key={index}
-            width={36}
-            height={36}
-          >
-            <Tooltip
-              arrow
-              title={
-                <Fragment>
-                  <p style={{ margin: 0 }}>{option.chain}</p>
-                  <p style={{ margin: 0 }}>Fee: {option.fee}</p>
-                </Fragment>
-              }
-              slotProps={{ transition: { timeout: 0 } }}
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap={2}
+      sx={{
+        p: 2,
+        height: 160,
+        overflowY: 'scroll'
+      }}
+    >
+      {rows.map((row: DeployOption[], rowIndex) => (
+        <Box
+          display="flex"
+          key={rowIndex}
+          gap={2}
+        >
+          {row.map((option: DeployOption, index: number) => (
+            <Box
+              key={index}
+              width={iconSize}
+              height={iconSize}
             >
-              <Avatar
-                alt={option.chain}
-                src={`/assets/chains/${option.icon}`}
-                onClick={() => handleClick(option)}
-                sx={{
-                  width: 36,
-                  height: 36,
-                  cursor: "pointer",
-                  transition: "0.1s",
-                  opacity: selectedOption?.chain === option.chain ? 1 : 0.4,
-                  boxShadow: selectedOption?.chain === option.chain ? "0 0 12px #FFF" : "none"
-                }}
-              />
-            </Tooltip>
-          </Box>
-        ))}
-      </Box>
-    ))
+              <Tooltip
+                arrow
+                title={
+                  <Fragment>
+                    <p style={{ margin: 0 }}>{option.chain}</p>
+                    <p style={{ margin: 0 }}>Fee: {option.fee}</p>
+                  </Fragment>
+                }
+                slotProps={{ transition: { timeout: 0 } }}
+              >
+                <Avatar
+                  alt={option.chain}
+                  src={`/assets/chains/${option.icon}`}
+                  onClick={() => handleClick(option)}
+                  sx={{
+                    width: iconSize,
+                    height: iconSize,
+                    cursor: "pointer",
+                    transition: "0.1s",
+                    opacity: selectedOption?.chain === option.chain ? 1 : 0.4,
+                    boxShadow: selectedOption?.chain === option.chain ? "0 0 12px #FFF" : "none"
+                  }}
+                />
+              </Tooltip>
+            </Box>
+          ))}
+        </Box>
+      ))}
+    </Box>
   );
 
   return (
@@ -200,23 +218,45 @@ export const DeployPanel = (): JSX.Element => {
         <CardHeader
           title={`Deploy your smart contract`}
           subheader={selectedOption?.chain ? `Selected chain: ${selectedOption?.chain}` : 'Please select chain'}
-          sx={{ textAlign: "center", py: 2 }}
+          sx={{ textAlign: "center", pt: 2, pb: 1 }}
         />
         <CardContent sx={{ py: 0 }}>
-          <Box display="flex" flexDirection="column" gap={2}>
-            <Typography variant="caption">Mainnets</Typography>
-            {renderRows(mainnetRows, selectedOption, handleClick)}
-
-            <Typography variant="caption" mt={1}>Testnets</Typography>
-            {renderRows(testnetRows, selectedOption, handleClick)}
+          <Box sx={{ width: '100%' }}>
+            <Tabs
+              aria-label="deploy type"
+              value={networkTab}
+              onChange={handleNetworkTypeChange}
+              sx={(theme) => ({
+                '& .Mui-selected': { color: theme.palette.text.primary },
+                '& .MuiTabs-indicator': { backgroundColor: theme.palette.text.primary },
+              })}
+            >
+              <Tab disableRipple label="Mainnets" />
+              <Tab disableRipple label="Testnets" />
+            </Tabs>
+            <TabPanel
+              value={networkTab}
+              index={0}
+            >
+              <Box display="flex" flexDirection="column" gap={2}>
+                {renderRows(mainnetRows, selectedOption, handleClick)}
+              </Box>
+            </TabPanel>
+            <TabPanel
+              value={networkTab}
+              index={1}
+            >
+              <Box display="flex" flexDirection="column" gap={2}>
+                {renderRows(testnetRows, selectedOption, handleClick)}
+              </Box>
+            </TabPanel>
           </Box>
           <Box sx={{ width: '100%' }}>
             <Tabs
               aria-label="deploy type"
-              value={tab}
-              onChange={handleChange}
+              value={deployTab}
+              onChange={handleDeployTypeChange}
               sx={(theme) => ({
-                mt: 2,
                 '& .Mui-selected': { color: theme.palette.text.primary },
                 '& .MuiTabs-indicator': { backgroundColor: theme.palette.text.primary },
               })}
@@ -225,7 +265,7 @@ export const DeployPanel = (): JSX.Element => {
               <Tab disableRipple label="Contract" />
             </Tabs>
             <TabPanel
-              value={tab}
+              value={deployTab}
               index={0}
             >
               <Form
@@ -239,7 +279,7 @@ export const DeployPanel = (): JSX.Element => {
               />
             </TabPanel>
             <TabPanel
-              value={tab}
+              value={deployTab}
               index={1}
             >
               Coming soon...
