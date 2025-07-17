@@ -30,12 +30,17 @@ import Token from "@app-contracts/Token.json";
 
 export const DeployPanel = (): JSX.Element => {
   const rowSize = 10;
-  const rows = Array.from({ length: Math.ceil(deployOptions.length / rowSize) }, (_, rowIndex: number) =>
-    deployOptions.slice(rowIndex * rowSize, rowIndex * rowSize + rowSize)
-  );
 
-  const mainnetRows = rows.map(row => row.filter(option => option.type === "mainnet")).filter(row => row.length > 0);
-  const testnetRows = rows.map(row => row.filter(option => option.type === "testnet")).filter(row => row.length > 0);
+  const mainnetOptions = deployOptions.filter(option => option.type === "mainnet");
+  const testnetOptions = deployOptions.filter(option => option.type === "testnet");
+
+  const makeRows = (options: DeployOption[]) =>
+    Array.from({ length: Math.ceil(options.length / rowSize) }, (_, rowIndex: number) =>
+      options.slice(rowIndex * rowSize, rowIndex * rowSize + rowSize)
+    );
+
+  const mainnetRows = makeRows(mainnetOptions);
+  const testnetRows = makeRows(testnetOptions);
   
   const [deployments, setDeployments] = useState<Address[]>([]);
   const [txHash, setTxHash] = useState<Address | undefined>(undefined);
@@ -195,7 +200,7 @@ export const DeployPanel = (): JSX.Element => {
         <CardHeader
           title={`Deploy your smart contract`}
           subheader={selectedOption?.chain ? `Selected chain: ${selectedOption?.chain}` : 'Please select chain'}
-          sx={{ textAlign: "center", py: 1 }}
+          sx={{ textAlign: "center", py: 2 }}
         />
         <CardContent sx={{ py: 0 }}>
           <Box display="flex" flexDirection="column" gap={2}>
