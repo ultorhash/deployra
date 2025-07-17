@@ -2,15 +2,17 @@ import { RainbowKitChain } from '@rainbow-me/rainbowkit/dist/components/RainbowK
 import {
   base, optimism, unichain, soneium, sonic, polygon, sei, scroll, lens, linea, morph,
   berachain, abstract, mantle, sepolia, monadTestnet, riseTestnet, somniaTestnet,
-  ink, mode, orderly, apeChain, zksync, hemi, lisk, taiko, mint, blast, plume, polygonZkEvm,
+  ink, mode, orderly, apeChain, zksync, hemi, lisk, taiko, mint, blast, polygonZkEvm,
   manta, fraxtal, bob, story, avalanche, canto, bsc, moonbeam, moonriver, astar,
-  confluxESpace, beam, chiliz, worldchain, shibarium, flare, degen, xai, kava
+  confluxESpace, beam, chiliz, worldchain, shibarium, flare, degen, xai, kava,
+  aurora, zetachain
 } from 'wagmi/chains';
 
 export const supportedChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   base, optimism, unichain, soneium, sonic, polygon, sei, scroll, lens, linea, morph,
   berachain, abstract, mantle, sepolia, monadTestnet, riseTestnet, somniaTestnet, ink,
-  mode, orderly, apeChain, zksync, hemi, lisk, taiko, mint, blast, plume, polygonZkEvm,
+  mode, orderly, apeChain, zksync, hemi, lisk, taiko, mint, blast, polygonZkEvm,
   manta, fraxtal, bob, story, avalanche, canto, bsc, moonbeam, moonriver, astar,
-  confluxESpace, beam, chiliz, worldchain, shibarium, flare, degen, xai, kava
+  confluxESpace, beam, chiliz, worldchain, shibarium, flare, degen, xai, kava,
+  aurora, zetachain
 ];
