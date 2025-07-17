@@ -5,7 +5,7 @@ import {
   ink, mode, orderly, apeChain, zksync, hemi, lisk, taiko, mint, blast, polygonZkEvm,
   manta, fraxtal, bob, story, avalanche, canto, bsc, moonbeam, moonriver, astar,
   confluxESpace, beam, chiliz, worldchain, shibarium, flare, degen, xai, kava,
-  aurora, zetachain
+  aurora, zetachain, cronos
 } from 'wagmi/chains';
 
 export const supportedChains: [RainbowKitChain, ...RainbowKitChain[]] = [
@@ -14,5 +14,5 @@ export const supportedChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   mode, orderly, apeChain, zksync, hemi, lisk, taiko, mint, blast, polygonZkEvm,
   manta, fraxtal, bob, story, avalanche, canto, bsc, moonbeam, moonriver, astar,
   confluxESpace, beam, chiliz, worldchain, shibarium, flare, degen, xai, kava,
-  aurora, zetachain
+  aurora, zetachain, cronos
 ];
