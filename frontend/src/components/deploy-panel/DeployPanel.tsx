@@ -170,7 +170,7 @@ export const DeployPanel = (): JSX.Element => {
             >
               <Avatar
                 alt={option.chain}
-                src={`/assets/logos/${option.icon}`}
+                src={`/assets/chains/${option.icon}`}
                 onClick={() => handleClick(option)}
                 sx={{
                   width: 36,
