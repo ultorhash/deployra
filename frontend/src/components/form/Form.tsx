@@ -36,7 +36,7 @@ export const Form = (props: FormProps): JSX.Element => {
           variant="outlined"
           autoComplete="off"
           {...register('name', { required: 'name is required' })}
-          disabled={isSwitchPending}
+          disabled={!isConnected || !isOptionSelected || isSwitchPending}
           error={!!errors.name}
           helperText={errors.name?.message ?? ''}
         />
@@ -47,7 +47,7 @@ export const Form = (props: FormProps): JSX.Element => {
           variant="outlined"
           autoComplete="off"
           {...register('symbol', { required: 'symbol is required' })}
-          disabled={isSwitchPending}
+          disabled={!isConnected || !isOptionSelected || isSwitchPending}
           error={!!errors.symbol}
           helperText={errors.symbol?.message ?? ''}
         />
@@ -59,7 +59,7 @@ export const Form = (props: FormProps): JSX.Element => {
         type="submit"
         variant="contained"
         color="primary"
-        disabled={isPending || isSwitchPending || !isOptionSelected}
+        disabled={isPending || isSwitchPending || (!isOptionSelected && isConnected)}
       >
         {getButtonText()}
       </Button>
