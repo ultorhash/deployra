@@ -21,7 +21,7 @@ export const Header = (): JSX.Element => {
               Deployra
             </Typography>
             <Typography variant="caption" component="p" sx={{ color: theme.palette.text.secondary }}>
-              Fast contract deployment
+              Your smart contracts
             </Typography>
           </Box>
           <ConnectButton chainStatus="icon" />
