@@ -7,7 +7,9 @@ import { App } from './App.tsx';
 import { theme } from './theme';
 import {
   base, optimism, unichain, soneium, sonic, polygon, sei, scroll, lens, linea, morph,
-  berachain, abstract, mantle, sepolia
+  berachain, abstract, mantle, sepolia,
+  monadTestnet,
+  riseTestnet
 } from 'wagmi/chains';
 
 import CssBaseline from '@mui/material/CssBaseline';
@@ -19,7 +21,7 @@ const config = getDefaultConfig({
   ssr: false,
   chains: [
     base, optimism, unichain, soneium, sonic, polygon, sei, scroll, lens, linea, morph,
-    berachain, abstract, mantle, sepolia
+    berachain, abstract, mantle, sepolia, monadTestnet, riseTestnet
   ],
 });
 
