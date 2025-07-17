@@ -11,12 +11,8 @@ import {
   Avatar,
   Box,
   Card,
-  CardActions,
   CardContent,
   CardHeader,
-  IconButton,
-  List,
-  ListItem,
   Snackbar,
   Tab,
   Tabs,
@@ -191,7 +187,7 @@ export const DeployPanel = (): JSX.Element => {
   return (
     <Fragment>
       <Card sx={{
-        p: 2,
+        p: 1,
         borderRadius: 2,
         zIndex: 10,
         boxShadow: '0 0 10px rgba(225, 225, 220, 0.2)'
@@ -203,28 +199,26 @@ export const DeployPanel = (): JSX.Element => {
         />
         <CardContent sx={{ py: 0 }}>
           <Box display="flex" flexDirection="column" gap={2}>
-            <Typography variant="subtitle2">Mainnets</Typography>
+            <Typography variant="caption">Mainnets</Typography>
             {renderRows(mainnetRows, selectedOption, handleClick)}
 
-            <Typography variant="subtitle2" mt={2}>Testnets</Typography>
+            <Typography variant="caption" mt={1}>Testnets</Typography>
             {renderRows(testnetRows, selectedOption, handleClick)}
           </Box>
           <Box sx={{ width: '100%' }}>
-            <Box>
-              <Tabs
-                aria-label="deploy type"
-                value={tab}
-                onChange={handleChange}
-                sx={(theme) => ({
-                  mt: 2,
-                  '& .Mui-selected': { color: theme.palette.text.primary },
-                  '& .MuiTabs-indicator': { backgroundColor: theme.palette.text.primary },
-                })}
-              >
-                <Tab disableRipple label="Token" />
-                <Tab disableRipple label="Contract" />
-              </Tabs>
-            </Box>
+            <Tabs
+              aria-label="deploy type"
+              value={tab}
+              onChange={handleChange}
+              sx={(theme) => ({
+                mt: 2,
+                '& .Mui-selected': { color: theme.palette.text.primary },
+                '& .MuiTabs-indicator': { backgroundColor: theme.palette.text.primary },
+              })}
+            >
+              <Tab disableRipple label="Token" />
+              <Tab disableRipple label="Contract" />
+            </Tabs>
             <TabPanel
               value={tab}
               index={0}
@@ -247,50 +241,6 @@ export const DeployPanel = (): JSX.Element => {
             </TabPanel>
           </Box>
         </CardContent>
-        <CardActions sx={{ py: 0 }}>
-          <List
-            sx={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              overflowY: 'auto',
-              maxHeight: 3 * 38,
-              gap: 0.5,
-              mr: 1,
-              mt: 1
-            }}
-          >
-            {deployments.map((address: Address) => {
-              return (
-                <ListItem
-                  key={address}
-                  sx={{ py: 0 }}
-                >
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      width: '100%'
-                    }}
-                  >
-                    <Typography variant="body2">
-                      Tx: {shortenAddress(address)}
-                    </Typography>
-                    <IconButton
-                      size="small"
-                      edge="end"
-                      aria-label="copy txHash"
-                      onClick={() => navigator.clipboard.writeText(address)}
-                    >
-                      <ContentCopyIcon fontSize="small" />
-                    </IconButton>
-                  </Box>
-                </ListItem>
-              );
-            })}
-          </List>
-        </CardActions>
       </Card>
       <Snackbar
         open={snackbar.open}
