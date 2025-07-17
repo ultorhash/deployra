@@ -3,14 +3,9 @@ import { WagmiProvider } from 'wagmi';
 import { darkTheme, getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { GlobalStyles, ThemeProvider } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { App } from './App.tsx';
+import { supportedChains } from "@app-chains";
 import { theme } from './theme';
-import {
-  base, optimism, unichain, soneium, sonic, polygon, sei, scroll, lens, linea, morph,
-  berachain, abstract, mantle, sepolia,
-  monadTestnet,
-  riseTestnet
-} from 'wagmi/chains';
+import { App } from './App.tsx';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import '@rainbow-me/rainbowkit/styles.css';
@@ -19,10 +14,7 @@ const config = getDefaultConfig({
   appName: 'My Dapp',
   projectId: 'TWÓJ_PROJECT_ID_Z_WALLETCONNECT',
   ssr: false,
-  chains: [
-    base, optimism, unichain, soneium, sonic, polygon, sei, scroll, lens, linea, morph,
-    berachain, abstract, mantle, sepolia, monadTestnet, riseTestnet
-  ],
+  chains: [...supportedChains],
 });
 
 const queryClient = new QueryClient();

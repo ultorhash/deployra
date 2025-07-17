@@ -17,5 +17,6 @@ export const deployOptions: DeployOption[] = [
   { chain: "Mantle", chainId: 5000, type: "mainnet", icon: "mantle.svg", fee: 0.000015 },
   { chain: "Sepolia Testnet", chainId: 11155111, type: "testnet", icon: "sepolia.png", fee: 0.0005 },
   { chain: "Monad Testnet", chainId: 10143, type: "testnet", icon: "monad.png", fee: 0.0005 },
-  { chain: "Rise Testnet", chainId: 11155931, type: "testnet", icon: "rise.svg", fee: 0.0005 }
+  { chain: "Rise Testnet", chainId: 11155931, type: "testnet", icon: "rise.svg", fee: 0.0005 },
+  { chain: "Somnia Testnet", chainId: 50312, type: "testnet", icon: "somnia.svg", fee: 0.0005 }
 ];

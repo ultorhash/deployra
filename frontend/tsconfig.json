@@ -19,7 +19,8 @@
     "baseUrl": "./src",
     "paths": {
       "@app-contracts/*": ["contracts/*"],
-      "@app-components/*": ["components/*"],
+      "@app-components": ["components/index.ts"],
+      "@app-chains": ["chains/index.ts"],
       "@app-types": ["types/index.ts"]
     },
     "typeRoots": ["node_modules/@types", "./types"]
