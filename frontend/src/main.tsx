@@ -3,7 +3,7 @@ import { WagmiProvider } from 'wagmi';
 import { darkTheme, getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { GlobalStyles, ThemeProvider } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { supportedChains } from "@app-chains";
+import { customChains, supportedChains } from "@app-chains";
 import { theme } from './theme';
 import { App } from './App.tsx';
 
@@ -14,7 +14,7 @@ const config = getDefaultConfig({
   appName: 'My Dapp',
   projectId: 'TWÓJ_PROJECT_ID_Z_WALLETCONNECT',
   ssr: false,
-  chains: [...supportedChains],
+  chains: [...supportedChains, ...customChains],
 });
 
 const queryClient = new QueryClient();

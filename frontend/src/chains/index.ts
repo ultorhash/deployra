@@ -1,2 +1,2 @@
 export { supportedChains } from './supported';
-export { customChains } from './custom';
+export { customChains } from './custom/custom';
