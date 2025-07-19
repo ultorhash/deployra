@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState, type JSX } from "react";
+import { Fragment, useEffect, useRef, useState, type JSX } from "react";
 import {
   useChainId,
   useSwitchChain,
@@ -15,11 +15,9 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Snackbar,
   Tab,
   Tabs,
-  Tooltip,
-  Typography
+  Tooltip
 } from "@mui/material";
 import { FieldValues } from "react-hook-form";
 import { useSnackbar } from "notistack";
@@ -30,11 +28,14 @@ import { Address, parseEther } from "viem";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import Token from "@app-contracts/Token.json";
 import { customChains, supportedChains } from "@app-chains";
+import { RainbowKitChain } from "@rainbow-me/rainbowkit/dist/components/RainbowKitProvider/RainbowKitChainContext";
 
 export const DeployPanel = (): JSX.Element => {
   const chains = [...supportedChains, customChains];
 
+  const iconSize = 36;
   const rowSize = 10;
+
   const mainnetOptions = deployOptions.filter(option => option.type === "mainnet");
   const testnetOptions = deployOptions.filter(option => option.type === "testnet");
 
@@ -46,8 +47,8 @@ export const DeployPanel = (): JSX.Element => {
   const mainnetRows = makeRows(mainnetOptions);
   const testnetRows = makeRows(testnetOptions);
 
-  const iconSize = 36;
-  
+  const explorerRef = useRef<string | undefined>(undefined);
+
   const [txHash, setTxHash] = useState<Address | undefined>(undefined);
   const [selectedOption, setSelectedOption] = useState<DeployOption>();
   const [deployTab, setDeployTab] = useState<number>(0);
@@ -121,7 +122,7 @@ export const DeployPanel = (): JSX.Element => {
           endIcon={<OpenInNewIcon />}
           sx={{ fontSize: 14, textTransform: 'none' }}
           onClick={() => {
-            window.open('https://google.com', '_blank');
+            window.open(`${explorerRef.current}/tx/${txHash}`, '_blank');
           }}
         >
           View
