@@ -11,6 +11,7 @@ import {
   Avatar,
   Badge,
   Box,
+  Button,
   Card,
   CardContent,
   CardHeader,
@@ -21,17 +22,19 @@ import {
   Typography
 } from "@mui/material";
 import { FieldValues } from "react-hook-form";
-import { DeployOption, SnackbarState } from "@app-types";
+import { useSnackbar } from "notistack";
+import { DeployOption } from "@app-types";
 import { deployOptions } from "./data";
 import { Form } from "components";
 import { Address, parseEther } from "viem";
-import MuiAlert from '@mui/material/Alert';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import Token from "@app-contracts/Token.json";
+import { customChains, supportedChains } from "@app-chains";
 
 export const DeployPanel = (): JSX.Element => {
-  const rowSize = 10;
+  const chains = [...supportedChains, customChains];
 
+  const rowSize = 10;
   const mainnetOptions = deployOptions.filter(option => option.type === "mainnet");
   const testnetOptions = deployOptions.filter(option => option.type === "testnet");
 
@@ -45,16 +48,12 @@ export const DeployPanel = (): JSX.Element => {
 
   const iconSize = 36;
   
-  const [deployments, setDeployments] = useState<Address[]>([]);
   const [txHash, setTxHash] = useState<Address | undefined>(undefined);
   const [selectedOption, setSelectedOption] = useState<DeployOption>();
   const [deployTab, setDeployTab] = useState<number>(0);
   const [networkTab, setNetworkTab] = useState<number>(0);
-  const [snackbar, setSnackbar] = useState<SnackbarState>({
-    open: false,
-    message: "",
-    severity: "info"
-  });
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const { data: receipt, isLoading: isPending, isSuccess, isError } = useWaitForTransactionReceipt({ hash: txHash });
   const { data: walletClient } = useWalletClient();
@@ -78,10 +77,6 @@ export const DeployPanel = (): JSX.Element => {
     return isPending ? "Deploying..." : "Deploy";
   }
 
-  const shortenAddress = (address: Address): string => {
-    return `${address.slice(0, 5)}...${address.slice(-4)}`;
-  }
-
   const handleDeployTypeChange = (_: React.SyntheticEvent, newValue: number): void => {
     setDeployTab(newValue);
   }
@@ -92,7 +87,7 @@ export const DeployPanel = (): JSX.Element => {
 
   const onSubmit = async (formData: FieldValues, fee: number): Promise<void> => {
     try {
-      setSnackbar({ open: true, message: "Confirm in your wallet...", severity: "info" });
+      enqueueSnackbar('Confirm in your wallet...', { variant: 'default' });
 
       const hash = await walletClient?.deployContract({
         abi: Token.abi,
@@ -103,7 +98,7 @@ export const DeployPanel = (): JSX.Element => {
 
       if (hash) {
         setTxHash(hash);
-        setSnackbar({ open: true, message: "Deploying...", severity: "info" });
+        enqueueSnackbar('Deploying...', { variant: 'default' });
       }
 
     } catch (error: any) {
@@ -112,24 +107,30 @@ export const DeployPanel = (): JSX.Element => {
         error?.message?.toLowerCase().includes("user rejected") ||
         error?.message?.toLowerCase().includes("cancelled")
       ) {
-        setSnackbar({
-          open: true,
-          message: "Failed to deploy. Transaction rejected",
-          severity: "error"
-        });
+        enqueueSnackbar('Failed to deploy. Transaction rejected', { variant: 'error' });
       }
     }
   };
 
   useEffect(() => {
     if (isSuccess && receipt?.contractAddress && txHash) {
-      setSnackbar({ open: true, message: `Deployed at ${receipt.contractAddress}`, severity: "success" });
-
-      setDeployments((prev) => [...prev, txHash]);
+      enqueueSnackbar(`Deployed successfully!`, { variant: 'success', action: () => (
+        <Button
+          color="inherit"
+          size="small"
+          endIcon={<OpenInNewIcon />}
+          sx={{ fontSize: 14, textTransform: 'none' }}
+          onClick={() => {
+            window.open('https://google.com', '_blank');
+          }}
+        >
+          View
+        </Button>
+      )});
     }
 
     if (isError) {
-      setSnackbar({ open: true, message: 'Transaction failed or reverted', severity: 'error' });
+      enqueueSnackbar('Failed to deploy. Transaction rejected', { variant: 'error' });
     }
 
     setTxHash(undefined);
@@ -321,23 +322,6 @@ export const DeployPanel = (): JSX.Element => {
           </Box>
         </CardContent>
       </Card>
-      <Snackbar
-        open={snackbar.open}
-        autoHideDuration={5000}
-        onClose={() => setSnackbar((prev: SnackbarState) => ({ ...prev, open: false }))}
-        message={snackbar.message}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      >
-        <MuiAlert
-          elevation={6}
-          variant="filled"
-          sx={{ width: '100%' }}
-          severity={snackbar.severity}
-          onClose={() => setSnackbar((prev: SnackbarState) => ({ ...prev, open: false }))}
-        >
-          {snackbar.message}
-        </MuiAlert>
-      </Snackbar>
     </Fragment>
   );
 };
