@@ -89,6 +89,8 @@ export const DeployPanel = (): JSX.Element => {
   const onSubmit = async (formData: FieldValues, fee: number): Promise<void> => {
     try {
       enqueueSnackbar('Confirm in your wallet...', { variant: 'default' });
+      const selectedChain = chains.find((c) => (c as RainbowKitChain).id === selectedOption!.chainId) as RainbowKitChain;
+      explorerRef.current = selectedChain!.blockExplorers!.default!.url;
 
       const hash = await walletClient?.deployContract({
         abi: Token.abi,
