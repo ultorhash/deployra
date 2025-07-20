@@ -20,15 +20,17 @@ import {
   Tooltip
 } from "@mui/material";
 import { FieldValues } from "react-hook-form";
+import { RainbowKitChain } from "@rainbow-me/rainbowkit/dist/components/RainbowKitProvider/RainbowKitChainContext";
 import { useSnackbar } from "notistack";
-import { DeployOption, FieldConfig } from "@app-types";
+import { Address, parseEther } from "viem";
 import { deployOptions } from "./data";
 import { DynamicForm } from "@app-components";
-import { Address, parseEther } from "viem";
+import { customChains, supportedChains } from "@app-chains";
+import { DeployOption, FieldConfig } from "@app-types";
+import { DeployTypes } from "@app-enums";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import Token from "@app-contracts/Token.json";
-import { customChains, supportedChains } from "@app-chains";
-import { RainbowKitChain } from "@rainbow-me/rainbowkit/dist/components/RainbowKitProvider/RainbowKitChainContext";
+import Message from "@app-contracts/Message.json";
 
 export const DeployPanel = (): JSX.Element => {
   const chains = [...supportedChains, customChains];
@@ -95,18 +97,35 @@ export const DeployPanel = (): JSX.Element => {
     setNetworkTab(newValue);
   } 
 
-  const onSubmit = async (formData: FieldValues, fee: number): Promise<void> => {
+  const onSubmit = async (formData: FieldValues, fee: number, deployType: DeployTypes): Promise<void> => {
+    let hash: Address | undefined = undefined;
+
     try {
       enqueueSnackbar('Confirm in your wallet...', { variant: 'default' });
+
       const selectedChain = chains.find((c) => (c as RainbowKitChain).id === selectedOption!.chainId) as RainbowKitChain;
       explorerRef.current = selectedChain!.blockExplorers!.default!.url;
-
-      const hash = await walletClient?.deployContract({
-        abi: Token.abi,
-        bytecode: Token.bytecode as Address,
-        args: [formData.name, formData.symbol, parseEther(fee.toString())],
-        value: parseEther(fee.toString())
-      });
+      
+      switch (deployType) {
+        case DeployTypes.TOKEN:
+          hash = await walletClient?.deployContract({
+            abi: Token.abi,
+            bytecode: Token.bytecode as Address,
+            args: [formData.name, formData.symbol, parseEther(fee.toString())],
+            value: parseEther(fee.toString())
+          });
+          break;
+        case DeployTypes.CONTRACT:
+          hash = await walletClient?.deployContract({
+            abi: Message.abi,
+            bytecode: Token.bytecode as Address,
+            args: [formData.message, parseEther(fee.toString())],
+            value: parseEther(fee.toString())
+          });
+          break;
+        default:
+          break;
+      }
 
       if (hash) {
         setTxHash(hash);
@@ -319,7 +338,7 @@ export const DeployPanel = (): JSX.Element => {
                 fields={tokenFields}
                 disabled={isPending || isSwitchPending || (!selectedOption && isConnected)}
                 getButtonText={getButtonText}
-                onSubmit={(formData) => onSubmit(formData, selectedOption!.fee)}
+                onSubmit={(formData) => onSubmit(formData, selectedOption!.fee, DeployTypes.TOKEN)}
               />
             </TabPanel>
             <TabPanel
@@ -330,7 +349,7 @@ export const DeployPanel = (): JSX.Element => {
                 fields={contractFields}
                 disabled={isPending || isSwitchPending || (!selectedOption && isConnected)}
                 getButtonText={getButtonText}
-                onSubmit={(formData) => console.log(formData)}
+                onSubmit={(formData) => onSubmit(formData, selectedOption!.fee, DeployTypes.CONTRACT)}
               />
             </TabPanel>
           </Box>
