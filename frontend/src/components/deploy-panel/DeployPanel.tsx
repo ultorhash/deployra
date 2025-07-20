@@ -21,9 +21,9 @@ import {
 } from "@mui/material";
 import { FieldValues } from "react-hook-form";
 import { useSnackbar } from "notistack";
-import { DeployOption } from "@app-types";
+import { DeployOption, FieldConfig } from "@app-types";
 import { deployOptions } from "./data";
-import { Form } from "components";
+import { DynamicForm } from "@app-components";
 import { Address, parseEther } from "viem";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import Token from "@app-contracts/Token.json";
@@ -46,6 +46,15 @@ export const DeployPanel = (): JSX.Element => {
 
   const mainnetRows = makeRows(mainnetOptions);
   const testnetRows = makeRows(testnetOptions);
+
+  const tokenFields: FieldConfig[] = [
+    { name: 'name', placeholder: 'Name', required: true, defaultValue: "" },
+    { name: 'symbol', placeholder: 'Symbol', required: true, defaultValue: "" }
+  ];
+
+  const contractFields: FieldConfig[] = [
+    { name: 'message', placeholder: 'Message', required: true, defaultValue: "Hello world!" }
+  ];
 
   const explorerRef = useRef<string | undefined>(undefined);
 
@@ -154,7 +163,7 @@ export const DeployPanel = (): JSX.Element => {
       </div>
     );
   }
-
+  
   const renderRows = (
     rows: DeployOption[][],
     selectedOption: DeployOption | undefined,
@@ -306,21 +315,23 @@ export const DeployPanel = (): JSX.Element => {
               value={deployTab}
               index={0}
             >
-              <Form
-                isSwitchPending={isSwitchPending}
-                isConnected={isConnected}
-                isPending={isPending}
-                isOptionSelected={!!selectedOption}
-                onSubmit={(formData) => onSubmit(formData, selectedOption!.fee)}
-                connect={connect}
+              <DynamicForm
+                fields={tokenFields}
+                disabled={isPending || isSwitchPending || (!selectedOption && isConnected)}
                 getButtonText={getButtonText}
+                onSubmit={(formData) => onSubmit(formData, selectedOption!.fee)}
               />
             </TabPanel>
             <TabPanel
               value={deployTab}
               index={1}
             >
-              Coming soon...
+              <DynamicForm
+                fields={contractFields}
+                disabled={isPending || isSwitchPending || (!selectedOption && isConnected)}
+                getButtonText={getButtonText}
+                onSubmit={(formData) => console.log(formData)}
+              />
             </TabPanel>
           </Box>
         </CardContent>
