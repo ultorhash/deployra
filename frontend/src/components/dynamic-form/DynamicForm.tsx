@@ -1,14 +1,24 @@
 import { JSX } from "react";
 import { useForm } from "react-hook-form";
 import { Box, Button, TextField } from "@mui/material";
+import { injected } from "wagmi";
 import { DynamicFormProps, FieldConfig } from "@app-types";
 
 export const DynamicForm = (props: DynamicFormProps): JSX.Element => {
-  const { fields, disabled, getButtonText, onSubmit } = props;
+  const { fields, disabled, isConnected, connect, getButtonText, onSubmit } = props;
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
+    <form
+      noValidate
+      method="post"
+      onSubmit={(e) => {
+        e.preventDefault();
+        isConnected
+          ? handleSubmit(onSubmit)()
+          : connect({ connector: injected() });
+      }}
+    >
       <Box sx={{ display: 'flex', gap: 1, mb: 1 }}>
         {fields.map((field: FieldConfig) => (
           <TextField

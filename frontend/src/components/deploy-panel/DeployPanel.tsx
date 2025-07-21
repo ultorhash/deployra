@@ -337,6 +337,8 @@ export const DeployPanel = (): JSX.Element => {
               <DynamicForm
                 fields={tokenFields}
                 disabled={isPending || isSwitchPending || (!selectedOption && isConnected)}
+                isConnected={isConnected}
+                connect={connect}
                 getButtonText={getButtonText}
                 onSubmit={(formData) => onSubmit(formData, selectedOption!.fee, DeployTypes.TOKEN)}
               />
@@ -348,6 +350,8 @@ export const DeployPanel = (): JSX.Element => {
               <DynamicForm
                 fields={contractFields}
                 disabled={isPending || isSwitchPending || (!selectedOption && isConnected)}
+                isConnected={isConnected}
+                connect={connect}
                 getButtonText={getButtonText}
                 onSubmit={(formData) => onSubmit(formData, selectedOption!.fee, DeployTypes.CONTRACT)}
               />
