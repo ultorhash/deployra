@@ -118,7 +118,7 @@ export const DeployPanel = (): JSX.Element => {
         case DeployTypes.CONTRACT:
           hash = await walletClient?.deployContract({
             abi: Message.abi,
-            bytecode: Token.bytecode as Address,
+            bytecode: Message.bytecode as Address,
             args: [formData.message, parseEther(fee.toString())],
             value: parseEther(fee.toString())
           });
