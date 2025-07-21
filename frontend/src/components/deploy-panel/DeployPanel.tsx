@@ -220,7 +220,7 @@ export const DeployPanel = (): JSX.Element => {
                 }
                 slotProps={{ transition: { timeout: 0 } }}
               >
-                {option.chain === "HyperEVM" || option.chain === "Pharos Testnet" || option.chain === "Citrea Testnet" ? (
+                {false ? (
                   <Badge
                     badgeContent="New!"
                     anchorOrigin={{
