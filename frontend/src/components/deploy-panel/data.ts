@@ -55,5 +55,6 @@ export const deployOptions: DeployOption[] = [
   { chain: "Rise Testnet", chainId: 11155931, type: "testnet", icon: "rise.svg", fee: 0.0001 },
   { chain: "Somnia Testnet", chainId: 50312, type: "testnet", icon: "somnia.svg", fee: 0.1 },
   { chain: "Pharos Testnet", chainId: 688688, type: "testnet", icon: "pharos.png", fee: 0.005 },
-  { chain: "Citrea Testnet", chainId: 5115, type: "testnet", icon: "citrea.png", fee: 0.000005 }
+  { chain: "Citrea Testnet", chainId: 5115, type: "testnet", icon: "citrea.png", fee: 0.000005 },
+  { chain: "Moca Chain Testnet", chainId: 5151, type: "testnet", icon: "moca.png", fee: 0.00002 },
 ];

@@ -33,7 +33,7 @@ import Token from "@app-contracts/Token.json";
 import Message from "@app-contracts/Message.json";
 
 export const DeployPanel = (): JSX.Element => {
-  const chains = [...supportedChains, customChains];
+  const chains = [...supportedChains, ...customChains];
 
   const iconSize = 36;
   const rowSize = 10;
@@ -105,6 +105,8 @@ export const DeployPanel = (): JSX.Element => {
 
       const selectedChain = chains.find((c) => (c as RainbowKitChain).id === selectedOption!.chainId) as RainbowKitChain;
       explorerRef.current = selectedChain!.blockExplorers!.default!.url;
+
+      console.log(explorerRef.current);
       
       switch (deployType) {
         case DeployTypes.TOKEN:
