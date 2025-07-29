@@ -59,4 +59,5 @@ export const deployOptions: DeployOption[] = [
   { chain: "Moca Chain Testnet", chainId: 5151, type: "testnet", icon: "moca.png", fee: 0.00002 },
   { chain: "0G Galileo Testnet", chainId: 16601, type: "testnet", icon: "0glabs.png", fee: 0.00001 },
   { chain: "MegaETH Testnet", chainId: 6342, type: "testnet", icon: "megaeth.png", fee: 0.00001 },
+  { chain: "XOS Testnet", chainId: 1267, type: "testnet", icon: "xos.png", fee: 0.00005 }
 ];

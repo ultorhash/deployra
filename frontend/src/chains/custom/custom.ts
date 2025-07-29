@@ -4,8 +4,9 @@ import { pharos } from "./pharos";
 import { citrea } from "./citrea";
 import { botanix } from "./botanix";
 import { mocaTestnet } from "./moca-testnet";
-import { OgGalileoTestnet } from "./0g-galileo-testnet";
+import { ogGalileoTestnet } from "./0g-galileo-testnet";
+import { xosTestnet } from "./xos-testnet";
 
 export const customChains: [RainbowKitChain, ...RainbowKitChain[]] = [
-  hyperevm, pharos, citrea, botanix, mocaTestnet, OgGalileoTestnet
+  hyperevm, pharos, citrea, botanix, mocaTestnet, ogGalileoTestnet, xosTestnet
 ];

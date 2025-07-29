@@ -222,51 +222,19 @@ export const DeployPanel = (): JSX.Element => {
                 }
                 slotProps={{ transition: { timeout: 0 } }}
               >
-                {option.chain === "Botanix" ? (
-                  <Badge
-                    badgeContent="New!"
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    sx={{
-                      '& .MuiBadge-badge': {
-                        fontSize: '0.6rem',
-                        padding: '0 4px',
-                        borderRadius: '4px',
-                        backgroundColor: '#00A86B'
-                      },
-                    }}
-                  >
-                    <Avatar
-                      alt={option.chain}
-                      src={`/assets/chains/${option.icon}`}
-                      onClick={() => handleClick(option)}
-                      sx={{
-                        width: iconSize,
-                        height: iconSize,
-                        cursor: "pointer",
-                        transition: "0.1s",
-                        opacity: selectedOption?.chain === option.chain ? 1 : 0.4,
-                        boxShadow: selectedOption?.chain === option.chain ? "0 0 12px #FFF" : "none"
-                      }}
-                    />
-                  </Badge>
-                ) : (
-                  <Avatar
-                    alt={option.chain}
-                    src={`/assets/chains/${option.icon}`}
-                    onClick={() => handleClick(option)}
-                    sx={{
-                      width: iconSize,
-                      height: iconSize,
-                      cursor: "pointer",
-                      transition: "0.1s",
-                      opacity: selectedOption?.chain === option.chain ? 1 : 0.4,
-                      boxShadow: selectedOption?.chain === option.chain ? "0 0 12px #FFF" : "none"
-                    }}
-                  />
-                )}
+                <Avatar
+                  alt={option.chain}
+                  src={`/assets/chains/${option.icon}`}
+                  onClick={() => handleClick(option)}
+                  sx={{
+                    width: iconSize,
+                    height: iconSize,
+                    cursor: "pointer",
+                    transition: "0.1s",
+                    opacity: selectedOption?.chain === option.chain ? 1 : 0.4,
+                    boxShadow: selectedOption?.chain === option.chain ? "0 0 12px #FFF" : "none"
+                  }}
+                />
               </Tooltip>
             </Box>
           ))}
