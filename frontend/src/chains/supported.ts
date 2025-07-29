@@ -5,7 +5,7 @@ import {
   ink, mode, orderly, apeChain, zksync, hemi, lisk, taiko, mint, blast, polygonZkEvm,
   manta, fraxtal, bob, story, avalanche, canto, bsc, moonbeam, moonriver, astar,
   confluxESpace, beam, chiliz, worldchain, shibarium, flare, degen, xai, kava,
-  aurora, zetachain, cronos
+  aurora, zetachain, cronos, megaethTestnet
 } from 'wagmi/chains';
 
 const soneiumUX = { ...soneium, iconUrl: "/assets/chains/soneium.svg", iconBackground: 'transparent' };
@@ -17,6 +17,7 @@ const abstractUX = { ...abstract, iconUrl: "/assets/chains/abstract.png", iconBa
 const monadTestnetUX = { ...monadTestnet, iconUrl: "/assets/chains/monad.png", iconBackground: 'transparent' };
 const riseTestnetUX = { ...riseTestnet, iconUrl: "/assets/chains/rise.svg", iconBackground: 'transparent' };
 const somniaTestnetUX = { ...somniaTestnet, iconUrl: "/assets/chains/somnia.svg", iconBackground: 'transparent' };
+const megaethTestnetUX = { ...megaethTestnet, iconUrl: "/assets/chains/megaeth.png", iconBackground: 'transparent' };
 const modeUX = { ...mode, iconUrl: "/assets/chains/mode.svg", iconBackground: 'transparent' };
 const orderlyUX = { ...orderly, iconUrl: "/assets/chains/orderly.svg", iconBackground: 'transparent' };
 const hemiUX = { ...hemi, iconUrl: "/assets/chains/hemi.svg", iconBackground: 'transparent' };
@@ -47,5 +48,5 @@ export const supportedChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   modeUX, orderlyUX, apeChain, zksync, hemiUX, liskUX, taikoUX, mintUX, blast, polygonZkEvmUX,
   manta, fraxtalUX, bobUX, storyUX, avalanche, cantoUX, bsc, moonbeamUX, moonriverUX, astarUX,
   confluxESpaceUX, beamUX, chilizUX, worldchainUX, shibariumUX, flareUX, degen, xaiUX, kavaUX,
-  auroraUX, zetachain, cronos
+  auroraUX, zetachain, cronos, megaethTestnetUX
 ];
