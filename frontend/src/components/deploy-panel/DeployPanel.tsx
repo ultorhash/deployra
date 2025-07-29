@@ -220,7 +220,7 @@ export const DeployPanel = (): JSX.Element => {
                 }
                 slotProps={{ transition: { timeout: 0 } }}
               >
-                {false ? (
+                {option.chain === "Botanix" ? (
                   <Badge
                     badgeContent="New!"
                     anchorOrigin={{

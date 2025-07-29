@@ -2,7 +2,8 @@ import { RainbowKitChain } from "@rainbow-me/rainbowkit/dist/components/RainbowK
 import { hyperevm } from "./hyperevm";
 import { pharos } from "./pharos";
 import { citrea } from "./citrea";
+import { botanix } from "./botanix";
 
 export const customChains: [RainbowKitChain, ...RainbowKitChain[]] = [
-  hyperevm, pharos, citrea
+  hyperevm, pharos, citrea, botanix
 ];

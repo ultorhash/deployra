@@ -49,6 +49,7 @@ export const deployOptions: DeployOption[] = [
   { chain: "Aurora", chainId: 1313161554, type: "mainnet", icon: "aurora.svg", fee: 0.000045 },
   { chain: "ZetaChain", chainId: 7000, type: "mainnet", icon: "zetachain.svg", fee: 0.5 },
   { chain: "Cronos", chainId: 25, type: "mainnet", icon: "cronos.png", fee: 1 },
+  { chain: "Botanix", chainId: 3637, type: "mainnet", icon: "botanix.png", fee: 0.000005 },
   { chain: "Sepolia Testnet", chainId: 11155111, type: "testnet", icon: "sepolia.png", fee: 0.00005 },
   { chain: "Monad Testnet", chainId: 10143, type: "testnet", icon: "monad.png", fee: 0.01 },
   { chain: "Rise Testnet", chainId: 11155931, type: "testnet", icon: "rise.svg", fee: 0.0001 },
