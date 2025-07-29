@@ -15,9 +15,16 @@ import {
   Card,
   CardContent,
   CardHeader,
+  Fade,
+  IconButton,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
   Tab,
   Tabs,
-  Tooltip
+  Tooltip,
+  Typography
 } from "@mui/material";
 import { FieldValues } from "react-hook-form";
 import { RainbowKitChain } from "@rainbow-me/rainbowkit/dist/components/RainbowKitProvider/RainbowKitChainContext";
@@ -29,6 +36,7 @@ import { customChains, supportedChains } from "@app-chains";
 import { DeployOption, FieldConfig } from "@app-types";
 import { DeployTypes } from "@app-enums";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import CloseIcon from '@mui/icons-material/Close';
 import Token from "@app-contracts/Token.json";
 import Message from "@app-contracts/Message.json";
 
@@ -64,6 +72,7 @@ export const DeployPanel = (): JSX.Element => {
   const [selectedOption, setSelectedOption] = useState<DeployOption>();
   const [deployTab, setDeployTab] = useState<number>(0);
   const [networkTab, setNetworkTab] = useState<number>(0);
+  const [updatesVisible, setUpdatesVisible] = useState(true);
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -329,6 +338,76 @@ export const DeployPanel = (): JSX.Element => {
           </Box>
         </CardContent>
       </Card>
+      <Fade in={updatesVisible}>
+        <Box
+          sx={{
+            position: 'fixed',
+            bottom: 16,
+            left: 16,
+            bgcolor: 'background.paper',
+            boxShadow: 3,
+            borderRadius: 2,
+            p: 2,
+            maxWidth: 350,
+            zIndex: 100
+          }}
+        >
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
+            <Typography
+              variant="subtitle1"
+              sx={{ fontWeight: 'bold' }}
+            >
+              Latest Updates
+            </Typography>
+            <IconButton
+              size="small"
+              onClick={() => setUpdatesVisible(false)}
+              sx={{ mr: -1, mt: -1 }}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </Box>
+
+          <Typography
+            variant="caption"
+            sx={(theme) => ({
+              color: theme.palette.secondary.contrastText,
+              textShadow: `0 0 4px ${theme.palette.secondary.contrastText}`
+            })}
+          >
+            New supported chains!
+          </Typography>
+          <List
+            dense
+            sx={{ pb: 0 }}
+          >
+            {[
+              { name: "Botanix", icon: "botanix.png" },
+              { name: "Moca Chain Testnet", icon: "moca.png" },
+              { name: "0G Galileo Testnet", icon: "0glabs.png" },
+              { name: "MegaETH Testnet", icon: "megaeth.png" },
+              { name: "XOS Testnet", icon: "xos.png" },
+            ].map((item, index) => (
+              <ListItem
+                key={index}
+                sx={{ px: 0 }}
+              >
+                <ListItemAvatar sx={{ minWidth: 0, pr: 1.5 }}>
+                  <Avatar
+                    alt={item.icon}
+                    src={`/assets/chains/${item.icon}`}
+                    sx={{ width: 28, height: 28 }}
+                  />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={item.name}
+                  slotProps={{ primary: { variant: 'body2'  }}}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+      </Fade>
     </Fragment>
   );
 };
