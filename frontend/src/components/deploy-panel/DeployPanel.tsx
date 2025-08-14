@@ -382,11 +382,8 @@ export const DeployPanel = (): JSX.Element => {
             sx={{ pb: 0 }}
           >
             {[
-              { name: "Botanix", icon: "botanix.png" },
-              { name: "Moca Chain Testnet", icon: "moca.png" },
-              { name: "0G Galileo Testnet", icon: "0glabs.png" },
-              { name: "MegaETH Testnet", icon: "megaeth.png" },
-              { name: "XOS Testnet", icon: "xos.png" },
+              { name: "Block Chain Testkek", icon: "blockchain.jpg" },
+              { name: "Fluent Testnet", icon: "fluent.jpg" }
             ].map((item, index) => (
               <ListItem
                 key={index}
