@@ -9,7 +9,6 @@ import {
 } from "wagmi";
 import {
   Avatar,
-  Badge,
   Box,
   Button,
   Card,
@@ -31,6 +30,7 @@ import { RainbowKitChain } from "@rainbow-me/rainbowkit/dist/components/RainbowK
 import { useSnackbar } from "notistack";
 import { Address, parseEther } from "viem";
 import { deployOptions } from "./data";
+import { keyframes } from "@mui/system";
 import { DynamicForm } from "@app-components";
 import { customChains, supportedChains } from "@app-chains";
 import { DeployOption, FieldConfig } from "@app-types";
@@ -39,6 +39,12 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import CloseIcon from '@mui/icons-material/Close';
 import Token from "@app-contracts/Token.json";
 import Message from "@app-contracts/Message.json";
+
+const rise = keyframes`
+  0%   { transform: translateY(0) scale(1); opacity: 1; }
+  50%  { opacity: 0.7; }
+  100% { transform: translateY(-20px) scale(0); opacity: 0; }
+`;
 
 export const DeployPanel = (): JSX.Element => {
   const chains = [...supportedChains, ...customChains];
@@ -178,6 +184,35 @@ export const DeployPanel = (): JSX.Element => {
     setTxHash(undefined);
   }, [isSuccess, isError, receipt]);
 
+  const PixelSteam = ({ count = 6 }: { count?: number }) => (
+    <Box
+      sx={{
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        pointerEvents: "none",
+      }}
+    >
+      {Array.from({ length: count }).map((_, i) => (
+        <Box
+          key={i}
+          sx={(theme) => ({
+            position: "absolute",
+            bottom: 0,
+            left: `${14 + Math.random() * 60}%`,
+            width: "6px",
+            height: "6px",
+            bgcolor: theme.palette.secondary.contrastText,
+            borderRadius: "2px",
+            animation: `${rise} 2s ${i * 0.3}s infinite ease-out`,
+          })}
+        />
+      ))}
+    </Box>
+  );
+
   const TabPanel = (props: any): JSX.Element => {
     const { children, value, index, ...other } = props;
 
@@ -220,6 +255,7 @@ export const DeployPanel = (): JSX.Element => {
               key={index}
               width={iconSize}
               height={iconSize}
+              sx={{ position: "relative" }}
             >
               <Tooltip
                 arrow
@@ -245,6 +281,27 @@ export const DeployPanel = (): JSX.Element => {
                   }}
                 />
               </Tooltip>
+              {option.chain === "Giwa Testnet" && (
+                <Fragment>
+                  <PixelSteam count={10} />
+                    <Typography
+                    variant="caption"
+                    sx={(theme) => ({
+                      position: "absolute",
+                      top: 30,
+                      bottom: -10,
+                      left: 0,
+                      right: 0,
+                      textAlign: "center",
+                      color: "white",
+                      fontSize: 10,
+                      backgroundColor: theme.palette.secondary.contrastText
+                    })}
+                  >
+                    New!
+                  </Typography>
+                </Fragment>
+              )}
             </Box>
           ))}
         </Box>
