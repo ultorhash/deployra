@@ -61,5 +61,6 @@ export const deployOptions: DeployOption[] = [
   { chain: "MegaETH Testnet", chainId: 6342, type: "testnet", icon: "megaeth.png", fee: 0.00001 },
   { chain: "XOS Testnet", chainId: 1267, type: "testnet", icon: "xos.png", fee: 0.00005 },
   { chain: "Bloch Chain Testkek", chainId: 6231991, type: "testnet", icon: "blockchain.jpg", fee: 0.00002 },
-  { chain: "Fluent Testnet", chainId: 20994, type: "testnet", icon: "fluent.jpg", fee: 0.000033 }
+  { chain: "Fluent Testnet", chainId: 20994, type: "testnet", icon: "fluent.jpg", fee: 0.000033 },
+  { chain: "Giwa Testnet", chainId: 91342, type: "testnet", icon: "giwa.jpg", fee: 0.000015 }
 ];

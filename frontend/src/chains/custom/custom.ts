@@ -8,8 +8,9 @@ import { ogGalileoTestnet } from "./0g-galileo-testnet";
 import { xosTestnet } from "./xos-testnet";
 import { blockchainTestnet } from "./block-chain-testnet";
 import { fluentTestnet } from "./fluent-testnet";
+import { giwaTestnet } from "./giwa-testnet";
 
 export const customChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   hyperevm, pharos, citrea, botanix, mocaTestnet, ogGalileoTestnet, xosTestnet,
-  blockchainTestnet, fluentTestnet
+  blockchainTestnet, fluentTestnet, giwaTestnet
 ];
