@@ -14,16 +14,9 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Fade,
-  IconButton,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
   Tab,
   Tabs,
-  Tooltip,
-  Typography
+  Tooltip
 } from "@mui/material";
 import { FieldValues } from "react-hook-form";
 import { RainbowKitChain } from "@rainbow-me/rainbowkit/dist/components/RainbowKitProvider/RainbowKitChainContext";
@@ -184,35 +177,6 @@ export const DeployPanel = (): JSX.Element => {
     setTxHash(undefined);
   }, [isSuccess, isError, receipt]);
 
-  const PixelSteam = ({ count = 6 }: { count?: number }) => (
-    <Box
-      sx={{
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        pointerEvents: "none",
-      }}
-    >
-      {Array.from({ length: count }).map((_, i) => (
-        <Box
-          key={i}
-          sx={(theme) => ({
-            position: "absolute",
-            bottom: 0,
-            left: `${14 + Math.random() * 60}%`,
-            width: "6px",
-            height: "6px",
-            bgcolor: theme.palette.secondary.contrastText,
-            borderRadius: "2px",
-            animation: `${rise} 2s ${i * 0.3}s infinite ease-out`,
-          })}
-        />
-      ))}
-    </Box>
-  );
-
   const TabPanel = (props: any): JSX.Element => {
     const { children, value, index, ...other } = props;
 
@@ -281,27 +245,6 @@ export const DeployPanel = (): JSX.Element => {
                   }}
                 />
               </Tooltip>
-              {option.chain === "Giwa Testnet" && (
-                <Fragment>
-                  <PixelSteam count={10} />
-                    <Typography
-                    variant="caption"
-                    sx={(theme) => ({
-                      position: "absolute",
-                      top: 30,
-                      bottom: -10,
-                      left: 0,
-                      right: 0,
-                      textAlign: "center",
-                      color: "white",
-                      fontSize: 10,
-                      backgroundColor: theme.palette.secondary.contrastText
-                    })}
-                  >
-                    New!
-                  </Typography>
-                </Fragment>
-              )}
             </Box>
           ))}
         </Box>
@@ -395,72 +338,6 @@ export const DeployPanel = (): JSX.Element => {
           </Box>
         </CardContent>
       </Card>
-      <Fade in={updatesVisible}>
-        <Box
-          sx={{
-            position: 'fixed',
-            bottom: 16,
-            left: 16,
-            bgcolor: 'background.paper',
-            boxShadow: 3,
-            borderRadius: 2,
-            p: 2,
-            maxWidth: 350,
-            zIndex: 100
-          }}
-        >
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
-            <Typography
-              variant="subtitle1"
-              sx={{ fontWeight: 'bold' }}
-            >
-              Latest Updates
-            </Typography>
-            <IconButton
-              size="small"
-              onClick={() => setUpdatesVisible(false)}
-              sx={{ mr: -1, mt: -1 }}
-            >
-              <CloseIcon fontSize="small" />
-            </IconButton>
-          </Box>
-
-          <Typography
-            variant="caption"
-            sx={(theme) => ({
-              color: theme.palette.secondary.contrastText,
-              textShadow: `0 0 4px ${theme.palette.secondary.contrastText}`
-            })}
-          >
-            New supported chains!
-          </Typography>
-          <List
-            dense
-            sx={{ pb: 0 }}
-          >
-            {[
-              { name: "Giwa Testnet", icon: "giwa.jpg" }
-            ].map((item, index) => (
-              <ListItem
-                key={index}
-                sx={{ px: 0 }}
-              >
-                <ListItemAvatar sx={{ minWidth: 0, pr: 1.5 }}>
-                  <Avatar
-                    alt={item.icon}
-                    src={`/assets/chains/${item.icon}`}
-                    sx={{ width: 28, height: 28 }}
-                  />
-                </ListItemAvatar>
-                <ListItemText
-                  primary={item.name}
-                  slotProps={{ primary: { variant: 'body2'  }}}
-                />
-              </ListItem>
-            ))}
-          </List>
-        </Box>
-      </Fade>
     </Fragment>
   );
 };

@@ -50,6 +50,7 @@ export const deployOptions: DeployOption[] = [
   { chain: "ZetaChain", chainId: 7000, type: "mainnet", icon: "zetachain.svg", fee: 0.5 },
   { chain: "Cronos", chainId: 25, type: "mainnet", icon: "cronos.png", fee: 1 },
   { chain: "Botanix", chainId: 3637, type: "mainnet", icon: "botanix.png", fee: 0.000005 },
+  { chain: "Katana", chainId: 747474, type: "mainnet", icon: "katana.svg", fee: 0.000005 },
   { chain: "Sepolia Testnet", chainId: 11155111, type: "testnet", icon: "sepolia.png", fee: 0.00005 },
   { chain: "Monad Testnet", chainId: 10143, type: "testnet", icon: "monad.png", fee: 0.01 },
   { chain: "Rise Testnet", chainId: 11155931, type: "testnet", icon: "rise.svg", fee: 0.0001 },
@@ -62,5 +63,6 @@ export const deployOptions: DeployOption[] = [
   { chain: "XOS Testnet", chainId: 1267, type: "testnet", icon: "xos.png", fee: 0.00005 },
   { chain: "Bloch Chain Testkek", chainId: 6231991, type: "testnet", icon: "blockchain.jpg", fee: 0.00002 },
   { chain: "Fluent Testnet", chainId: 20994, type: "testnet", icon: "fluent.jpg", fee: 0.000033 },
-  { chain: "Giwa Testnet", chainId: 91342, type: "testnet", icon: "giwa.jpg", fee: 0.000015 }
+  { chain: "Giwa Testnet", chainId: 91342, type: "testnet", icon: "giwa.jpg", fee: 0.000015 },
+  { chain: "Neura Testnet", chainId: 267, type: "testnet", icon: "neura.jpg", fee: 0.000004 }
 ];
