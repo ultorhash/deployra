@@ -25,12 +25,12 @@ import { Address, parseEther } from "viem";
 import { deployOptions } from "./data";
 import { keyframes } from "@mui/system";
 import { DynamicForm } from "@app-components";
-import { customChains, supportedChains } from "@app-chains";
 import { DeployOption, FieldConfig } from "@app-types";
 import { DeployTypes } from "@app-enums";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import Token from "@app-contracts/Token.json";
 import Message from "@app-contracts/Message.json";
+import { chains } from "chains";
 
 const rise = keyframes`
   0%   { transform: translateY(0) scale(1); opacity: 1; }
@@ -39,8 +39,6 @@ const rise = keyframes`
 `;
 
 export const DeployPanel = (): JSX.Element => {
-  const chains = [...supportedChains, ...customChains];
-
   const iconSize = 36;
   const rowSize = 10;
 

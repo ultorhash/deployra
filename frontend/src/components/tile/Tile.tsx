@@ -4,11 +4,12 @@ import { useAccount, useChainId, useConnect, useSwitchChain, useWaitForTransacti
 import { DeployOption, FieldConfig } from "@app-types"
 import { DynamicForm } from "@app-components"
 import { DeployTypes } from "@app-enums"
+import { chains } from "chains";
 import { Address, parseEther } from "viem"
 import { FieldValues } from "react-hook-form"
 import { enqueueSnackbar } from "notistack"
-import { customChains, supportedChains } from "@app-chains"
 import { RainbowKitChain } from "@rainbow-me/rainbowkit/dist/components/RainbowKitProvider/RainbowKitChainContext"
+import { StyledTabs } from "./styled";
 import Token from "@app-contracts/Token.json"
 import Message from "@app-contracts/Message.json"
 import StarIcon from "@mui/icons-material/Star"
@@ -25,8 +26,8 @@ interface TabPanelProps {
 }
 
 export const Tile = (option: DeployOption) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [value, setValue] = useState(0);
+  const [tabIndex, setTabIndex] = useState<number>(0);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [txHash, setTxHash] = useState<Address | undefined>(undefined);
   const explorerRef = useRef<string | undefined>(undefined);
 
@@ -39,8 +40,6 @@ export const Tile = (option: DeployOption) => {
     { name: 'symbol', placeholder: 'Symbol', required: true, defaultValue: "" }
   ];
 
-  const chains = [...supportedChains, ...customChains];
-
   const { data: receipt, isLoading: isPending, isSuccess, isError } = useWaitForTransactionReceipt({ hash: txHash });
   const { data: walletClient } = useWalletClient();
   const { switchChainAsync, isPending: isSwitchPending } = useSwitchChain();
@@ -52,8 +51,8 @@ export const Tile = (option: DeployOption) => {
     setIsFavorite((prev) => !prev);
   };
 
-  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+  const handleTabChange = (_: React.SyntheticEvent, value: number) => {
+    setTabIndex(value);
   };
 
   const getButtonText = (): string => {
@@ -174,31 +173,18 @@ export const Tile = (option: DeployOption) => {
         }
         action={
           <IconButton onClick={toggleFavorite}>
-            {isFavorite ? (
-              <StarIcon sx={{ color: "gold" }} />
-            ) : (
-              <StarBorderIcon sx={{ color: "white" }} />
-            )}
+            {isFavorite
+              ? (<StarIcon sx={{ color: "gold" }} />)
+              : (<StarBorderIcon sx={{ color: "white" }} />)
+            }
           </IconButton>
         }
       />
       <CardContent>
-        <Tabs
+        <StyledTabs
           variant="fullWidth"
-          value={value}
-          onChange={handleChange}
-          sx={{
-            height: 40,
-            minHeight: 40,
-            '& .MuiTabs-indicator': {
-              display: 'none',
-            },
-            '& .MuiTab-root': {
-              minHeight: 40,
-              paddingTop: 0,
-              paddingBottom: 0,
-            },
-          }}
+          value={tabIndex}
+          onChange={handleTabChange}
         >
           <Tab
             disableRipple
@@ -212,8 +198,11 @@ export const Tile = (option: DeployOption) => {
             iconPosition="end"
             icon={<GeneratingTokensIcon sx={{ color: option.color }} />} 
           />
-        </Tabs>
-        <TabPanel value={value} index={0}>
+        </StyledTabs>
+        <TabPanel
+          value={tabIndex}
+          index={0}
+        >
           <DynamicForm
             fields={contractFields}
             disabled={isPending || isSwitchPending}
@@ -225,7 +214,10 @@ export const Tile = (option: DeployOption) => {
             onSubmit={(formData) => onSubmit(formData, option.fee, DeployTypes.CONTRACT)}
           />
         </TabPanel>
-        <TabPanel value={value} index={1}>
+        <TabPanel
+          value={tabIndex}
+          index={1}
+        >
           <DynamicForm
             fields={tokenFields}
             disabled={isPending || isSwitchPending}

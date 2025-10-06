@@ -4,7 +4,7 @@ import { darkTheme, getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rai
 import { GlobalStyles, ThemeProvider } from '@mui/material';
 import { SnackbarProvider } from 'notistack';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { customChains, supportedChains } from "@app-chains";
+import { chains } from 'chains/index.ts';
 import { theme } from './theme';
 import { App } from './App.tsx';
 
@@ -15,7 +15,7 @@ const config = getDefaultConfig({
   appName: 'My Dapp',
   projectId: 'MY_ID',
   ssr: false,
-  chains: [...supportedChains, ...customChains],
+  chains: chains,
 });
 
 const queryClient = new QueryClient();
