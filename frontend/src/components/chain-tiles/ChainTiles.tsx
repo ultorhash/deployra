@@ -10,7 +10,7 @@ export const ChainTiles = () => {
       rowSpacing={{ xs: 1, sm: 2, md: 3 }}
       columnSpacing={{ xs: 1, sm: 2, md: 3 }}
     >
-      {deployOptions.slice(0, 3).map((option: DeployOption, index) => (
+      {deployOptions.map((option: DeployOption, index) => (
         <Grid
           key={index}
           size={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }}

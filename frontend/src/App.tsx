@@ -1,7 +1,6 @@
 import { Fragment, type JSX } from 'react';
 import { Box } from '@mui/material';
 import { Header, Footer, ChainTiles } from "@app-components";
-import "./App.css";
 
 export const App = (): JSX.Element => {
   return (

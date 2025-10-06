@@ -317,6 +317,7 @@ export const DeployPanel = (): JSX.Element => {
                 disabled={isPending || isSwitchPending || (!selectedOption && isConnected)}
                 isConnected={isConnected}
                 color="white"
+                textColor="black"
                 connect={connect}
                 getButtonText={getButtonText}
                 onSubmit={(formData) => onSubmit(formData, selectedOption!.fee, DeployTypes.TOKEN)}
@@ -331,6 +332,7 @@ export const DeployPanel = (): JSX.Element => {
                 disabled={isPending || isSwitchPending || (!selectedOption && isConnected)}
                 isConnected={isConnected}
                 color="white"
+                textColor="black"
                 connect={connect}
                 getButtonText={getButtonText}
                 onSubmit={(formData) => onSubmit(formData, selectedOption!.fee, DeployTypes.CONTRACT)}

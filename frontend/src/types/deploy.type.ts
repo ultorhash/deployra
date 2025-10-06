@@ -5,4 +5,5 @@ export type DeployOption = {
   icon: string;
   fee: number;
   color: string;
+  textColor: string;
 }

@@ -1,12 +1,15 @@
 import { JSX } from "react";
 import { useForm } from "react-hook-form";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { injected } from "wagmi";
 import { DynamicFormProps, FieldConfig } from "@app-types";
 
 export const DynamicForm = (props: DynamicFormProps): JSX.Element => {
-  const { fields, disabled, isConnected, color, connect, getButtonText, onSubmit } = props;
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    fields, disabled, isConnected, color, textColor,
+    connect, getButtonText, onSubmit
+  } = props;
 
   return (
     <form
@@ -43,7 +46,12 @@ export const DynamicForm = (props: DynamicFormProps): JSX.Element => {
         fullWidth
         sx={{ backgroundColor: color }}
       >
-        {getButtonText()}
+        <Typography
+          variant="inherit"
+          sx={{ color: textColor }}
+        >
+          {getButtonText()}
+        </Typography>
       </Button>
     </form>
   );

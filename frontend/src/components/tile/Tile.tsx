@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from "react";
-import { Avatar, Button, CardHeader, IconButton, Tab, Tabs } from "@mui/material"
+import { Avatar, Button, Card, CardContent, CardHeader, IconButton, Tab, Tabs } from "@mui/material"
 import { useAccount, useChainId, useConnect, useSwitchChain, useWaitForTransactionReceipt, useWalletClient } from "wagmi"
 import { DeployOption, FieldConfig } from "@app-types"
 import { DynamicForm } from "@app-components"
@@ -9,7 +9,6 @@ import { FieldValues } from "react-hook-form"
 import { enqueueSnackbar } from "notistack"
 import { customChains, supportedChains } from "@app-chains"
 import { RainbowKitChain } from "@rainbow-me/rainbowkit/dist/components/RainbowKitProvider/RainbowKitChainContext"
-import { StyledCard, StyledCardContent } from "./styled"
 import Token from "@app-contracts/Token.json"
 import Message from "@app-contracts/Message.json"
 import StarIcon from "@mui/icons-material/Star"
@@ -53,7 +52,7 @@ export const Tile = (option: DeployOption) => {
     setIsFavorite((prev) => !prev);
   };
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
@@ -82,8 +81,6 @@ export const Tile = (option: DeployOption) => {
 
       const selectedChain = chains.find((c) => (c as RainbowKitChain).id === option.chainId) as RainbowKitChain;
       explorerRef.current = selectedChain!.blockExplorers!.default!.url;
-
-      console.log(explorerRef.current);
       
       switch (deployType) {
         case DeployTypes.TOKEN:
@@ -165,7 +162,7 @@ export const Tile = (option: DeployOption) => {
   }, [isSuccess, isError, receipt]);
 
   return (
-    <StyledCard color={option.color}>
+    <Card color={option.color}>
       <CardHeader
         title={option.chain}
         slotProps={{ title: { variant: 'h6' } }}
@@ -185,7 +182,7 @@ export const Tile = (option: DeployOption) => {
           </IconButton>
         }
       />
-      <StyledCardContent>
+      <CardContent>
         <Tabs
           variant="fullWidth"
           value={value}
@@ -222,6 +219,7 @@ export const Tile = (option: DeployOption) => {
             disabled={isPending || isSwitchPending}
             isConnected={isConnected}
             color={option.color}
+            textColor={option.textColor}
             connect={connect}
             getButtonText={getButtonText}
             onSubmit={(formData) => onSubmit(formData, option.fee, DeployTypes.CONTRACT)}
@@ -233,12 +231,13 @@ export const Tile = (option: DeployOption) => {
             disabled={isPending || isSwitchPending}
             isConnected={isConnected}
             color={option.color}
+            textColor={option.textColor}
             connect={connect}
             getButtonText={getButtonText}
             onSubmit={(formData) => onSubmit(formData, option.fee, DeployTypes.TOKEN)}
           />
         </TabPanel>
-      </StyledCardContent>
-    </StyledCard>
+      </CardContent>
+    </Card>
   )
 }
