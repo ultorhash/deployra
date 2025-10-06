@@ -13,7 +13,7 @@ import '@rainbow-me/rainbowkit/styles.css';
 
 const config = getDefaultConfig({
   appName: 'My Dapp',
-  projectId: 'TWÓJ_PROJECT_ID_Z_WALLETCONNECT',
+  projectId: 'MY_ID',
   ssr: false,
   chains: [...supportedChains, ...customChains],
 });
@@ -22,7 +22,7 @@ const queryClient = new QueryClient();
 
 const rainbowKitTheme = {
   ...darkTheme({
-    accentColor: '#7b3fe4',
+    accentColor: '#7D78FD',
     accentColorForeground: 'white',
     borderRadius: 'medium'
   })

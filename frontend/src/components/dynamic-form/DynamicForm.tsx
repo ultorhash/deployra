@@ -5,7 +5,7 @@ import { injected } from "wagmi";
 import { DynamicFormProps, FieldConfig } from "@app-types";
 
 export const DynamicForm = (props: DynamicFormProps): JSX.Element => {
-  const { fields, disabled, isConnected, connect, getButtonText, onSubmit } = props;
+  const { fields, disabled, isConnected, color, connect, getButtonText, onSubmit } = props;
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   return (
@@ -38,10 +38,10 @@ export const DynamicForm = (props: DynamicFormProps): JSX.Element => {
       </Box>
       <Button
         variant="contained"
-        color="primary"
         type="submit"
         disabled={disabled}
         fullWidth
+        sx={{ backgroundColor: color }}
       >
         {getButtonText()}
       </Button>

@@ -8,6 +8,7 @@ import {
   aurora, zetachain, cronos, megaethTestnet
 } from 'wagmi/chains';
 
+const baseUX = { ...base, iconUrl: "/assets/chains/base.jpg", iconBackground: 'transparent' };
 const soneiumUX = { ...soneium, iconUrl: "/assets/chains/soneium.svg", iconBackground: 'transparent' };
 const sonicUX = { ...sonic, iconUrl: "/assets/chains/sonic.svg", iconBackground: 'transparent' };
 const seiUX = { ...sei, iconUrl: "/assets/chains/sei.svg", iconBackground: 'transparent' };
@@ -43,7 +44,7 @@ const kavaUX = { ...kava, iconUrl: "/assets/chains/kava.svg", iconBackground: 't
 const auroraUX = { ...aurora, iconUrl: "/assets/chains/aurora.svg", iconBackground: 'transparent' };
 
 export const supportedChains: [RainbowKitChain, ...RainbowKitChain[]] = [
-  base, optimism, unichain, soneiumUX, sonicUX, polygon, seiUX, scroll, lensUX, linea, morphUX,
+  baseUX, optimism, unichain, soneiumUX, sonicUX, polygon, seiUX, scroll, lensUX, linea, morphUX,
   berachain, abstractUX, mantle, sepolia, monadTestnetUX, riseTestnetUX, somniaTestnetUX, ink,
   modeUX, orderlyUX, apeChain, zksync, hemiUX, liskUX, taikoUX, mintUX, blast, polygonZkEvmUX,
   manta, fraxtalUX, bobUX, storyUX, avalanche, cantoUX, bsc, moonbeamUX, moonriverUX, astarUX,

@@ -3,5 +3,6 @@ export type DeployOption = {
   chainId: number;
   type: "mainnet" | "testnet";
   icon: string;
-  fee: number
+  fee: number;
+  color: string;
 }

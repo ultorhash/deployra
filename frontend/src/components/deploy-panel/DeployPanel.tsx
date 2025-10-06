@@ -29,7 +29,6 @@ import { customChains, supportedChains } from "@app-chains";
 import { DeployOption, FieldConfig } from "@app-types";
 import { DeployTypes } from "@app-enums";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import CloseIcon from '@mui/icons-material/Close';
 import Token from "@app-contracts/Token.json";
 import Message from "@app-contracts/Message.json";
 
@@ -257,7 +256,7 @@ export const DeployPanel = (): JSX.Element => {
       <Card sx={{
         p: 1,
         borderRadius: 2,
-        zIndex: 10,
+        zIndex: 1,
         boxShadow: '0 0 10px rgba(225, 225, 220, 0.2)'
       }}>
         <CardHeader
@@ -317,6 +316,7 @@ export const DeployPanel = (): JSX.Element => {
                 fields={tokenFields}
                 disabled={isPending || isSwitchPending || (!selectedOption && isConnected)}
                 isConnected={isConnected}
+                color="white"
                 connect={connect}
                 getButtonText={getButtonText}
                 onSubmit={(formData) => onSubmit(formData, selectedOption!.fee, DeployTypes.TOKEN)}
@@ -330,6 +330,7 @@ export const DeployPanel = (): JSX.Element => {
                 fields={contractFields}
                 disabled={isPending || isSwitchPending || (!selectedOption && isConnected)}
                 isConnected={isConnected}
+                color="white"
                 connect={connect}
                 getButtonText={getButtonText}
                 onSubmit={(formData) => onSubmit(formData, selectedOption!.fee, DeployTypes.CONTRACT)}
