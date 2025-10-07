@@ -1,5 +1,5 @@
 import { Fragment, useMemo, useState } from "react";
-import { Grid, ToggleButton, ToggleButtonGroup, Typography, useTheme } from "@mui/material";
+import { Box, Grid, ToggleButton, ToggleButtonGroup, Typography, useTheme } from "@mui/material";
 import { Tile } from "@app-components";
 import { DeployOption } from "@app-types";
 import { deployOptions } from "./data";
@@ -106,14 +106,26 @@ export const ChainTiles = () => {
         rowSpacing={{ xs: 1, sm: 2, md: 3 }}
         columnSpacing={{ xs: 1, sm: 2, md: 3 }}
       >
-        {filteredOptions.map((option: DeployOption, index) => (
-          <Grid
-            key={index}
-            size={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }}
-          >
-            <Tile {...option} />
-          </Grid>
-        ))}
+        {filteredOptions.length === 0
+          ? <Box
+              sx={{
+                width: '100%',
+                height: '100%',
+                p: 2,
+                backgroundColor: 'rgba(0, 123, 255, 0.2)',
+                border: '1px solid rgba(255, 255, 255, 0.3)'
+              }}>
+                <Typography>No {filter} chains</Typography>
+            </Box>
+          : filteredOptions.map((option, index) => (
+              <Grid
+                key={index}
+                size={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }}
+              >
+                <Tile {...option} />
+              </Grid>
+            ))
+        }
       </Grid>
     </Fragment>
   );
