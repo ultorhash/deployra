@@ -11,9 +11,9 @@ export const Header = (): JSX.Element => {
         <Toolbar>
           <Box sx={{ width: 44, height: 44, mr: 1 }}>
             <img
-              src="/assets/icons/rocket.svg"
+              src="/assets/icons/logo.svg"
               alt="logo"
-              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+              style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: 5 }}
             />
           </Box>
            <Box sx={{ flexGrow: 1 }}>

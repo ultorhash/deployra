@@ -44,8 +44,8 @@ export const ChainTiles = () => {
       icon: <AutoAwesomeIcon sx={{ color: '#1DB954' }} />
     },
     {
-      value: 'favorite',
-      label: 'Favorite',
+      value: 'favorites',
+      label: 'Favorites',
       icon: <StarIcon sx={{ color: '#FFD700' }} />
     }
   ]
@@ -62,7 +62,7 @@ export const ChainTiles = () => {
       return deployOptions.filter((option) => option.tags.includes("new"));
     }
 
-    if (filter === "favorite") {
+    if (filter === "favorites") {
       const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
       return deployOptions.filter((option) => favorites[option.chainId]);
     }
@@ -91,6 +91,7 @@ export const ChainTiles = () => {
             value={value}
             sx={{
               gap: 1,
+              textTransform: 'none',
               backgroundColor: 'rgba(0, 123, 255, 0.2)',
               color: '#FFF',
               border: '1px solid rgba(255, 255, 255, 0.3)'
