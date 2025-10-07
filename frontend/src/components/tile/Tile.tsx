@@ -17,8 +17,6 @@ import StarBorderIcon from "@mui/icons-material/StarBorder"
 import DescriptionIcon from "@mui/icons-material/Description"
 import GeneratingTokensIcon from "@mui/icons-material/GeneratingTokens"
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
-import WhatshotIcon from '@mui/icons-material/Whatshot'
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -203,8 +201,8 @@ export const Tile = (option: DeployOption) => {
         action={
           <IconButton onClick={toggleFavorite}>
             {isFavorite
-              ? (<StarIcon sx={{ color: "gold" }} />)
-              : (<StarBorderIcon sx={{ color: "white" }} />)
+              ? (<StarIcon sx={{ color: "#FFD700" }} />)
+              : (<StarBorderIcon sx={{ color: "#FFF" }} />)
             }
           </IconButton>
         }

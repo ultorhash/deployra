@@ -1,8 +1,8 @@
 import type { DeployOption } from "@app-types";
 
 export const deployOptions: DeployOption[] = [
-  { chain: "Base", chainId: 8453, type: "mainnet", icon: "base.jpg", fee: 0.000045, color: "#0000FF", textColor: "#FFF", tags: ["Hot", "New"] },
-  { chain: "Optimism", chainId: 10, type: "mainnet", icon: "optimism.png", fee: 0.000045, color: "#FF0420", textColor: "#FFF", tags: ["New"] },
+  { chain: "Base", chainId: 8453, type: "mainnet", icon: "base.jpg", fee: 0.000045, color: "#0000FF", textColor: "#FFF", tags: ["hot"] },
+  { chain: "Optimism", chainId: 10, type: "mainnet", icon: "optimism.png", fee: 0.000045, color: "#FF0420", textColor: "#FFF", tags: ["hot"] },
   { chain: "Unichain", chainId: 130, type: "mainnet", icon: "unichain.png", fee: 0.000045, color: "#F51BBD", textColor: "#FFF", tags: [] },
   { chain: "Soneium", chainId: 1868, type: "mainnet", icon: "soneium.svg", fee: 0.000045, color: "#6398C7", textColor: "#FFF", tags: [] },
   { chain: "Sonic", chainId: 146, type: "mainnet", icon: "sonic.svg", fee: 0.2, color: "#FFF", textColor: "#000", tags: [] },
