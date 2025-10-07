@@ -6,4 +6,5 @@ export type DeployOption = {
   fee: number;
   color: string;
   textColor: string;
+  tags: string[];
 }

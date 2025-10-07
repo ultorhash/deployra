@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from "react";
-import { Avatar, Button, Card, CardContent, CardHeader, IconButton, Tab, Tabs } from "@mui/material"
+import { Avatar, Box, Button, Card, CardContent, CardHeader, IconButton, Tab, Tabs, ToggleButton } from "@mui/material"
 import { useAccount, useChainId, useConnect, useSwitchChain, useWaitForTransactionReceipt, useWalletClient } from "wagmi"
 import { DeployOption, FieldConfig } from "@app-types"
 import { DynamicForm } from "@app-components"
@@ -9,7 +9,7 @@ import { Address, parseEther } from "viem"
 import { FieldValues } from "react-hook-form"
 import { enqueueSnackbar } from "notistack"
 import { RainbowKitChain } from "@rainbow-me/rainbowkit/dist/components/RainbowKitProvider/RainbowKitChainContext"
-import { StyledTabs } from "./styled";
+import { StyledTabs, StyledTileBadge } from "./styled";
 import Token from "@app-contracts/Token.json"
 import Message from "@app-contracts/Message.json"
 import StarIcon from "@mui/icons-material/Star"
@@ -17,6 +17,8 @@ import StarBorderIcon from "@mui/icons-material/StarBorder"
 import DescriptionIcon from "@mui/icons-material/Description"
 import GeneratingTokensIcon from "@mui/icons-material/GeneratingTokens"
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import WhatshotIcon from '@mui/icons-material/Whatshot'
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -47,11 +49,20 @@ export const Tile = (option: DeployOption) => {
   const { connect } = useConnect();
   const chainId = useChainId();
 
-  const toggleFavorite = () => {
-    setIsFavorite((prev) => !prev);
+  const toggleFavorite = (): void => {
+    const stored = localStorage.getItem('favorites');
+    const favorites = stored ? JSON.parse(stored) : {};
+
+    const updatedFavorites = {
+      ...favorites,
+      [option.chainId]: !favorites[option.chainId],
+    };
+
+    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+    setIsFavorite(updatedFavorites[option.chainId]);
   };
 
-  const handleTabChange = (_: React.SyntheticEvent, value: number) => {
+  const handleTabChange = (_: React.SyntheticEvent, value: number): void => {
     setTabIndex(value);
   };
 
@@ -137,6 +148,14 @@ export const Tile = (option: DeployOption) => {
   }
 
   useEffect(() => {
+    const stored = localStorage.getItem('favorites');
+    if (stored) {
+      const favorites = JSON.parse(stored);
+      setIsFavorite(!!favorites[option.chainId]);
+    }
+  }, [option.chainId]);
+
+  useEffect(() => {
     if (isSuccess && receipt?.contractAddress && txHash) {
       enqueueSnackbar(`Deployed successfully!`, { variant: 'success', action: () => (
         <Button
@@ -161,7 +180,17 @@ export const Tile = (option: DeployOption) => {
   }, [isSuccess, isError, receipt]);
 
   return (
-    <Card color={option.color}>
+    <Card
+      sx={{
+        backgroundColor: 'rgba(0, 123, 255, 0.2)',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
+        border: '1px solid rgba(255, 255, 255, 0.3)',
+        borderRadius: 2,
+        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+        overflow: 'visible'
+      }}
+    >
       <CardHeader
         title={option.chain}
         slotProps={{ title: { variant: 'h6' } }}
