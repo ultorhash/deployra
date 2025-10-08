@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from "react";
-import { Avatar, Box, Button, Card, CardContent, CardHeader, IconButton, Tab, Tabs, ToggleButton } from "@mui/material"
+import { Avatar, Button, Card, CardContent, CardHeader, IconButton, Tab } from "@mui/material"
 import { useAccount, useChainId, useConnect, useSwitchChain, useWaitForTransactionReceipt, useWalletClient } from "wagmi"
 import { DeployOption, FieldConfig } from "@app-types"
 import { DynamicForm } from "@app-components"
@@ -9,7 +9,7 @@ import { Address, parseEther } from "viem"
 import { FieldValues } from "react-hook-form"
 import { enqueueSnackbar } from "notistack"
 import { RainbowKitChain } from "@rainbow-me/rainbowkit/dist/components/RainbowKitProvider/RainbowKitChainContext"
-import { StyledTabs, StyledTileBadge } from "./styled";
+import { StyledTabs } from "./styled";
 import Token from "@app-contracts/Token.json"
 import Message from "@app-contracts/Message.json"
 import StarIcon from "@mui/icons-material/Star"
@@ -185,8 +185,7 @@ export const Tile = (option: DeployOption) => {
         WebkitBackdropFilter: 'blur(10px)',
         border: '1px solid rgba(255, 255, 255, 0.3)',
         borderRadius: 2,
-        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-        overflow: 'visible'
+        overflow: 'visible',
       }}
     >
       <CardHeader

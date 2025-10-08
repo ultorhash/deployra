@@ -13,14 +13,11 @@ export const Header = (): JSX.Element => {
             <img
               src="/assets/icons/logo.svg"
               alt="logo"
-              style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: 5 }}
+              style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: 10 }}
             />
           </Box>
            <Box sx={{ flexGrow: 1 }}>
-            <Typography
-              variant="h6"
-              component="p"
-            >
+            <Typography variant="h6">
               Deployra
             </Typography>
             <Typography

@@ -1,8 +1,7 @@
 import { Fragment, useMemo, useState } from "react";
 import { Box, Grid, ToggleButton, ToggleButtonGroup, Typography, useTheme } from "@mui/material";
 import { Tile } from "@app-components";
-import { DeployOption } from "@app-types";
-import { deployOptions } from "./data";
+import { deployOptions } from "../../deploy-options";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
@@ -79,9 +78,9 @@ export const ChainTiles = () => {
         value={filter}
         onChange={handleFilterChange}
         sx={{
-          mb: 3,
           display: 'flex',
-          flexWrap: isSmall ? 'wrap' : 'nowrap'
+          flexWrap: isSmall ? 'wrap' : 'nowrap',
+          mb: { xs: 1, sm: 2, md: 3 }
         }}
       >
         {filterOptions.map(({ value, label, icon }) => (
