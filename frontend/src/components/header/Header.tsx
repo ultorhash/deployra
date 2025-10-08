@@ -17,10 +17,17 @@ export const Header = (): JSX.Element => {
             />
           </Box>
            <Box sx={{ flexGrow: 1 }}>
-            <Typography variant="h6" component="p">
+            <Typography
+              variant="h6"
+              component="p"
+            >
               Deployra
             </Typography>
-            <Typography variant="caption" component="p" sx={{ color: theme.palette.text.secondary }}>
+            <Typography
+              variant="caption"
+              component="p"
+              sx={{ color: theme.palette.text.secondary }}
+            >
               Your smart contracts
             </Typography>
           </Box>

@@ -79,7 +79,7 @@ export const ChainTiles = () => {
         value={filter}
         onChange={handleFilterChange}
         sx={{
-          mb: 2,
+          mb: 3,
           display: 'flex',
           flexWrap: isSmall ? 'wrap' : 'nowrap'
         }}
@@ -94,7 +94,8 @@ export const ChainTiles = () => {
               textTransform: 'none',
               backgroundColor: 'rgba(0, 123, 255, 0.2)',
               color: '#FFF',
-              border: '1px solid rgba(255, 255, 255, 0.3)'
+              border: '1px solid rgba(255, 255, 255, 0.3) !important',
+              borderRadius: isSmall ? 0 : 2
             }}
           >
             <Typography variant="inherit">{label}</Typography>
@@ -114,7 +115,8 @@ export const ChainTiles = () => {
                 height: '100%',
                 p: 2,
                 backgroundColor: 'rgba(0, 123, 255, 0.2)',
-                border: '1px solid rgba(255, 255, 255, 0.3)'
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                borderRadius: 2
               }}>
                 <Typography>No {filter} chains</Typography>
             </Box>
