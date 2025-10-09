@@ -15,7 +15,8 @@ export default defineConfig({
       "@app-components": path.resolve(__dirname, "src/components/index.ts"),
       "@app-chains": path.resolve(__dirname, "src/chains/index.ts"),
       "@app-types": path.resolve(__dirname, "src/types/index.ts"),
-      "@app-enums": path.resolve(__dirname, "src/enums/index.ts")
+      "@app-enums": path.resolve(__dirname, "src/enums/index.ts"),
+      "@app-hooks": path.resolve(__dirname, "src/hooks/index.ts")
     }
   }
 });

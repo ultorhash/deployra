@@ -1,6 +1,7 @@
 import { Fragment, useMemo, useState } from "react";
-import { Box, Grid, ToggleButton, ToggleButtonGroup, Typography, useTheme } from "@mui/material";
+import { Box, Grid, TextField, ToggleButton, ToggleButtonGroup, Typography, useTheme } from "@mui/material";
 import { Tile } from "@app-components";
+import { DeployOption } from "@app-types";
 import { deployOptions } from "../../deploy-options";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
@@ -12,6 +13,7 @@ export const ChainTiles = () => {
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
+  const [searchValue, setSearchValue] = useState<string>("");
   const [filter, setFilter] = useState(() => {
     return localStorage.getItem("chainFilter") || "all";
   });
@@ -24,6 +26,10 @@ export const ChainTiles = () => {
       localStorage.setItem("chainFilter", newFilter);
       setFilter(newFilter);
     }
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
   };
 
   const filterOptions = [
@@ -50,58 +56,76 @@ export const ChainTiles = () => {
   ]
   
   const filteredOptions = useMemo(() => {
-    if (filter === "all") return deployOptions;
+    let base = deployOptions;
 
     if (filter === "hot") {
-
-      return deployOptions.filter((option) => option.tags.includes("hot"));
+      base = base.filter((option) => option.tags.includes("hot"));
+    } else if (filter === "new") {
+      base = base.filter((option) => option.tags.includes("new"));
+    } else if (filter === "favorites") {
+      const favorites = JSON.parse(localStorage.getItem("favorites") || "{}");
+      base = base.filter((option) => favorites[option.chainId] === true);
     }
 
-    if (filter === "new") {
-      return deployOptions.filter((option) => option.tags.includes("new"));
+    if (searchValue.trim()) {
+      const query = searchValue.toLowerCase();
+      base = base.filter((option: DeployOption) =>
+        option.chain.toLowerCase().includes(query) ||
+        String(option.chainId).includes(query)
+      );
     }
 
-    if (filter === "favorites") {
-      const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-      return deployOptions.filter((option) => favorites[option.chainId]);
-    }
-
-    return deployOptions;
-  }, [filter]);
+    return base;
+  }, [filter, searchValue]);
 
   return (
     <Fragment>
-      <ToggleButtonGroup
-        fullWidth
-        exclusive
-        aria-label="Filter"
-        value={filter}
-        onChange={handleFilterChange}
+      <Box
         sx={{
           display: 'flex',
-          flexWrap: isSmall ? 'wrap' : 'nowrap',
+          flexDirection: isSmall ? 'column' : 'row',
+          gap: 2,
           mb: { xs: 1, sm: 2, md: 3 }
         }}
       >
-        {filterOptions.map(({ value, label, icon }) => (
-          <ToggleButton
-            disableRipple
-            key={value} 
-            value={value}
-            sx={{
-              gap: 1,
-              textTransform: 'none',
-              backgroundColor: 'rgba(0, 123, 255, 0.2)',
-              color: '#FFF',
-              border: '1px solid rgba(255, 255, 255, 0.3) !important',
-              borderRadius: isSmall ? 0 : 2
-            }}
-          >
-            <Typography variant="inherit">{label}</Typography>
-            {icon}
-          </ToggleButton>
-        ))}
-      </ToggleButtonGroup>
+        <ToggleButtonGroup
+          fullWidth
+          exclusive
+          aria-label="Filter"
+          value={filter}
+          onChange={handleFilterChange}
+          sx={{
+            display: 'flex',
+            flexWrap: isSmall ? 'wrap' : 'nowrap'
+          }}
+        >
+          {filterOptions.map(({ value, label, icon }) => (
+            <ToggleButton
+              disableRipple
+              key={value}
+              value={value}
+              sx={{
+                gap: 1,
+                textTransform: 'none',
+                backgroundColor: 'rgba(0, 123, 255, 0.2)',
+                color: '#FFF',
+                border: '1px solid rgba(255, 255, 255, 0.3) !important',
+                borderRadius: isSmall ? 0 : 2
+              }}
+            >
+              <Typography variant="inherit">{label}</Typography>
+              {icon}
+            </ToggleButton>
+          ))}
+        </ToggleButtonGroup>
+        <TextField
+          fullWidth
+          value={searchValue}
+          onChange={handleSearchChange}
+          placeholder="Search by name or ID..."
+          sx={{ mb: isSmall ? 1 : 0 }}
+        />
+      </Box>
       <Grid
         container
         rowSpacing={{ xs: 1, sm: 2, md: 3 }}
