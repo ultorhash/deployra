@@ -5,7 +5,7 @@ import {
   ink, mode, orderly, apeChain, zksync, hemi, lisk, taiko, mint, blast, polygonZkEvm,
   manta, fraxtal, bob, story, avalanche, canto, bsc, moonbeam, moonriver, astar,
   confluxESpace, beam, chiliz, worldchain, shibarium, flare, degen, xai, kava,
-  aurora, zetachain, cronos, megaethTestnet
+  aurora, zetachain, cronos, megaethTestnet, plumeMainnet
 } from 'wagmi/chains';
 
 const baseUX = { ...base, iconUrl: "/assets/chains/base.jpg", iconBackground: 'transparent' };
@@ -42,6 +42,7 @@ const flareUX = { ...flare, iconUrl: "/assets/chains/flare.svg", iconBackground:
 const xaiUX = { ...xai, iconUrl: "/assets/chains/xai.svg", iconBackground: 'transparent' };
 const kavaUX = { ...kava, iconUrl: "/assets/chains/kava.svg", iconBackground: 'transparent' };
 const auroraUX = { ...aurora, iconUrl: "/assets/chains/aurora.svg", iconBackground: 'transparent' };
+const plumeMainnetUX = { ...plumeMainnet, iconUrl: "/assets/chains/plume.jpg", iconBackground: 'transparent' };
 
 export const supportedChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   baseUX, optimism, unichain, soneiumUX, sonicUX, polygon, seiUX, scroll, lensUX, linea, morphUX,
@@ -49,5 +50,5 @@ export const supportedChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   modeUX, orderlyUX, apeChain, zksync, hemiUX, liskUX, taikoUX, mintUX, blast, polygonZkEvmUX,
   manta, fraxtalUX, bobUX, storyUX, avalanche, cantoUX, bsc, moonbeamUX, moonriverUX, astarUX,
   confluxESpaceUX, beamUX, chilizUX, worldchainUX, shibariumUX, flareUX, degen, xaiUX, kavaUX,
-  auroraUX, zetachain, cronos, megaethTestnetUX
+  auroraUX, zetachain, cronos, megaethTestnetUX, plumeMainnetUX
 ];

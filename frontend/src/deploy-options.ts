@@ -1,6 +1,6 @@
 import type { DeployOption } from "@app-types";
 
-export const deployOptions: DeployOption[] = [
+const mainnetOptions: DeployOption[] = [
   { chain: "Base", chainId: 8453, type: "mainnet", icon: "base.jpg", fee: 0.000045, color: "#0000FF", textColor: "#FFF", tags: ["hot"] },
   { chain: "Optimism", chainId: 10, type: "mainnet", icon: "optimism.png", fee: 0.000045, color: "#FF0420", textColor: "#FFF", tags: [] },
   { chain: "Unichain", chainId: 130, type: "mainnet", icon: "unichain.png", fee: 0.000045, color: "#F51BBD", textColor: "#FFF", tags: ["hot"] },
@@ -51,6 +51,10 @@ export const deployOptions: DeployOption[] = [
   { chain: "Cronos", chainId: 25, type: "mainnet", icon: "cronos.png", fee: 1, color: "#000", textColor: "#FFF", tags: ["hot"] },
   { chain: "Botanix", chainId: 3637, type: "mainnet", icon: "botanix.png", fee: 0.000005, color: "#FACD02", textColor: "#000", tags: [] },
   { chain: "Katana", chainId: 747474, type: "mainnet", icon: "katana.svg", fee: 0.000005, color: "#F4FF00", textColor: "#000", tags: ["hot"] },
+  { chain: "Plume", chainId: 98866, type: "mainnet", icon: "plume.jpg", fee: 0.03, color: "#FF3C00", textColor: "#FFF", tags: ["hot"] }
+];
+
+const testnetOptions: DeployOption[] = [
   { chain: "Sepolia Testnet", chainId: 11155111, type: "testnet", icon: "sepolia.png", fee: 0.00005, color: "#627EEA", textColor: "#FFF", tags: [] },
   { chain: "Monad Testnet", chainId: 10143, type: "testnet", icon: "monad.png", fee: 0.01, color: "#8070F2", textColor: "#FFF", tags: [] },
   { chain: "Rise Testnet", chainId: 11155931, type: "testnet", icon: "rise.svg", fee: 0.0001, color: "#7A67E5", textColor: "#FFF", tags: [] },
@@ -66,3 +70,5 @@ export const deployOptions: DeployOption[] = [
   { chain: "Giwa Testnet", chainId: 91342, type: "testnet", icon: "giwa.jpg", fee: 0.000015, color: "#FFF", textColor: "#000", tags: ["hot"] },
   { chain: "Neura Testnet", chainId: 267, type: "testnet", icon: "neura.jpg", fee: 0.000004, color: "#7FFF76", textColor: "#000", tags: ["hot", "new"] }
 ];
+
+export const deployOptions: DeployOption[] = [...mainnetOptions, ...testnetOptions];
