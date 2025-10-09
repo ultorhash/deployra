@@ -12,8 +12,13 @@ import { giwaTestnet } from "./giwa-testnet";
 import { neuraTestnet } from "./neura-testnet";
 import { katana } from "./katana";
 import { kiteai } from "./kiteai-testnet";
+import { kiiTestnet } from "./kii-testnet";
+import { mezo } from "./mezo";
+import { juchain } from "./juchain";
+import { mitosis } from "./mitosis";
 
 export const customChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   hyperevm, pharos, citrea, botanix, mocaTestnet, ogGalileoTestnet, xosTestnet,
-  blockchainTestnet, fluentTestnet, giwaTestnet, neuraTestnet, katana, kiteai
+  blockchainTestnet, fluentTestnet, giwaTestnet, neuraTestnet, katana, kiteai,
+  kiiTestnet, mezo, juchain, mitosis
 ];

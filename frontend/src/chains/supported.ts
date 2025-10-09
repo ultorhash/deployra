@@ -5,7 +5,7 @@ import {
   ink, mode, orderly, apeChain, zksync, hemi, lisk, taiko, mint, blast, polygonZkEvm,
   manta, fraxtal, bob, story, avalanche, canto, bsc, moonbeam, moonriver, astar,
   confluxESpace, beam, chiliz, worldchain, shibarium, flare, degen, xai, kava,
-  aurora, zetachain, cronos, megaethTestnet, plumeMainnet
+  aurora, zetachain, cronos, megaethTestnet, plumeMainnet, xdc, kaia, arbitrum
 } from 'wagmi/chains';
 
 const baseUX = { ...base, iconUrl: "/assets/chains/base.jpg", iconBackground: 'transparent' };
@@ -50,5 +50,5 @@ export const supportedChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   modeUX, orderlyUX, apeChain, zksync, hemiUX, liskUX, taikoUX, mintUX, blast, polygonZkEvmUX,
   manta, fraxtalUX, bobUX, storyUX, avalanche, cantoUX, bsc, moonbeamUX, moonriverUX, astarUX,
   confluxESpaceUX, beamUX, chilizUX, worldchainUX, shibariumUX, flareUX, degen, xaiUX, kavaUX,
-  auroraUX, zetachain, cronos, megaethTestnetUX, plumeMainnetUX
+  auroraUX, zetachain, cronos, megaethTestnetUX, plumeMainnetUX, xdc, kaia, arbitrum
 ];

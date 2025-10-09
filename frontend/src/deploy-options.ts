@@ -10,6 +10,7 @@ const mainnetOptions: DeployOption[] = [
   { chain: "HyperEVM", chainId: 999, type: "mainnet", icon: "hyperevm.svg", fee: 0.002, color: "#97FCE4", textColor: "#000", tags: ["hot"] },
   { chain: "Sei", chainId: 1329, type: "mainnet", icon: "sei.svg", fee: 0.4, color: "#901111", textColor: "#FFF", tags: [] },
   { chain: "Scroll", chainId: 534352, type: "mainnet", icon: "scroll.png", fee: 0.000015, color: "#FFEEDA", textColor: "#000", tags: [] },
+  { chain: "Arbitrum", chainId: 42161, type: "mainnet", icon: "arbitrum.jpg", fee: 0.000015, color: "#FFF", textColor: "#000", tags: [] },
   { chain: "Lens", chainId: 232, type: "mainnet", icon: "lens.svg", fee: 0.1, color: "#FFF", textColor: "#000", tags: [] },
   { chain: "Linea", chainId: 59144, type: "mainnet", icon: "linea.png", fee: 0.000045, color: "#61DFFF", textColor: "#FFF", tags: ["hot"] },
   { chain: "Morph", chainId: 2818, type: "mainnet", icon: "morph.svg", fee: 0.000045, color: "#14A800", textColor: "#FFF", tags: [] },
@@ -51,7 +52,12 @@ const mainnetOptions: DeployOption[] = [
   { chain: "Cronos", chainId: 25, type: "mainnet", icon: "cronos.png", fee: 1, color: "#000", textColor: "#FFF", tags: ["hot"] },
   { chain: "Botanix", chainId: 3637, type: "mainnet", icon: "botanix.png", fee: 0.000005, color: "#FACD02", textColor: "#000", tags: [] },
   { chain: "Katana", chainId: 747474, type: "mainnet", icon: "katana.svg", fee: 0.000005, color: "#F4FF00", textColor: "#000", tags: ["hot"] },
-  { chain: "Plume", chainId: 98866, type: "mainnet", icon: "plume.jpg", fee: 0.03, color: "#FF3C00", textColor: "#FFF", tags: ["hot"] }
+  { chain: "Plume", chainId: 98866, type: "mainnet", icon: "plume.jpg", fee: 0.03, color: "#FF3C00", textColor: "#FFF", tags: ["hot"] },
+  { chain: "XDC", chainId: 50, type: "mainnet", icon: "xdc.jpg", fee: 0.03, color: "#244C80", textColor: "#FFF", tags: [] },
+  { chain: "Mezo", chainId: 31612, type: "mainnet", icon: "mezo.jpg", fee: 0.03, color: "#FF004C", textColor: "#FFF", tags: [] },
+  { chain: "Kaia", chainId: 8217, type: "mainnet", icon: "kaia.jpg", fee: 0.025, color: "#BFF009", textColor: "#000", tags: [] },
+  { chain: "JuChain", chainId: 210000, type: "mainnet", icon: "juchain.jpg", fee: 0.01, color: "#153BFE", textColor: "#FFF", tags: ["hot"] },
+  { chain: "Mitosis", chainId: 124816, type: "mainnet", icon: "mitosis.jpg", fee: 0.2, color: "#5E5DF7", textColor: "#FFF", tags: ["hot"] }
 ];
 
 const testnetOptions: DeployOption[] = [
@@ -69,7 +75,8 @@ const testnetOptions: DeployOption[] = [
   { chain: "Fluent Testnet", chainId: 20994, type: "testnet", icon: "fluent.jpg", fee: 0.000033, color: "#000", textColor: "#FFF", tags: [] },
   { chain: "Giwa Testnet", chainId: 91342, type: "testnet", icon: "giwa.jpg", fee: 0.000015, color: "#FFF", textColor: "#000", tags: ["hot"] },
   { chain: "Neura Testnet", chainId: 267, type: "testnet", icon: "neura.jpg", fee: 0.000004, color: "#7FFF76", textColor: "#000", tags: ["hot", "new"] },
-  { chain: "KiteAI Testnet", chainId: 2368, type: "testnet", icon: "kiteai.jpg", fee: 0.0001, color: "#000", textColor: "#FFF", tags: ["hot", "new"] }
+  { chain: "KiteAI Testnet", chainId: 2368, type: "testnet", icon: "kiteai.jpg", fee: 0.0001, color: "#000", textColor: "#FFF", tags: ["hot", "new"] },
+  { chain: "Kii Testnet", chainId: 1336, type: "testnet", icon: "kii.jpg", fee: 0.000025, color: "#332976", textColor: "#FFF", tags: [] }
 ];
 
 export const deployOptions: DeployOption[] = [...mainnetOptions, ...testnetOptions];
