@@ -16,14 +16,14 @@ export const Header = (): JSX.Element => {
               style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: 10 }}
             />
           </Box>
-           <Box sx={{ flexGrow: 1 }}>
-            <Typography variant="h6">
+          <Box sx={{ flexGrow: 1 }}>
+            <Typography variant="h6" sx={{ lineHeight: 1, mb: 1 }}>
               Deployra
             </Typography>
             <Typography
               variant="caption"
               component="p"
-              sx={{ color: theme.palette.text.secondary }}
+              sx={{ color: theme.palette.text.secondary, lineHeight: 1 }}
             >
               Your smart contracts
             </Typography>

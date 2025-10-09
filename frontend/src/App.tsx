@@ -1,7 +1,6 @@
 import { Fragment, type JSX } from 'react';
 import { Box } from '@mui/material';
 import { Header, Footer, ChainTiles } from "@app-components";
-import { deployOptions } from 'deploy-options';
 
 export const App = (): JSX.Element => {
   return (
@@ -18,7 +17,7 @@ export const App = (): JSX.Element => {
       >
         <ChainTiles />
       </Box>
-      <Footer options={deployOptions} />
+      <Footer />
     </Fragment>
   )
 }

@@ -1,18 +1,15 @@
 import { JSX } from "react";
 import { BottomNavigationAction, Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { ChainBreakdown, DeployOption } from "@app-types";
+import { ChainBreakdown } from "@app-types";
+import { deployOptions } from "deploy-options";
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import X from "@mui/icons-material/X";
 
-type FooterProps = {
-  options: DeployOption[];
-}
-
-export const Footer = ({ options }: FooterProps): JSX.Element => {
+export const Footer = (): JSX.Element => {
   const chainStats: ChainBreakdown[] = [
-    { type: 'Total', count: options.length, color: '#0084D8' },
-    { type: 'Mainnet', count: options.filter(o => o.type === "mainnet").length, color: '#1DB954' },
-    { type: 'Testnet', count: options.filter(o => o.type === "testnet").length, color: '#FFD700' }
+    { type: 'Total', count: deployOptions.length, color: '#0084D8' },
+    { type: 'Mainnet', count: deployOptions.filter(o => o.type === "mainnet").length, color: '#1DB954' },
+    { type: 'Testnet', count: deployOptions.filter(o => o.type === "testnet").length, color: '#FFD700' }
   ];
 
   const theme = useTheme();
@@ -74,7 +71,7 @@ export const Footer = ({ options }: FooterProps): JSX.Element => {
             color: theme.palette.primary.contrastText,
             backgroundColor: '#000'
           })}
-          onClick={() => window.open('https://x.com/UltorDeFi', '_blank')}
+          onClick={() => window.open('https://x.com/deployraxyz', '_blank')}
         />
       </Box>
     </Box>
