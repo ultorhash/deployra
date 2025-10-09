@@ -1,9 +1,10 @@
 import type { JSX } from "react";
-import { AppBar, Box, Toolbar, Typography, useTheme } from "@mui/material";
+import { AppBar, Box, Toolbar, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export const Header = (): JSX.Element => {
   const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -16,17 +17,27 @@ export const Header = (): JSX.Element => {
               style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: 10 }}
             />
           </Box>
-          <Box sx={{ flexGrow: 1 }}>
-            <Typography variant="h6" sx={{ lineHeight: 1, mb: 1 }}>
+          <Box
+            display="flex"
+            flexDirection="column"
+            gap={0.5}
+            sx={{ flexGrow: 1 }}
+          >
+            <Typography
+              variant="h6"
+              sx={{ lineHeight: 1 }}
+            >
               Deployra
             </Typography>
-            <Typography
-              variant="caption"
-              component="p"
-              sx={{ color: theme.palette.text.secondary, lineHeight: 1 }}
-            >
-              Your smart contracts
-            </Typography>
+            {!isSmall && (
+              <Typography
+                variant="caption"
+                component="p"
+                sx={{ color: theme.palette.text.secondary, lineHeight: 1 }}
+              >
+                Your smart contracts
+              </Typography>
+            )}
           </Box>
           <ConnectButton chainStatus="icon" />
         </Toolbar>
