@@ -68,7 +68,8 @@ const testnetOptions: DeployOption[] = [
   { chain: "Block Chain Testkek", chainId: 6231991, type: "testnet", icon: "blockchain.jpg", fee: 0.00002, color: "#0000FF", textColor: "#FFF", tags: ["hot"] },
   { chain: "Fluent Testnet", chainId: 20994, type: "testnet", icon: "fluent.jpg", fee: 0.000033, color: "#000", textColor: "#FFF", tags: [] },
   { chain: "Giwa Testnet", chainId: 91342, type: "testnet", icon: "giwa.jpg", fee: 0.000015, color: "#FFF", textColor: "#000", tags: ["hot"] },
-  { chain: "Neura Testnet", chainId: 267, type: "testnet", icon: "neura.jpg", fee: 0.000004, color: "#7FFF76", textColor: "#000", tags: ["hot", "new"] }
+  { chain: "Neura Testnet", chainId: 267, type: "testnet", icon: "neura.jpg", fee: 0.000004, color: "#7FFF76", textColor: "#000", tags: ["hot", "new"] },
+  { chain: "KiteAI Testnet", chainId: 2368, type: "testnet", icon: "kiteai.jpg", fee: 0.0001, color: "#000", textColor: "#FFF", tags: ["hot", "new"] }
 ];
 
 export const deployOptions: DeployOption[] = [...mainnetOptions, ...testnetOptions];

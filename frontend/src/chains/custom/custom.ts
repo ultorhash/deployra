@@ -11,8 +11,9 @@ import { fluentTestnet } from "./fluent-testnet";
 import { giwaTestnet } from "./giwa-testnet";
 import { neuraTestnet } from "./neura-testnet";
 import { katana } from "./katana";
+import { kiteai } from "./kiteai-testnet";
 
 export const customChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   hyperevm, pharos, citrea, botanix, mocaTestnet, ogGalileoTestnet, xosTestnet,
-  blockchainTestnet, fluentTestnet, giwaTestnet, neuraTestnet, katana
+  blockchainTestnet, fluentTestnet, giwaTestnet, neuraTestnet, katana, kiteai
 ];
