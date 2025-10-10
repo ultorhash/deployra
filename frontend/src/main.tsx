@@ -12,8 +12,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import '@rainbow-me/rainbowkit/styles.css';
 
 const config = getDefaultConfig({
-  appName: 'My Dapp',
-  projectId: 'MY_ID',
+  appName: 'Deployra',
+  projectId: 'eed77281a9b574399a9cfe910e50cbaf',
   ssr: false,
   chains: chains,
 });
