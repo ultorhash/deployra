@@ -57,7 +57,8 @@ const mainnetOptions: DeployOption[] = [
   { chain: "Mezo", chainId: 31612, type: "mainnet", icon: "mezo.jpg", fee: 0.03, color: "#FF004C", textColor: "#FFF", tags: [] },
   { chain: "Kaia", chainId: 8217, type: "mainnet", icon: "kaia.jpg", fee: 0.025, color: "#BFF009", textColor: "#000", tags: [] },
   { chain: "JuChain", chainId: 210000, type: "mainnet", icon: "juchain.jpg", fee: 0.01, color: "#153BFE", textColor: "#FFF", tags: ["hot"] },
-  { chain: "Mitosis", chainId: 124816, type: "mainnet", icon: "mitosis.jpg", fee: 0.2, color: "#5E5DF7", textColor: "#FFF", tags: ["hot"] }
+  { chain: "Mitosis", chainId: 124816, type: "mainnet", icon: "mitosis.jpg", fee: 0.2, color: "#5E5DF7", textColor: "#FFF", tags: ["hot"] },
+  { chain: "Sahara AI", chainId: 3132023, type: "mainnet", icon: "sahara.png", fee: 0.2, color: "#F8FF98", textColor: "#000", tags: ["new"] }
 ];
 
 const testnetOptions: DeployOption[] = [
