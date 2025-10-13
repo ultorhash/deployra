@@ -61,6 +61,7 @@ const mainnetOptions: DeployOption[] = [
   { chain: "Sahara AI", chainId: 3132023, type: "mainnet", icon: "sahara.png", fee: 0.2, color: "#F8FF98", textColor: "#000", tags: ["new"] },
   { chain: "Somnia", chainId: 5031, type: "mainnet", icon: "somnia.svg", fee: 0.05, color: "#483BF6", textColor: "#FFF", tags: ["new"] },
   { chain: "Plasma", chainId: 9745, type: "mainnet", icon: "plasma.jpg", fee: 0.04, color: "#162f29", textColor: "#FFF", tags: ["new"] },
+  { chain: "Gate Layer", chainId: 10088, type: "mainnet", icon: "gatelayer.jpg", fee: 0.005, color: "#000", textColor: "#FFF", tags: ["new"] },
 ];
 
 const testnetOptions: DeployOption[] = [

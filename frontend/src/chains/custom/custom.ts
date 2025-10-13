@@ -20,9 +20,11 @@ import { nitrographTestnet } from "./nitrograph-testnet";
 import { sahara } from "./sahara";
 import { somnia } from "./somnia";
 import { plasma } from "./plasma";
+import { gateLayer } from "./gate-layer";
 
 export const customChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   hyperevm, pharos, citrea, botanix, mocaTestnet, ogGalileoTestnet, xosTestnet,
   blockchainTestnet, fluentTestnet, giwaTestnet, neuraTestnet, katana, kiteai,
-  kiiTestnet, mezo, juchain, mitosis, nitrographTestnet, sahara, somnia, plasma
+  kiiTestnet, mezo, juchain, mitosis, nitrographTestnet, sahara, somnia, plasma,
+  gateLayer
 ];
