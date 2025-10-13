@@ -64,6 +64,8 @@ const mainnetOptions: DeployOption[] = [
   { chain: "Gate Layer", chainId: 10088, type: "mainnet", icon: "gatelayer.jpg", fee: 0.005, color: "#000", textColor: "#FFF", tags: ["new"] },
   { chain: "0G Mainnet", chainId: 16661, type: "mainnet", icon: "0g.png", fee: 0.025, color: "#BA51FA", textColor: "#FFF", tags: ["new"] },
   { chain: "Zero Network", chainId: 543210, type: "mainnet", icon: "zeronetwork.jpg", fee: 0.000045, color: "#000", textColor: "#FFF", tags: ["new"] },
+  { chain: "Humanity Protocol", chainId: 6985385, type: "mainnet", icon: "humanityprotocol.jpg", fee: 0.3, color: "#BA5400", textColor: "#FFF", tags: ["new"] },
+  { chain: "Zora", chainId: 7777777, type: "mainnet", icon: "zora.jpg", fee: 0.000045, color: "#3566E6", textColor: "#FFF", tags: ["new"] },
 ];
 
 const testnetOptions: DeployOption[] = [

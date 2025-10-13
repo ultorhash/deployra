@@ -22,10 +22,11 @@ import { somnia } from "./somnia";
 import { plasma } from "./plasma";
 import { gateLayer } from "./gate-layer";
 import { zeroNetwork } from "viem/chains";
+import { humanityProtocol } from "./humanity-protocol";
 
 export const customChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   hyperevm, pharos, citrea, botanix, mocaTestnet, OG, xosTestnet, zeroNetwork,
   blockchainTestnet, fluentTestnet, giwaTestnet, neuraTestnet, katana, kiteai,
   kiiTestnet, mezo, juchain, mitosis, nitrographTestnet, sahara, somnia, plasma,
-  gateLayer
+  gateLayer, humanityProtocol
 ];
