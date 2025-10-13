@@ -17,7 +17,6 @@ const morphUX = { ...morph, iconUrl: "/assets/chains/morph.svg", iconBackground:
 const abstractUX = { ...abstract, iconUrl: "/assets/chains/abstract.png", iconBackground: 'transparent' };
 const monadTestnetUX = { ...monadTestnet, iconUrl: "/assets/chains/monad.png", iconBackground: 'transparent' };
 const riseTestnetUX = { ...riseTestnet, iconUrl: "/assets/chains/rise.svg", iconBackground: 'transparent' };
-const somniaTestnetUX = { ...somniaTestnet, iconUrl: "/assets/chains/somnia.svg", iconBackground: 'transparent' };
 const megaethTestnetUX = { ...megaethTestnet, iconUrl: "/assets/chains/megaeth.png", iconBackground: 'transparent' };
 const modeUX = { ...mode, iconUrl: "/assets/chains/mode.svg", iconBackground: 'transparent' };
 const orderlyUX = { ...orderly, iconUrl: "/assets/chains/orderly.svg", iconBackground: 'transparent' };
@@ -46,7 +45,7 @@ const plumeMainnetUX = { ...plumeMainnet, iconUrl: "/assets/chains/plume.jpg", i
 
 export const supportedChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   baseUX, optimism, unichain, soneiumUX, sonicUX, polygon, seiUX, scroll, lensUX, linea, morphUX,
-  berachain, abstractUX, mantle, sepolia, monadTestnetUX, riseTestnetUX, somniaTestnetUX, ink,
+  berachain, abstractUX, mantle, sepolia, monadTestnetUX, riseTestnetUX, ink,
   modeUX, orderlyUX, apeChain, zksync, hemiUX, liskUX, taikoUX, mintUX, blast, polygonZkEvmUX,
   manta, fraxtalUX, bobUX, storyUX, avalanche, cantoUX, bsc, moonbeamUX, moonriverUX, astarUX,
   confluxESpaceUX, beamUX, chilizUX, worldchainUX, shibariumUX, flareUX, degen, xaiUX, kavaUX,

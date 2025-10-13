@@ -58,14 +58,14 @@ const mainnetOptions: DeployOption[] = [
   { chain: "Kaia", chainId: 8217, type: "mainnet", icon: "kaia.jpg", fee: 0.025, color: "#BFF009", textColor: "#000", tags: [] },
   { chain: "JuChain", chainId: 210000, type: "mainnet", icon: "juchain.jpg", fee: 0.01, color: "#153BFE", textColor: "#FFF", tags: ["hot"] },
   { chain: "Mitosis", chainId: 124816, type: "mainnet", icon: "mitosis.jpg", fee: 0.2, color: "#5E5DF7", textColor: "#FFF", tags: ["hot"] },
-  { chain: "Sahara AI", chainId: 3132023, type: "mainnet", icon: "sahara.png", fee: 0.2, color: "#F8FF98", textColor: "#000", tags: ["new"] }
+  { chain: "Sahara AI", chainId: 3132023, type: "mainnet", icon: "sahara.png", fee: 0.2, color: "#F8FF98", textColor: "#000", tags: ["new"] },
+  { chain: "Somnia", chainId: 5031, type: "mainnet", icon: "somnia.svg", fee: 0.05, color: "#483BF6", textColor: "#FFF", tags: ["new"] },
 ];
 
 const testnetOptions: DeployOption[] = [
   { chain: "Sepolia Testnet", chainId: 11155111, type: "testnet", icon: "sepolia.png", fee: 0.00005, color: "#627EEA", textColor: "#FFF", tags: [] },
   { chain: "Monad Testnet", chainId: 10143, type: "testnet", icon: "monad.png", fee: 0.01, color: "#8070F2", textColor: "#FFF", tags: [] },
   { chain: "Rise Testnet", chainId: 11155931, type: "testnet", icon: "rise.svg", fee: 0.0001, color: "#7A67E5", textColor: "#FFF", tags: [] },
-  { chain: "Somnia Testnet", chainId: 50312, type: "testnet", icon: "somnia.svg", fee: 0.1, color: "#483BF6", textColor: "#FFF", tags: [] },
   { chain: "Pharos Testnet", chainId: 688688, type: "testnet", icon: "pharos.png", fee: 0.005, color: "#0007B8", textColor: "#FFF", tags: ["hot"] },
   { chain: "Citrea Testnet", chainId: 5115, type: "testnet", icon: "citrea.png", fee: 0.000005, color: "#E47530", textColor: "#FFF", tags: [] },
   { chain: "Moca Testnet", chainId: 5151, type: "testnet", icon: "moca.png", fee: 0.00002, color: "#C15F97", textColor: "#FFF", tags: [] },

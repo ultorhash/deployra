@@ -18,9 +18,10 @@ import { juchain } from "./juchain";
 import { mitosis } from "./mitosis";
 import { nitrographTestnet } from "./nitrograph-testnet";
 import { sahara } from "./sahara";
+import { somnia } from "./somnia";
 
 export const customChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   hyperevm, pharos, citrea, botanix, mocaTestnet, ogGalileoTestnet, xosTestnet,
   blockchainTestnet, fluentTestnet, giwaTestnet, neuraTestnet, katana, kiteai,
-  kiiTestnet, mezo, juchain, mitosis, nitrographTestnet, sahara
+  kiiTestnet, mezo, juchain, mitosis, nitrographTestnet, sahara, somnia
 ];
