@@ -4,7 +4,7 @@ import { pharos } from "./pharos";
 import { citrea } from "./citrea";
 import { botanix } from "./botanix";
 import { mocaTestnet } from "./moca-testnet";
-import { ogGalileoTestnet } from "./0g-galileo-testnet";
+import { OG } from "./0g";
 import { xosTestnet } from "./xos-testnet";
 import { blockchainTestnet } from "./block-chain-testnet";
 import { fluentTestnet } from "./fluent-testnet";
@@ -23,7 +23,7 @@ import { plasma } from "./plasma";
 import { gateLayer } from "./gate-layer";
 
 export const customChains: [RainbowKitChain, ...RainbowKitChain[]] = [
-  hyperevm, pharos, citrea, botanix, mocaTestnet, ogGalileoTestnet, xosTestnet,
+  hyperevm, pharos, citrea, botanix, mocaTestnet, OG, xosTestnet,
   blockchainTestnet, fluentTestnet, giwaTestnet, neuraTestnet, katana, kiteai,
   kiiTestnet, mezo, juchain, mitosis, nitrographTestnet, sahara, somnia, plasma,
   gateLayer

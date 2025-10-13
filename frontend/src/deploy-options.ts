@@ -62,6 +62,7 @@ const mainnetOptions: DeployOption[] = [
   { chain: "Somnia", chainId: 5031, type: "mainnet", icon: "somnia.svg", fee: 0.05, color: "#483BF6", textColor: "#FFF", tags: ["new"] },
   { chain: "Plasma", chainId: 9745, type: "mainnet", icon: "plasma.jpg", fee: 0.04, color: "#162f29", textColor: "#FFF", tags: ["new"] },
   { chain: "Gate Layer", chainId: 10088, type: "mainnet", icon: "gatelayer.jpg", fee: 0.005, color: "#000", textColor: "#FFF", tags: ["new"] },
+  { chain: "0G Mainnet", chainId: 16661, type: "mainnet", icon: "0g.png", fee: 0.025, color: "#BA51FA", textColor: "#FFF", tags: ["new"] },
 ];
 
 const testnetOptions: DeployOption[] = [
@@ -71,14 +72,13 @@ const testnetOptions: DeployOption[] = [
   { chain: "Pharos Testnet", chainId: 688688, type: "testnet", icon: "pharos.png", fee: 0.005, color: "#0007B8", textColor: "#FFF", tags: ["hot"] },
   { chain: "Citrea Testnet", chainId: 5115, type: "testnet", icon: "citrea.png", fee: 0.000005, color: "#E47530", textColor: "#FFF", tags: [] },
   { chain: "Moca Testnet", chainId: 5151, type: "testnet", icon: "moca.png", fee: 0.00002, color: "#C15F97", textColor: "#FFF", tags: [] },
-  { chain: "0G Testnet", chainId: 16601, type: "testnet", icon: "0glabs.png", fee: 0.00001, color: "#BA51FA", textColor: "#FFF", tags: [] },
   { chain: "MegaETH Testnet", chainId: 6342, type: "testnet", icon: "megaeth.png", fee: 0.00001, color: "#DFD9D9", textColor: "#000", tags: [] },
   { chain: "XOS Testnet", chainId: 1267, type: "testnet", icon: "xos.png", fee: 0.00005, color: "#000", textColor: "#FFF", tags: ["hot"] },
   { chain: "Block Chain Testkek", chainId: 6231991, type: "testnet", icon: "blockchain.jpg", fee: 0.00002, color: "#0000FF", textColor: "#FFF", tags: ["hot"] },
   { chain: "Fluent Testnet", chainId: 20994, type: "testnet", icon: "fluent.jpg", fee: 0.000033, color: "#000", textColor: "#FFF", tags: [] },
   { chain: "Giwa Testnet", chainId: 91342, type: "testnet", icon: "giwa.jpg", fee: 0.000015, color: "#FFF", textColor: "#000", tags: [] },
-  { chain: "Neura Testnet", chainId: 267, type: "testnet", icon: "neura.jpg", fee: 0.000004, color: "#7FFF76", textColor: "#000", tags: ["hot", "new"] },
-  { chain: "KiteAI Testnet", chainId: 2368, type: "testnet", icon: "kiteai.jpg", fee: 0.0001, color: "#000", textColor: "#FFF", tags: ["hot", "new"] },
+  { chain: "Neura Testnet", chainId: 267, type: "testnet", icon: "neura.jpg", fee: 0.000004, color: "#7FFF76", textColor: "#000", tags: ["hot"] },
+  { chain: "KiteAI Testnet", chainId: 2368, type: "testnet", icon: "kiteai.jpg", fee: 0.0001, color: "#000", textColor: "#FFF", tags: ["hot"] },
   { chain: "Kii Testnet", chainId: 1336, type: "testnet", icon: "kii.jpg", fee: 0.000025, color: "#332976", textColor: "#FFF", tags: [] },
   { chain: "Nitro Graph Testnet", chainId: 200024, type: "testnet", icon: "nitrograph.jpg", fee: 0.00005, color: "#FC2E00", textColor: "#FFF", tags: ["new"] }
 ];

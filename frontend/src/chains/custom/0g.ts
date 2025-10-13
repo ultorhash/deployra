@@ -2,19 +2,19 @@ import { defineChain } from "viem";
 
 const sourceId = 1;
 
-export const ogGalileoTestnet = defineChain({
-  id: 16601,
-  name: '0G Galileo Testnet',
-  nativeCurrency: { name: 'A0GI', symbol: 'A0GI', decimals: 18 },
+export const OG = defineChain({
+  id: 16661,
+  name: '0G Mainnet',
+  nativeCurrency: { name: '0G', symbol: '0G', decimals: 18 },
   rpcUrls: {
     default: {
-      http: ['https://evmrpc-testnet.0g.ai'],
+      http: ['https://evmrpc.0g.ai'],
     },
   },
   blockExplorers: {
     default: {
-      name: 'chainscan galileo',
-      url: 'https://chainscan-galileo.0g.ai'
+      name: 'chainscan 0G',
+      url: 'https://chainscan.0g.ai'
     },
   },
   contracts: {
@@ -23,7 +23,7 @@ export const ogGalileoTestnet = defineChain({
       blockCreated: 0
     }
   },
-  iconUrl: "/assets/chains/0glabs.png",
+  iconUrl: "/assets/chains/0g.png",
   iconBackground: 'transparent',
   sourceId
 });
