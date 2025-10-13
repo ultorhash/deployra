@@ -23,10 +23,11 @@ import { plasma } from "./plasma";
 import { gateLayer } from "./gate-layer";
 import { zeroNetwork } from "viem/chains";
 import { humanityProtocol } from "./humanity-protocol";
+import { zora } from "./zora";
 
 export const customChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   hyperevm, pharos, citrea, botanix, mocaTestnet, OG, xosTestnet, zeroNetwork,
   blockchainTestnet, fluentTestnet, giwaTestnet, neuraTestnet, katana, kiteai,
   kiiTestnet, mezo, juchain, mitosis, nitrographTestnet, sahara, somnia, plasma,
-  gateLayer, humanityProtocol
+  gateLayer, humanityProtocol, zora
 ];
