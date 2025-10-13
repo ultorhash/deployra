@@ -60,6 +60,7 @@ const mainnetOptions: DeployOption[] = [
   { chain: "Mitosis", chainId: 124816, type: "mainnet", icon: "mitosis.jpg", fee: 0.2, color: "#5E5DF7", textColor: "#FFF", tags: ["hot"] },
   { chain: "Sahara AI", chainId: 3132023, type: "mainnet", icon: "sahara.png", fee: 0.2, color: "#F8FF98", textColor: "#000", tags: ["new"] },
   { chain: "Somnia", chainId: 5031, type: "mainnet", icon: "somnia.svg", fee: 0.05, color: "#483BF6", textColor: "#FFF", tags: ["new"] },
+  { chain: "Plasma", chainId: 9745, type: "mainnet", icon: "plasma.jpg", fee: 0.04, color: "#162f29", textColor: "#FFF", tags: ["new"] },
 ];
 
 const testnetOptions: DeployOption[] = [
