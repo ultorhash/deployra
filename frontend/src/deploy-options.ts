@@ -63,6 +63,7 @@ const mainnetOptions: DeployOption[] = [
   { chain: "Plasma", chainId: 9745, type: "mainnet", icon: "plasma.jpg", fee: 0.04, color: "#162f29", textColor: "#FFF", tags: ["new"] },
   { chain: "Gate Layer", chainId: 10088, type: "mainnet", icon: "gatelayer.jpg", fee: 0.005, color: "#000", textColor: "#FFF", tags: ["new"] },
   { chain: "0G Mainnet", chainId: 16661, type: "mainnet", icon: "0g.png", fee: 0.025, color: "#BA51FA", textColor: "#FFF", tags: ["new"] },
+  { chain: "Zero Network", chainId: 543210, type: "mainnet", icon: "zeronetwork.jpg", fee: 0.000045, color: "#000", textColor: "#FFF", tags: ["new"] },
 ];
 
 const testnetOptions: DeployOption[] = [
