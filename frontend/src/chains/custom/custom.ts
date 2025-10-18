@@ -21,7 +21,7 @@ import { sahara } from "./sahara";
 import { somnia } from "./somnia";
 import { plasma } from "./plasma";
 import { gateLayer } from "./gate-layer";
-import { zeroNetwork } from "viem/chains";
+import { zeroNetwork } from "./zero-network";
 import { humanityProtocol } from "./humanity-protocol";
 import { zora } from "./zora";
 

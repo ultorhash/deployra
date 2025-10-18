@@ -2,7 +2,7 @@ import { defineChain } from "viem";
 
 const sourceId = 1;
 
-export const somnia = defineChain({
+export const zeroNetwork = defineChain({
   id: 543210,
   name: 'Zero Network',
   nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
