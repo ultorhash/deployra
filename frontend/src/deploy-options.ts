@@ -85,6 +85,7 @@ const testnetOptions: DeployOption[] = [
   { chain: "Kii Testnet", chainId: 1336, type: "testnet", icon: "kii.jpg", fee: 0.000025, color: "#332976", textColor: "#FFF", tags: [] },
   { chain: "Nitro Graph Testnet", chainId: 200024, type: "testnet", icon: "nitrograph.jpg", fee: 0.00005, color: "#FC2E00", textColor: "#FFF", tags: ["new"] },
   { chain: "Base Sepolia Testnet", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0.0005, color: "#0000FF", textColor: "#FFF", tags: ["hot"] },
+  { chain: "OP Sepolia Testnet", chainId: 11155420, type: "testnet", icon: "optimism.png", fee: 0.00033, color: "#FF0420", textColor: "#FFF", tags: ["hot"] },
 ];
 
 export const deployOptions: DeployOption[] = [...mainnetOptions, ...testnetOptions];
