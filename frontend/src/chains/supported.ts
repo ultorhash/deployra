@@ -43,6 +43,8 @@ const xaiUX = { ...xai, iconUrl: "/assets/chains/xai.svg", iconBackground: 'tran
 const kavaUX = { ...kava, iconUrl: "/assets/chains/kava.svg", iconBackground: 'transparent' };
 const auroraUX = { ...aurora, iconUrl: "/assets/chains/aurora.svg", iconBackground: 'transparent' };
 const plumeMainnetUX = { ...plumeMainnet, iconUrl: "/assets/chains/plume.jpg", iconBackground: 'transparent' };
+const soneiumMinatoUX = { ...soneiumMinato, iconUrl: "/assets/chains/soneium.svg", iconBackground: 'transparent' };
+const liskSepoliatUX = { ...liskSepolia, iconUrl: "/assets/chains/lisk.svg", iconBackground: 'transparent' };
 
 export const supportedChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   baseUX, optimism, unichain, soneiumUX, sonicUX, polygon, seiUX, scroll, lensUX, linea, morphUX,
@@ -51,5 +53,5 @@ export const supportedChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   manta, fraxtalUX, bobUX, storyUX, avalanche, cantoUX, bsc, moonbeamUX, moonriverUX, astarUX,
   confluxESpaceUX, beamUX, chilizUX, worldchainUX, shibariumUX, flareUX, degen, xaiUX, kavaUX,
   auroraUX, zetachain, cronos, megaethTestnetUX, plumeMainnetUX, xdc, kaia, arbitrum, baseSepolia,
-  optimismSepolia, inkSepolia, unichainSepolia, soneiumMinato
+  optimismSepolia, inkSepolia, unichainSepolia, soneiumMinatoUX, liskSepoliatUX
 ];
