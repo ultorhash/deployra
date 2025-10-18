@@ -51,5 +51,5 @@ export const supportedChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   manta, fraxtalUX, bobUX, storyUX, avalanche, cantoUX, bsc, moonbeamUX, moonriverUX, astarUX,
   confluxESpaceUX, beamUX, chilizUX, worldchainUX, shibariumUX, flareUX, degen, xaiUX, kavaUX,
   auroraUX, zetachain, cronos, megaethTestnetUX, plumeMainnetUX, xdc, kaia, arbitrum, baseSepolia,
-  optimismSepolia, inkSepolia, unichainSepolia
+  optimismSepolia, inkSepolia, unichainSepolia, soneiumMinato
 ];
