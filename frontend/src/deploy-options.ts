@@ -2,7 +2,7 @@ import type { DeployOption } from "@app-types";
 
 const mainnetOptions: DeployOption[] = [
   { chain: "Base", chainId: 8453, type: "mainnet", icon: "base.jpg", fee: 0.000045, color: "#0000FF", textColor: "#FFF", tags: ["hot"] },
-  { chain: "Optimism", chainId: 10, type: "mainnet", icon: "optimism.png", fee: 0.000045, color: "#FF0420", textColor: "#FFF", tags: [] },
+  { chain: "Optimism", chainId: 10, type: "mainnet", icon: "optimism.png", fee: 0.000045, color: "#FF0420", textColor: "#FFF", tags: ["hot"] },
   { chain: "Unichain", chainId: 130, type: "mainnet", icon: "unichain.png", fee: 0.000045, color: "#F51BBD", textColor: "#FFF", tags: ["hot"] },
   { chain: "Soneium", chainId: 1868, type: "mainnet", icon: "soneium.svg", fee: 0.000045, color: "#6398C7", textColor: "#FFF", tags: ["hot"] },
   { chain: "Sonic", chainId: 146, type: "mainnet", icon: "sonic.svg", fee: 0.2, color: "#FFF", textColor: "#000", tags: ["hot"] },
@@ -23,7 +23,7 @@ const mainnetOptions: DeployOption[] = [
   { chain: "ApeChain", chainId: 33139, type: "mainnet", icon: "apechain.svg", fee: 0.2, color: "#4B35FA", textColor: "#FFF", tags: [] },
   { chain: "zkSync Era", chainId: 324, type: "mainnet", icon: "zksync.png", fee: 0.000045, color: "#FFF", textColor: "#000", tags: [] },
   { chain: "Hemi", chainId: 43111, type: "mainnet", icon: "hemi.svg", fee: 0.000045, color: "#FF6C15", textColor: "#FFF", tags: ["hot"] },
-  { chain: "Lisk", chainId: 1135, type: "mainnet", icon: "lisk.svg", fee: 0.000045, color: "#FFF", textColor: "#000", tags: [] },
+  { chain: "Lisk", chainId: 1135, type: "mainnet", icon: "lisk.svg", fee: 0.000045, color: "#FFF", textColor: "#000", tags: ["hot"] },
   { chain: "Taiko", chainId: 167000, type: "mainnet", icon: "taiko.svg", fee: 0.000045, color: "#E81899", textColor: "#FFF", tags: [] },
   { chain: "Mint", chainId: 185, type: "mainnet", icon: "mint.svg", fee: 0.000045, color: "#30BF54", textColor: "#FFF", tags: [] },
   { chain: "Blast", chainId: 81457, type: "mainnet", icon: "blast.svg", fee: 0.000045, color: "#000", textColor: "#FFF", tags: [] },
@@ -41,7 +41,7 @@ const mainnetOptions: DeployOption[] = [
   { chain: "Conflux", chainId: 1030, type: "mainnet", icon: "conflux.svg", fee: 1, color: "#1BAD8D", textColor: "#FFF", tags: [] },
   { chain: "Beam", chainId: 4337, type: "mainnet", icon: "beam.svg", fee: 15, color: "#BBDBFF", textColor: "#000", tags: [] },
   { chain: "Chiliz", chainId: 88888, type: "mainnet", icon: "chiliz.svg", fee: 2.5, color: "#FF004B", textColor: "#FFF", tags: [] },
-  { chain: "World Chain", chainId: 480, type: "mainnet", icon: "worldchain.svg", fee: 0.000045, color: "#FFF", textColor: "#000", tags: ["hot"] },
+  { chain: "World Chain", chainId: 480, type: "mainnet", icon: "worldchain.svg", fee: 0.000045, color: "#FFF", textColor: "#000", tags: [] },
   { chain: "Shibarium", chainId: 109, type: "mainnet", icon: "shibarium.svg", fee: 1, color: "#FFAF28", textColor: "#FFF", tags: [] },
   { chain: "Flare", chainId: 14, type: "mainnet", icon: "flare.svg", fee: 5, color: "#E62359", textColor: "#FFF", tags: [] },
   { chain: "Degen", chainId: 666666666, type: "mainnet", icon: "degen.png", fee: 20, color: "#A36EFE", textColor: "#FFF", tags: [] },
@@ -58,14 +58,14 @@ const mainnetOptions: DeployOption[] = [
   { chain: "Kaia", chainId: 8217, type: "mainnet", icon: "kaia.jpg", fee: 0.025, color: "#BFF009", textColor: "#000", tags: [] },
   { chain: "JuChain", chainId: 210000, type: "mainnet", icon: "juchain.jpg", fee: 0.01, color: "#153BFE", textColor: "#FFF", tags: ["hot"] },
   { chain: "Mitosis", chainId: 124816, type: "mainnet", icon: "mitosis.jpg", fee: 0.2, color: "#5E5DF7", textColor: "#FFF", tags: ["hot"] },
-  { chain: "Sahara AI", chainId: 3132023, type: "mainnet", icon: "sahara.png", fee: 0.2, color: "#F8FF98", textColor: "#000", tags: ["new"] },
-  { chain: "Somnia", chainId: 5031, type: "mainnet", icon: "somnia.svg", fee: 0.05, color: "#483BF6", textColor: "#FFF", tags: ["new"] },
-  { chain: "Plasma", chainId: 9745, type: "mainnet", icon: "plasma.jpg", fee: 0.04, color: "#162f29", textColor: "#FFF", tags: ["new"] },
-  { chain: "Gate Layer", chainId: 10088, type: "mainnet", icon: "gatelayer.jpg", fee: 0.005, color: "#000", textColor: "#FFF", tags: ["new"] },
-  { chain: "0G Mainnet", chainId: 16661, type: "mainnet", icon: "0g.png", fee: 0.025, color: "#BA51FA", textColor: "#FFF", tags: ["new"] },
-  { chain: "Zero Network", chainId: 543210, type: "mainnet", icon: "zeronetwork.jpg", fee: 0.000045, color: "#000", textColor: "#FFF", tags: ["new"] },
-  { chain: "Humanity Protocol", chainId: 6985385, type: "mainnet", icon: "humanityprotocol.jpg", fee: 0.3, color: "#BA5400", textColor: "#FFF", tags: ["new"] },
-  { chain: "Zora", chainId: 7777777, type: "mainnet", icon: "zora.jpg", fee: 0.000045, color: "#3566E6", textColor: "#FFF", tags: ["new"] },
+  { chain: "Sahara AI", chainId: 3132023, type: "mainnet", icon: "sahara.png", fee: 0.2, color: "#F8FF98", textColor: "#000", tags: [] },
+  { chain: "Somnia", chainId: 5031, type: "mainnet", icon: "somnia.svg", fee: 0.05, color: "#483BF6", textColor: "#FFF", tags: [] },
+  { chain: "Plasma", chainId: 9745, type: "mainnet", icon: "plasma.jpg", fee: 0.04, color: "#162f29", textColor: "#FFF", tags: [] },
+  { chain: "Gate Layer", chainId: 10088, type: "mainnet", icon: "gatelayer.jpg", fee: 0.005, color: "#000", textColor: "#FFF", tags: [] },
+  { chain: "0G Mainnet", chainId: 16661, type: "mainnet", icon: "0g.png", fee: 0.025, color: "#BA51FA", textColor: "#FFF", tags: [] },
+  { chain: "Zero Network", chainId: 543210, type: "mainnet", icon: "zeronetwork.jpg", fee: 0.000045, color: "#000", textColor: "#FFF", tags: [] },
+  { chain: "Humanity Protocol", chainId: 6985385, type: "mainnet", icon: "humanityprotocol.jpg", fee: 0.3, color: "#BA5400", textColor: "#FFF", tags: [] },
+  { chain: "Zora", chainId: 7777777, type: "mainnet", icon: "zora.jpg", fee: 0.000045, color: "#3566E6", textColor: "#FFF", tags: [] },
 ];
 
 const testnetOptions: DeployOption[] = [
@@ -83,13 +83,13 @@ const testnetOptions: DeployOption[] = [
   { chain: "Neura Testnet", chainId: 267, type: "testnet", icon: "neura.jpg", fee: 0.000004, color: "#7FFF76", textColor: "#000", tags: ["hot"] },
   { chain: "KiteAI Testnet", chainId: 2368, type: "testnet", icon: "kiteai.jpg", fee: 0.0001, color: "#000", textColor: "#FFF", tags: ["hot"] },
   { chain: "Kii Testnet", chainId: 1336, type: "testnet", icon: "kii.jpg", fee: 0.000025, color: "#332976", textColor: "#FFF", tags: [] },
-  { chain: "Nitro Graph Testnet", chainId: 200024, type: "testnet", icon: "nitrograph.jpg", fee: 0.00005, color: "#FC2E00", textColor: "#FFF", tags: ["new"] },
-  { chain: "Base Sepolia Testnet", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0.00025, color: "#0000FF", textColor: "#FFF", tags: ["hot"] },
-  { chain: "OP Sepolia Testnet", chainId: 11155420, type: "testnet", icon: "optimism.png", fee: 0.00025, color: "#FF0420", textColor: "#FFF", tags: ["hot"] },
-  { chain: "Ink Sepolia Testnet", chainId: 763373, type: "testnet", icon: "ink.svg", fee: 0.00025, color: "#9E7CEB", textColor: "#FFF", tags: [] },
-  { chain: "Unichain Sepolia Testnet", chainId: 1301, type: "testnet", icon: "unichain.png", fee: 0.00025, color: "#F51BBD", textColor: "#FFF", tags: [] },
-  { chain: "Soneium Minato Testnet", chainId: 1946, type: "testnet", icon: "soneium.svg", fee: 0.00025, color: "#6398C7", textColor: "#FFF", tags: [] },
-  { chain: "Lisk Sepolia Testnet", chainId: 4202, type: "testnet", icon: "lisk.svg", fee: 0.00025, color: "#FFF", textColor: "#000", tags: [] }
+  { chain: "Nitro Graph Testnet", chainId: 200024, type: "testnet", icon: "nitrograph.jpg", fee: 0.00005, color: "#FC2E00", textColor: "#FFF", tags: [] },
+  { chain: "Base Sepolia Testnet", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0.00025, color: "#0000FF", textColor: "#FFF", tags: ["new"] },
+  { chain: "OP Sepolia Testnet", chainId: 11155420, type: "testnet", icon: "optimism.png", fee: 0.00025, color: "#FF0420", textColor: "#FFF", tags: ["new"] },
+  { chain: "Ink Sepolia Testnet", chainId: 763373, type: "testnet", icon: "ink.svg", fee: 0.00025, color: "#9E7CEB", textColor: "#FFF", tags: ["new"] },
+  { chain: "Unichain Sepolia Testnet", chainId: 1301, type: "testnet", icon: "unichain.png", fee: 0.00025, color: "#F51BBD", textColor: "#FFF", tags: ["new"] },
+  { chain: "Soneium Minato Testnet", chainId: 1946, type: "testnet", icon: "soneium.svg", fee: 0.00025, color: "#6398C7", textColor: "#FFF", tags: ["new"] },
+  { chain: "Lisk Sepolia Testnet", chainId: 4202, type: "testnet", icon: "lisk.svg", fee: 0.00025, color: "#FFF", textColor: "#000", tags: ["new"] }
 ];
 
 export const deployOptions: DeployOption[] = [...mainnetOptions, ...testnetOptions];
