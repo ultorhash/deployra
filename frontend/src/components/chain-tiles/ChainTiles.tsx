@@ -1,6 +1,6 @@
 import { Fragment, useMemo, useState } from "react";
 import { Box, Grid, TextField, ToggleButton, ToggleButtonGroup, Typography, useTheme } from "@mui/material";
-import { Tile } from "@app-components";
+import { BaseLearnTile, Tile } from "@app-components";
 import { DeployOption } from "@app-types";
 import { deployOptions } from "../../deploy-options";
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -156,7 +156,10 @@ export const ChainTiles = () => {
                 key={index}
                 size={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }}
               >
-                <Tile {...option} />
+                {option.tags.includes("baseLearn")
+                  ? <BaseLearnTile {...option} />
+                  : <Tile {...option} />
+                }
               </Grid>
             ))
         }
