@@ -7,7 +7,7 @@ export const contractAddresses: Record<DeployTypes, { verifyAddress: string }> =
   [DeployTypes.ARRAYS_EXERCISE]: { verifyAddress: "0x5b0f80ca6f5bd60cc3b64f0377f336b2b2a56cdf" },
   [DeployTypes.FAVORITE_RECORDS]: { verifyAddress: "0xD32E3ACe3272e2037003Ca54CA7E5676f9b8D06C" },
   [DeployTypes.GARAGE_MANAGER]: { verifyAddress: "0x9eb1fa4cd9bd29ca2c8e72217a642811c1f6176d" },
-  [DeployTypes.INHERITANCE]: { verifyAddress: "0xF90dA05e77a33Fe6D64bc2Df84e7dd0069A2111C" },
+  [DeployTypes.INHERITANCE_SUBMISSION]: { verifyAddress: "0xF90dA05e77a33Fe6D64bc2Df84e7dd0069A2111C" },
   [DeployTypes.IMPORTS_EXERCISE]: { verifyAddress: "0x8dd188ec36084d59948f90213afcd04429e33c0c" },
   [DeployTypes.ERROR_TRIAGE_EXERCISE]: { verifyAddress: "0xc1bd0d9a8863f2318001bc5024c7f5f58a2236f7" },
   [DeployTypes.ADDRESS_BOOK]: { verifyAddress: "0x4f21e69d0cde8c21cf82a6b37dda5444716afa46" },
