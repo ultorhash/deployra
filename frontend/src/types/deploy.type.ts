@@ -2,6 +2,7 @@ import { DeployTypes } from "@app-enums";
 
 type DeployOptionOptional = {
   deployType?: DeployTypes;
+  args?: unknown[];
 }
 
 export type DeployOption = DeployOptionOptional & {

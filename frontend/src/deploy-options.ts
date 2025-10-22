@@ -1,6 +1,18 @@
 import { DeployTypes } from "@app-enums";
 import type { DeployOption } from "@app-types";
 
+const approvedRecords = [
+  "Thriller",
+  "Back in Black",
+  "The Bodyguard",
+  "The Dark Side of the Moon",
+  "Their Greatest Hits (1971-1975)",
+  "Hotel California",
+  "Come On Over",
+  "Rumours",
+  "Saturday Night Fever",
+];
+
 const mainnetOptions: DeployOption[] = [
   { chain: "Base", chainId: 8453, type: "mainnet", icon: "base.jpg", fee: 0.000045, color: "#0000FF", textColor: "#FFF", tags: ["hot"] },
   { chain: "Optimism", chainId: 10, type: "mainnet", icon: "optimism.png", fee: 0.000045, color: "#FF0420", textColor: "#FFF", tags: ["hot"] },
@@ -94,19 +106,19 @@ const testnetOptions: DeployOption[] = [
 ];
 
 const baseLearnOptions: DeployOption[] = [
-  { chain: "Basic Math", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.BASIC_MATH },
-  { chain: "Control Structures", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.CONTROL_STRUCTURES },
-  { chain: "Employee Storage", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.EMPLOYEE_STORAGE },
-  { chain: "Arrays Exercise", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.ARRAYS_EXERCISE },
-  { chain: "Favorite Records", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.FAVORITE_RECORDS },
-  { chain: "Garage Manager", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.GARAGE_MANAGER },
-  { chain: "Inheritance Submission", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.INHERITANCE_SUBMISSION },
-  { chain: "Imports Exercise", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.IMPORTS_EXERCISE },
-  { chain: "Error Triage Exercise", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.ERROR_TRIAGE_EXERCISE },
-  { chain: "Address Book", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.ADDRESS_BOOK },
-  { chain: "Unburnable Token", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.UNBURNABLE_TOKEN },
-  { chain: "Weighted Voting", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.WEIGHTED_VOTING },
-  { chain: "Haiku NFT", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.HAIKU_NFT }
+  { chain: "Basic Math", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.BASIC_MATH, args: [] },
+  { chain: "Control Structures", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.CONTROL_STRUCTURES, args: [] },
+  { chain: "Employee Storage", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.EMPLOYEE_STORAGE, args: [1000, "Pat", 50000, 112358132134] },
+  { chain: "Arrays Exercise", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.ARRAYS_EXERCISE, args: [] },
+  { chain: "Favorite Records", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.FAVORITE_RECORDS, args: [approvedRecords] },
+  { chain: "Garage Manager", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.GARAGE_MANAGER, args: [] },
+  { chain: "Inheritance Submission", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.INHERITANCE_SUBMISSION, args: [] },
+  { chain: "Imports Exercise", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.IMPORTS_EXERCISE, args: [] },
+  { chain: "Error Triage Exercise", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.ERROR_TRIAGE_EXERCISE, args: [] },
+  { chain: "Address Book", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.ADDRESS_BOOK, args: [] },
+  { chain: "Unburnable Token", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.UNBURNABLE_TOKEN, args: [] },
+  { chain: "Weighted Voting", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.WEIGHTED_VOTING, args: ["Test Weighted", "TESTW"] },
+  { chain: "Haiku NFT", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.HAIKU_NFT, args: ["Test Haiku NFT", "HAIKU"] }
 ];
 
 export const deployOptions: DeployOption[] = [...mainnetOptions, ...testnetOptions, ...baseLearnOptions];

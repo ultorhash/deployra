@@ -97,21 +97,21 @@ export const BaseLearnTile = (option: DeployOption) => {
         const salespersonHash = await walletClient.deployContract({
           abi: Salesperson.abi,
           bytecode: Salesperson.bytecode as Address,
-          args: [],
+          args: [55555, 12345, 20]
         });
         await publicClient?.waitForTransactionReceipt({ hash: salespersonHash });
 
         const engineeringHash = await walletClient.deployContract({
           abi: EngineeringManager.abi,
           bytecode: EngineeringManager.bytecode as Address,
-          args: [],
+          args: [54321, 11111, 200000]
         });
         await publicClient?.waitForTransactionReceipt({ hash: engineeringHash });
 
         const inheritanceHash = await walletClient.deployContract({
           abi: InheritanceSubmission.abi,
           bytecode: InheritanceSubmission.bytecode as Address,
-          args: [],
+          args: option.args ?? []
         });
 
         hash = inheritanceHash;
@@ -121,7 +121,7 @@ export const BaseLearnTile = (option: DeployOption) => {
         hash = await walletClient.deployContract({
           abi: contract.abi,
           bytecode: contract.bytecode as Address,
-          args: [],
+          args: option.args ?? []
         });
       }
 
@@ -208,9 +208,6 @@ export const BaseLearnTile = (option: DeployOption) => {
     }
 
     if (isError) {
-      console.log(isSuccess)
-      console.log(receipt)
-      console.log(txHash)
       enqueueSnackbar("Failed to deploy. Transaction rejected", { variant: "error" });
     }
 
