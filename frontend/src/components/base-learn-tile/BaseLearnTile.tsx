@@ -208,6 +208,9 @@ export const BaseLearnTile = (option: DeployOption) => {
     }
 
     if (isError) {
+      console.log(isSuccess)
+      console.log(receipt)
+      console.log(txHash)
       enqueueSnackbar("Failed to deploy. Transaction rejected", { variant: "error" });
     }
 
