@@ -8,6 +8,7 @@ import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import StarIcon from '@mui/icons-material/Star';
+import SquareIcon from '@mui/icons-material/Square';
 
 export const ChainTiles = () => {
   const theme = useTheme();
@@ -49,6 +50,11 @@ export const ChainTiles = () => {
       icon: <AutoAwesomeIcon sx={{ color: '#1DB954' }} />
     },
     {
+      value: 'baseLearn',
+      label: 'Base Learn',
+      icon: <SquareIcon sx={{ color: '#0000FF' }} />
+    },
+    {
       value: 'favorites',
       label: 'Favorites',
       icon: <StarIcon sx={{ color: '#FFD700' }} />
@@ -62,6 +68,8 @@ export const ChainTiles = () => {
       base = base.filter((option) => option.tags.includes("hot"));
     } else if (filter === "new") {
       base = base.filter((option) => option.tags.includes("new"));
+    } else if (filter === "baseLearn") {
+      base = base.filter((option) => option.tags.includes("baseLearn"));
     } else if (filter === "favorites") {
       const favorites = JSON.parse(localStorage.getItem("favorites") || "{}");
       base = base.filter((option) => favorites[option.chainId] === true);

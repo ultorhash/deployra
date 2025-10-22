@@ -92,4 +92,20 @@ const testnetOptions: DeployOption[] = [
   { chain: "Lisk Sepolia Testnet", chainId: 4202, type: "testnet", icon: "lisk.svg", fee: 0.00025, color: "#FFF", textColor: "#000", tags: ["new"] }
 ];
 
-export const deployOptions: DeployOption[] = [...mainnetOptions, ...testnetOptions];
+const baseLearnOptions: DeployOption[] = [
+  { chain: "Basic Math", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"] },
+  { chain: "Control Structures", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"] },
+  { chain: "Employee Storage", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"] },
+  { chain: "Arrays Exercise", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"] },
+  { chain: "Favorite Records", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"] },
+  { chain: "Garage Manager", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"] },
+  { chain: "Inheritance", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"] },
+  { chain: "Imports Exercise", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"] },
+  { chain: "Error Triage Exercise", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"] },
+  { chain: "New Exercise", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"] },
+  { chain: "Unburnable Token", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"] },
+  { chain: "Weighted Voting", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"] },
+  { chain: "Haiku NFT", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"] }
+];
+
+export const deployOptions: DeployOption[] = [...mainnetOptions, ...testnetOptions, ...baseLearnOptions];
