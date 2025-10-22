@@ -160,21 +160,7 @@ export const BaseLearnTile = (option: DeployOption) => {
     enqueueSnackbar("Minting badge...", { variant: "default" });
     await tx.wait();
 
-    enqueueSnackbar("Badge minted successfully!", {
-      variant: "success",
-      action: () => (
-        <Button
-          color="inherit"
-          size="small"
-          endIcon={<OpenInNewIcon />}
-          sx={{ fontSize: 14, textTransform: "none" }}
-          onClick={() => window.open(`${explorerRef.current}/tx/${tx.hash}`, "_blank")}
-        >
-          View
-        </Button>
-      ),
-    });
-
+    enqueueSnackbar("Badge minted successfully!", { variant: "success" });
     setEnableMint(false);
   };
 
