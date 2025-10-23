@@ -126,7 +126,7 @@ export const BaseLearnTile = (option: DeployOption) => {
     } catch (error: any) {
       const msg = error?.message?.toLowerCase() || "";
       if (error?.code === 4001 || msg.includes("user rejected") || msg.includes("cancelled")) {
-        enqueueSnackbar("Failed to deploy. Transaction rejected", { variant: "error" });
+        enqueueSnackbar("Failed to deploy. Transaction rejected.", { variant: "error" });
       }
     }
   };
@@ -232,7 +232,7 @@ export const BaseLearnTile = (option: DeployOption) => {
     }
 
     if (isError) {
-      enqueueSnackbar("Failed to deploy. Transaction rejected", { variant: "error" });
+      enqueueSnackbar("Failed to deploy. Transaction rejected.", { variant: "error" });
     }
 
     setTxHash(undefined);

@@ -122,7 +122,7 @@ export const Tile = (option: DeployOption) => {
         error?.message?.toLowerCase().includes("user rejected") ||
         error?.message?.toLowerCase().includes("cancelled")
       ) {
-        enqueueSnackbar('Failed to deploy. Transaction rejected', { variant: 'error' });
+        enqueueSnackbar('Failed to deploy. Transaction rejected.', { variant: 'error' });
       }
     }
   };
@@ -171,7 +171,7 @@ export const Tile = (option: DeployOption) => {
     }
 
     if (isError) {
-      enqueueSnackbar('Failed to deploy. Transaction rejected', { variant: 'error' });
+      enqueueSnackbar('Failed to deploy. Transaction rejected.', { variant: 'error' });
     }
 
     setTxHash(undefined);
