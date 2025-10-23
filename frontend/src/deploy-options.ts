@@ -115,7 +115,7 @@ const baseLearnOptions: DeployOption[] = [
   { chain: "Inheritance Submission", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.INHERITANCE_SUBMISSION, args: [] },
   { chain: "Imports Exercise", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.IMPORTS_EXERCISE, args: [] },
   { chain: "Error Triage Exercise", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.ERROR_TRIAGE_EXERCISE, args: [] },
-  { chain: "Address Book", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.ADDRESS_BOOK, args: [] },
+  { chain: "Address Book Factory", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.ADDRESS_BOOK_FACTORY, args: [] },
   { chain: "Unburnable Token", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.UNBURNABLE_TOKEN, args: [] },
   { chain: "Weighted Voting", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.WEIGHTED_VOTING, args: ["Test Weighted", "TESTW"] },
   { chain: "Haiku NFT", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0, color: "#0000FF", textColor: "#FFF", tags: ["baseLearn"], deployType: DeployTypes.HAIKU_NFT, args: ["Test Haiku NFT", "HAIKU"] }

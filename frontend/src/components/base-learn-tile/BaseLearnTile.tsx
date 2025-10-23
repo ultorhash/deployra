@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Avatar, Box, Button, Card, CardContent, CardHeader, IconButton, Typography } from "@mui/material"
+import { Avatar, Box, Button, Card, CardContent, CardHeader, CircularProgress, IconButton, Typography } from "@mui/material"
 import { injected, useAccount, useChainId, useConnect, useSwitchChain, useWaitForTransactionReceipt, useWalletClient, usePublicClient } from "wagmi"
 import { DeployOption } from "@app-types"
 import { DeployTypes } from "@app-enums"
@@ -21,7 +21,7 @@ import GarageManager from "@app-contracts/GarageManager.json"
 import InheritanceSubmission from "@app-contracts/InheritanceSubmission.json"
 import ImportsExercise from "@app-contracts/ImportsExercise.json"
 import ErrorTriageExercise from "@app-contracts/ErrorTriageExercise.json"
-import AddressBook from "@app-contracts/AddressBook.json"
+import AddressBookFactory from "@app-contracts/AddressBookFactory.json"
 import UnburnableToken from "@app-contracts/UnburnableToken.json"
 import WeightedVoting from "@app-contracts/WeightedVoting.json"
 import HaikuNFT from "@app-contracts/HaikuNFT.json"
@@ -38,7 +38,7 @@ const deployMap: Record<DeployTypes, { abi: any; bytecode: string }> = {
   [DeployTypes.INHERITANCE_SUBMISSION]: InheritanceSubmission,
   [DeployTypes.IMPORTS_EXERCISE]: ImportsExercise,
   [DeployTypes.ERROR_TRIAGE_EXERCISE]: ErrorTriageExercise,
-  [DeployTypes.ADDRESS_BOOK]: AddressBook,
+  [DeployTypes.ADDRESS_BOOK_FACTORY]: AddressBookFactory,
   [DeployTypes.UNBURNABLE_TOKEN]: UnburnableToken,
   [DeployTypes.WEIGHTED_VOTING]: WeightedVoting,
   [DeployTypes.HAIKU_NFT]: HaikuNFT,
@@ -53,6 +53,8 @@ export const BaseLearnTile = (option: DeployOption) => {
   const [deployType, setDeployType] = useState<DeployTypes>("" as DeployTypes);
   const [enableMint, setEnableMint] = useState(false);
   const [deploymentAddress, setDeploymentAddress] = useState<`0x${string}`>();
+  const [checking, setChecking] = useState(false);
+  const [status, setStatus] = useState(false);
   const explorerRef = useRef<string | undefined>(undefined);
 
   const { data: receipt, isLoading: isPending, isSuccess, isError } = useWaitForTransactionReceipt({ hash: txHash });
@@ -99,19 +101,19 @@ export const BaseLearnTile = (option: DeployOption) => {
           bytecode: Salesperson.bytecode as Address,
           args: [55555, 12345, 20]
         });
-        await publicClient?.waitForTransactionReceipt({ hash: salespersonHash });
+        const salespersonReceipt = await publicClient?.waitForTransactionReceipt({ hash: salespersonHash });
 
         const engineeringHash = await walletClient.deployContract({
           abi: EngineeringManager.abi,
           bytecode: EngineeringManager.bytecode as Address,
           args: [54321, 11111, 200000]
         });
-        await publicClient?.waitForTransactionReceipt({ hash: engineeringHash });
+        const engineeringReceipt = await publicClient?.waitForTransactionReceipt({ hash: engineeringHash });
 
         const inheritanceHash = await walletClient.deployContract({
           abi: InheritanceSubmission.abi,
           bytecode: InheritanceSubmission.bytecode as Address,
-          args: option.args ?? []
+          args: [salespersonReceipt?.contractAddress, engineeringReceipt?.contractAddress]
         });
 
         hash = inheritanceHash;
@@ -152,6 +154,8 @@ export const BaseLearnTile = (option: DeployOption) => {
 
     const signer = await getSigner();
     const grader = contractAddresses[deployType].verifyAddress;
+    console.log(grader);
+    console.log(deploymentAddress);
 
     const iface = new ethers.Interface(["function testContract(address _submissionAddress)"]);
     const data = iface.encodeFunctionData("testContract", [deploymentAddress]);
@@ -176,6 +180,36 @@ export const BaseLearnTile = (option: DeployOption) => {
     });
 
     setEnableMint(false);
+  };
+
+  const checkOwnership = async () => {
+    try {
+      setChecking(true);
+
+      const signer = await getSigner();
+      if (!signer) return;
+
+      const account = await signer.getAddress();
+      const target = contractAddresses[option.deployType as DeployTypes]?.verifyAddress;
+
+      if (!target) return;
+
+      try {
+        const iface = new ethers.Interface([
+          "function owners(address) view returns (bool)"
+        ]);
+
+        const data = iface.encodeFunctionData("owners", [account]);
+        const raw = await signer.call({ to: target, data });
+        const [isOwner] = iface.decodeFunctionResult("owners", raw);
+
+        setStatus(isOwner);
+      } catch {
+        setStatus(false);
+      }
+    } finally {
+      setChecking(false);
+    }
   };
 
   useEffect(() => {
@@ -214,6 +248,12 @@ export const BaseLearnTile = (option: DeployOption) => {
     setTxHash(undefined);
   }, [isSuccess, isError, receipt]);
 
+  useEffect(() => {
+    (async () => {
+      await checkOwnership();
+    })();
+  }, [walletClient]);
+
   return (
     <Card
       sx={{
@@ -237,6 +277,16 @@ export const BaseLearnTile = (option: DeployOption) => {
       />
       <CardContent>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+          <Typography sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            Status:{" "}
+            {checking ? (
+              <CircularProgress size={16} sx={{ color: "#FFF" }} />
+            ) : (
+              <span style={{ color: status ? "#1DB954" : "red", fontWeight: "500" }}>
+                {status ? "Claimed" : "Not claimed"}
+              </span>
+            )}
+          </Typography>
           <Button
             fullWidth
             variant="contained"

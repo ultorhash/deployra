@@ -10,7 +10,7 @@ export enum DeployTypes {
   INHERITANCE_SUBMISSION = "Inheritance Submission",
   IMPORTS_EXERCISE = "Imports Exercise",
   ERROR_TRIAGE_EXERCISE = "Error Triage Exercise",
-  ADDRESS_BOOK = "Address Book",
+  ADDRESS_BOOK_FACTORY = "Address Book Factory",
   UNBURNABLE_TOKEN = "Unburnable Token",
   WEIGHTED_VOTING = "Weighted Voting",
   HAIKU_NFT = "Haiku NFT"
