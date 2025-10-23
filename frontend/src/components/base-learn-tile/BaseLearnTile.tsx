@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Avatar, Box, Button, Card, CardContent, CardHeader, CircularProgress, IconButton, Typography } from "@mui/material"
+import { Avatar, Box, Button, Card, CardContent, CardHeader, CircularProgress, IconButton, Tooltip, Typography } from "@mui/material"
 import { injected, useAccount, useChainId, useConnect, useSwitchChain, useWaitForTransactionReceipt, useWalletClient, usePublicClient } from "wagmi"
 import { DeployOption } from "@app-types"
 import { DeployTypes } from "@app-enums"
@@ -9,8 +9,7 @@ import { enqueueSnackbar } from "notistack"
 import { RainbowKitChain } from "@rainbow-me/rainbowkit/dist/components/RainbowKitProvider/RainbowKitChainContext"
 import { contractAddresses } from "contract-addresses";
 import { ethers } from "ethers";
-import StarIcon from "@mui/icons-material/Star"
-import StarBorderIcon from "@mui/icons-material/StarBorder"
+import InfoIcon from "@mui/icons-material/InfoOutline"
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import BasicMath from "@app-contracts/BasicMath.json"
 import ControlStructures from "@app-contracts/ControlStructures.json"
@@ -27,6 +26,7 @@ import WeightedVoting from "@app-contracts/WeightedVoting.json"
 import HaikuNFT from "@app-contracts/HaikuNFT.json"
 import Salesperson from "@app-contracts/Salesperson.json"
 import EngineeringManager from "@app-contracts/EngineeringManager.json"
+import { ThreeP } from "@mui/icons-material";
 
 const deployMap: Record<DeployTypes, { abi: any; bytecode: string }> = {
   [DeployTypes.BASIC_MATH]: BasicMath,
@@ -46,7 +46,6 @@ const deployMap: Record<DeployTypes, { abi: any; bytecode: string }> = {
   [DeployTypes.CONTRACT]: { abi: "", bytecode: "" },
 };
 
-
 export const BaseLearnTile = (option: DeployOption) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [txHash, setTxHash] = useState<Address>();
@@ -64,14 +63,6 @@ export const BaseLearnTile = (option: DeployOption) => {
   const { connect } = useConnect();
   const chainId = useChainId();
   const publicClient = usePublicClient();
-
-  const toggleFavorite = () => {
-    const stored = localStorage.getItem("favorites");
-    const favorites = stored ? JSON.parse(stored) : {};
-    const updated = { ...favorites, [option.chainId]: !favorites[option.chainId] };
-    localStorage.setItem("favorites", JSON.stringify(updated));
-    setIsFavorite(updated[option.chainId]);
-  };
 
   const getButtonText = () => {
     if (!isConnected) return "Connect wallet";
@@ -154,8 +145,6 @@ export const BaseLearnTile = (option: DeployOption) => {
 
     const signer = await getSigner();
     const grader = contractAddresses[deployType].verifyAddress;
-    console.log(grader);
-    console.log(deploymentAddress);
 
     const iface = new ethers.Interface(["function testContract(address _submissionAddress)"]);
     const data = iface.encodeFunctionData("testContract", [deploymentAddress]);
@@ -163,6 +152,7 @@ export const BaseLearnTile = (option: DeployOption) => {
     const tx = await signer!.sendTransaction({ to: grader, data });
     enqueueSnackbar("Minting badge...", { variant: "default" });
     await tx.wait();
+    await checkOwnership();
 
     enqueueSnackbar("Badge minted successfully!", {
       variant: "success",
@@ -270,13 +260,21 @@ export const BaseLearnTile = (option: DeployOption) => {
         slotProps={{ title: { variant: "h6" } }}
         avatar={<Avatar alt={option.chain} src={`/assets/chains/${option.icon}`} />}
         action={
-          <IconButton onClick={toggleFavorite}>
-            {isFavorite ? <StarIcon sx={{ color: "#FFD700" }} /> : <StarBorderIcon sx={{ color: "#FFF" }} />}
-          </IconButton>
+          <Tooltip
+            arrow
+            title="Mint badge in order to verify task. Points for Base Learn usually sync within 2 days."
+          >
+            <IconButton sx={{ cursor: "default" }}>
+              <InfoIcon sx={{ color: "#FFF" }} />
+            </IconButton>
+          </Tooltip>
         }
       />
       <CardContent>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+          <Typography sx={{ fontSize: 12 }}>
+            {option.description}
+          </Typography>
           <Typography sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             Status:{" "}
             {checking ? (
