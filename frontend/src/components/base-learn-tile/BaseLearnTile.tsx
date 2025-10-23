@@ -262,7 +262,7 @@ export const BaseLearnTile = (option: DeployOption) => {
         action={
           <Tooltip
             arrow
-            title="Mint badge in order to verify task. Points for Base Learn usually sync within 2 days."
+            title="Mint the badge to verify your task. Points for Base Learn on Talent Protocol usually sync within 2 days."
           >
             <IconButton sx={{ cursor: "default" }}>
               <InfoIcon sx={{ color: "#FFF" }} />
