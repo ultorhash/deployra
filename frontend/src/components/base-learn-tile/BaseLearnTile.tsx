@@ -203,14 +203,6 @@ export const BaseLearnTile = (option: DeployOption) => {
   };
 
   useEffect(() => {
-    const stored = localStorage.getItem("favorites");
-    if (stored) {
-      const favorites = JSON.parse(stored);
-      setIsFavorite(!!favorites[option.chainId]);
-    }
-  }, [option.chainId]);
-
-  useEffect(() => {
     if (isSuccess && receipt?.contractAddress && txHash) {
       enqueueSnackbar("Deployed successfully!", {
         variant: "success",

@@ -97,12 +97,13 @@ const testnetOptions: DeployOption[] = [
   { chain: "KiteAI Testnet", chainId: 2368, type: "testnet", icon: "kiteai.jpg", fee: 0.0001, color: "#000", textColor: "#FFF", tags: ["hot"] },
   { chain: "Kii Testnet", chainId: 1336, type: "testnet", icon: "kii.jpg", fee: 0.000025, color: "#332976", textColor: "#FFF", tags: [] },
   { chain: "Nitro Graph Testnet", chainId: 200024, type: "testnet", icon: "nitrograph.jpg", fee: 0.00005, color: "#FC2E00", textColor: "#FFF", tags: [] },
-  { chain: "Base Sepolia Testnet", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0.00025, color: "#0000FF", textColor: "#FFF", tags: ["new"] },
-  { chain: "OP Sepolia Testnet", chainId: 11155420, type: "testnet", icon: "optimism.png", fee: 0.00025, color: "#FF0420", textColor: "#FFF", tags: ["new"] },
-  { chain: "Ink Sepolia Testnet", chainId: 763373, type: "testnet", icon: "ink.svg", fee: 0.00025, color: "#9E7CEB", textColor: "#FFF", tags: ["new"] },
-  { chain: "Unichain Sepolia Testnet", chainId: 1301, type: "testnet", icon: "unichain.png", fee: 0.00025, color: "#F51BBD", textColor: "#FFF", tags: ["new"] },
-  { chain: "Soneium Minato Testnet", chainId: 1946, type: "testnet", icon: "soneium.svg", fee: 0.00025, color: "#6398C7", textColor: "#FFF", tags: ["new"] },
-  { chain: "Lisk Sepolia Testnet", chainId: 4202, type: "testnet", icon: "lisk.svg", fee: 0.00025, color: "#FFF", textColor: "#000", tags: ["new"] }
+  { chain: "Base Sepolia Testnet", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0.00025, color: "#0000FF", textColor: "#FFF", tags: [] },
+  { chain: "OP Sepolia Testnet", chainId: 11155420, type: "testnet", icon: "optimism.png", fee: 0.00025, color: "#FF0420", textColor: "#FFF", tags: [] },
+  { chain: "Ink Sepolia Testnet", chainId: 763373, type: "testnet", icon: "ink.svg", fee: 0.00025, color: "#9E7CEB", textColor: "#FFF", tags: [] },
+  { chain: "Unichain Sepolia Testnet", chainId: 1301, type: "testnet", icon: "unichain.png", fee: 0.00025, color: "#F51BBD", textColor: "#FFF", tags: [] },
+  { chain: "Soneium Minato Testnet", chainId: 1946, type: "testnet", icon: "soneium.svg", fee: 0.00025, color: "#6398C7", textColor: "#FFF", tags: [] },
+  { chain: "Lisk Sepolia Testnet", chainId: 4202, type: "testnet", icon: "lisk.svg", fee: 0.00025, color: "#FFF", textColor: "#000", tags: [] },
+  { chain: "Sova Sepolia Testnet", chainId: 120893, type: "testnet", icon: "sova.png", fee: 0.00025, color: "#84F29C", textColor: "#000", tags: ["new"] }
 ];
 
 const baseLearnOptions: DeployOption[] = [
