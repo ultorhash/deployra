@@ -105,7 +105,8 @@ const testnetOptions: DeployOption[] = [
   { chain: "Lisk Sepolia Testnet", chainId: 4202, type: "testnet", icon: "lisk.svg", fee: 0.00025, color: "#FFF", textColor: "#000", tags: [] },
   { chain: "Sova Sepolia Testnet", chainId: 120893, type: "testnet", icon: "sova.png", fee: 0.00025, color: "#84F29C", textColor: "#000", tags: ["new"] },
   { chain: "Pharos Atlantic Testnet", chainId: 688689, type: "testnet", icon: "pharos.png", fee: 0.003, color: "#0007B8", textColor: "#FFF", tags: ["new", "hot"] },
-  { chain: "Arc Testnet", chainId: 5042002, type: "testnet", icon: "arc.jpg", fee: 0.0005, color: "#3D6A8D", textColor: "#FFF", tags: ["new", "hot"] }
+  { chain: "Arc Testnet", chainId: 5042002, type: "testnet", icon: "arc.jpg", fee: 0.0005, color: "#3D6A8D", textColor: "#FFF", tags: ["new", "hot"] },
+  { chain: "IOPn Testnet", chainId: 984, type: "testnet", icon: "iopn.jpg", fee: 0.005, color: "#000", textColor: "#FFF", tags: ["new", "hot"] }
 ];
 
 const baseLearnOptions: DeployOption[] = [
