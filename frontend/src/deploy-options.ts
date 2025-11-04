@@ -103,10 +103,11 @@ const testnetOptions: DeployOption[] = [
   { chain: "Unichain Sepolia Testnet", chainId: 1301, type: "testnet", icon: "unichain.png", fee: 0.00025, color: "#F51BBD", textColor: "#FFF", tags: [] },
   { chain: "Soneium Minato Testnet", chainId: 1946, type: "testnet", icon: "soneium.svg", fee: 0.00025, color: "#6398C7", textColor: "#FFF", tags: [] },
   { chain: "Lisk Sepolia Testnet", chainId: 4202, type: "testnet", icon: "lisk.svg", fee: 0.00025, color: "#FFF", textColor: "#000", tags: [] },
-  { chain: "Sova Sepolia Testnet", chainId: 120893, type: "testnet", icon: "sova.png", fee: 0.00025, color: "#84F29C", textColor: "#000", tags: ["new"] },
-  { chain: "Pharos Atlantic Testnet", chainId: 688689, type: "testnet", icon: "pharos.png", fee: 0.003, color: "#0007B8", textColor: "#FFF", tags: ["new", "hot"] },
-  { chain: "Arc Testnet", chainId: 5042002, type: "testnet", icon: "arc.jpg", fee: 0.0005, color: "#3D6A8D", textColor: "#FFF", tags: ["new", "hot"] },
-  { chain: "IOPn Testnet", chainId: 984, type: "testnet", icon: "iopn.jpg", fee: 0.005, color: "#000", textColor: "#FFF", tags: ["new", "hot"] }
+  { chain: "Sova Sepolia Testnet", chainId: 120893, type: "testnet", icon: "sova.png", fee: 0.00025, color: "#84F29C", textColor: "#000", tags: [] },
+  { chain: "Pharos Atlantic Testnet", chainId: 688689, type: "testnet", icon: "pharos.png", fee: 0.003, color: "#0007B8", textColor: "#FFF", tags: ["hot"] },
+  { chain: "Arc Testnet", chainId: 5042002, type: "testnet", icon: "arc.jpg", fee: 0.0005, color: "#3D6A8D", textColor: "#FFF", tags: ["hot"] },
+  { chain: "IOPn Testnet", chainId: 984, type: "testnet", icon: "iopn.jpg", fee: 0.005, color: "#000", textColor: "#FFF", tags: ["hot"] },
+  { chain: "Stable Testnet", chainId: 2201, type: "testnet", icon: "stable.jpg", fee: 0.001, color: "#053F30", textColor: "#FFF", tags: ["new", "hot"] }
 ];
 
 const baseLearnOptions: DeployOption[] = [
