@@ -1,15 +1,15 @@
 import { Fragment, useEffect, useRef, useState } from "react";
-import { Avatar, Button, Card, CardContent, CardHeader, IconButton, Tab } from "@mui/material"
+import { Avatar, Box, Button, Card, CardContent, CardHeader, IconButton, Stack} from "@mui/material"
 import { useAccount, useChainId, useConnect, useSwitchChain, useWaitForTransactionReceipt, useWalletClient } from "wagmi"
-import { DeployOption, FieldConfig } from "@app-types"
-import { DynamicForm } from "@app-components"
-import { DeployTypes } from "@app-enums"
-import { chains } from "chains";
 import { Address, parseEther } from "viem"
 import { FieldValues } from "react-hook-form"
 import { enqueueSnackbar } from "notistack"
 import { RainbowKitChain } from "@rainbow-me/rainbowkit/dist/components/RainbowKitProvider/RainbowKitChainContext"
-import { StyledTabs } from "./styled";
+import { DeployOption, FieldConfig } from "@app-types"
+import { DynamicForm } from "@app-components"
+import { DeployTypes } from "@app-enums"
+import { chains } from "chains";
+import { StyledToggleButton, StyledToggleButtonGroup } from "./styled";
 import Token from "@app-contracts/Token.json"
 import Message from "@app-contracts/Message.json"
 import StarIcon from "@mui/icons-material/Star"
@@ -17,12 +17,13 @@ import StarBorderIcon from "@mui/icons-material/StarBorder"
 import DescriptionIcon from "@mui/icons-material/Description"
 import GeneratingTokensIcon from "@mui/icons-material/GeneratingTokens"
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import ColorLensIcon from '@mui/icons-material/ColorLens';
+import WavingHandIcon from '@mui/icons-material/WavingHand';
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  dir?: string;
+interface TogglePanelProps {
   index: number;
   value: number;
+  children: React.ReactNode;
 }
 
 export const Tile = (option: DeployOption) => {
@@ -38,6 +39,13 @@ export const Tile = (option: DeployOption) => {
   const tokenFields: FieldConfig[] = [
     { name: 'name', placeholder: 'Name', required: true, defaultValue: "" },
     { name: 'symbol', placeholder: 'Symbol', required: true, defaultValue: "" }
+  ];
+
+  const tabs = [
+    { value: 0, label: 'Contract', renderIcon: (color: string) => <DescriptionIcon sx={{ color }} /> },
+    { value: 1, label: 'Token', renderIcon: (color: string) => <GeneratingTokensIcon sx={{ color }} /> },
+    { value: 2, label: 'NFT', renderIcon: (color: string) => <ColorLensIcon sx={{ color }} /> },
+    { value: 3, label: 'GM', renderIcon: (color: string) => <WavingHandIcon sx={{ color }} /> }
   ];
 
   const { data: receipt, isLoading: isPending, isSuccess, isError } = useWaitForTransactionReceipt({ hash: txHash });
@@ -127,21 +135,15 @@ export const Tile = (option: DeployOption) => {
     }
   };
 
-  function TabPanel(props: TabPanelProps) {
-    const { children, value, index, ...other } = props;
+  const TogglePanel = (props: TogglePanelProps) => {
+    const { value, index, children } = props;
 
     return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`full-width-tabpanel-${index}`}
-        aria-labelledby={`full-width-tab-${index}`}
-        {...other}
-      >
+      <Box>
         {value === index && (
           <Fragment>{children}</Fragment>
         )}
-      </div>
+      </Box>
     );
   }
 
@@ -184,8 +186,7 @@ export const Tile = (option: DeployOption) => {
         backdropFilter: 'blur(10px)',
         WebkitBackdropFilter: 'blur(10px)',
         border: '1px solid rgba(255, 255, 255, 0.3)',
-        borderRadius: 2,
-        overflow: 'visible',
+        borderRadius: 2
       }}
     >
       <CardHeader
@@ -207,25 +208,35 @@ export const Tile = (option: DeployOption) => {
         }
       />
       <CardContent>
-        <StyledTabs
-          variant="fullWidth"
+        <StyledToggleButtonGroup
           value={tabIndex}
+          exclusive
           onChange={handleTabChange}
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)'
+          }}
         >
-          <Tab
-            disableRipple
-            label="Contract"
-            iconPosition="end"
-            icon={<DescriptionIcon sx={{ color: option.color }} />} 
-          />
-          <Tab
-            disableRipple
-            label="Token"
-            iconPosition="end"
-            icon={<GeneratingTokensIcon sx={{ color: option.color }} />} 
-          />
-        </StyledTabs>
-        <TabPanel
+          {tabs.map(({ value, label, renderIcon }) => (
+            <StyledToggleButton
+              value={value}
+              backgroundColor={option.backgroundColor}
+              textColor={option.color}
+              sx={{ textTransform: 'none', width: '100%' }}
+            >
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="flex-start"
+                gap={1}
+              >
+                <span>{label}</span>
+                {renderIcon(option.color)}
+              </Stack>
+            </StyledToggleButton>
+          ))}
+        </StyledToggleButtonGroup>
+        <TogglePanel
           value={tabIndex}
           index={0}
         >
@@ -233,14 +244,14 @@ export const Tile = (option: DeployOption) => {
             fields={contractFields}
             disabled={isPending || isSwitchPending}
             isConnected={isConnected}
+            backgroundColor={option.backgroundColor}
             color={option.color}
-            textColor={option.textColor}
             connect={connect}
             getButtonText={getButtonText}
             onSubmit={(formData) => onSubmit(formData, option.fee, DeployTypes.CONTRACT)}
           />
-        </TabPanel>
-        <TabPanel
+        </TogglePanel>
+        <TogglePanel
           value={tabIndex}
           index={1}
         >
@@ -248,13 +259,13 @@ export const Tile = (option: DeployOption) => {
             fields={tokenFields}
             disabled={isPending || isSwitchPending}
             isConnected={isConnected}
+            backgroundColor={option.backgroundColor}
             color={option.color}
-            textColor={option.textColor}
             connect={connect}
             getButtonText={getButtonText}
             onSubmit={(formData) => onSubmit(formData, option.fee, DeployTypes.TOKEN)}
           />
-        </TabPanel>
+        </TogglePanel>
       </CardContent>
     </Card>
   )

@@ -7,7 +7,7 @@ import { DynamicFormProps, FieldConfig } from "@app-types";
 export const DynamicForm = (props: DynamicFormProps): JSX.Element => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const {
-    fields, disabled, isConnected, color, textColor,
+    fields, disabled, isConnected, backgroundColor, color,
     connect, getButtonText, onSubmit
   } = props;
 
@@ -44,11 +44,11 @@ export const DynamicForm = (props: DynamicFormProps): JSX.Element => {
         type="submit"
         disabled={disabled}
         fullWidth
-        sx={{ backgroundColor: color }}
+        sx={{ backgroundColor: backgroundColor }}
       >
         <Typography
           variant="inherit"
-          sx={{ color: textColor }}
+          sx={{ color: color }}
         >
           {getButtonText()}
         </Typography>

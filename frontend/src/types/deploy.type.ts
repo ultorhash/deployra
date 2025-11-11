@@ -12,7 +12,7 @@ export type DeployOption = DeployOptionOptional & {
   type: "mainnet" | "testnet";
   icon: string;
   fee: number;
+  backgroundColor: string;
   color: string;
-  textColor: string;
   tags: string[];
 }

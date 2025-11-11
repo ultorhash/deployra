@@ -1,16 +1,24 @@
-import styled from "@emotion/styled";
-import { Tabs } from "@mui/material";
+import { styled } from '@mui/material/styles'
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 
-export const StyledTabs = styled(Tabs)({
-  height: 40,
-  minHeight: 40,
+interface StyledToggleButtonProps {
+  backgroundColor: string;
+  textColor: string;
+}
 
-  '& .MuiTabs-indicator': {
-    display: 'none',
-  },
-  '& .MuiTab-root': {
-    minHeight: 40,
-    paddingTop: 0,
-    paddingBottom: 0,
-  }
+export const StyledToggleButtonGroup = styled(ToggleButtonGroup)({
+  borderRadius: 0
 });
+
+export const StyledToggleButton = styled(ToggleButton, {
+  shouldForwardProp: (prop) => prop !== 'color' && prop !== 'textColor'
+})<StyledToggleButtonProps>(({ backgroundColor, textColor }) => ({
+  borderRadius: 0,
+  color: textColor,
+  backgroundColor: `${backgroundColor}70`,
+
+  '&.Mui-selected': {
+    color: textColor,
+    backgroundColor: backgroundColor
+  }
+}));

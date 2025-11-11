@@ -12,8 +12,8 @@ export type DynamicFormProps = {
   fields: FieldConfig[];
   disabled: boolean;
   isConnected: boolean;
+  backgroundColor: string;
   color: string;
-  textColor: string;
   connect: ConnectMutate<Config, unknown>;
   getButtonText: () => string;
   onSubmit: (data: Record<string, string>) => void;
