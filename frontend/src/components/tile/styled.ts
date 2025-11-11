@@ -7,18 +7,21 @@ interface StyledToggleButtonProps {
 }
 
 export const StyledToggleButtonGroup = styled(ToggleButtonGroup)({
-  borderRadius: 0
+  borderRadius: 0,
+
+  '& .MuiToggleButtonGroup-middleButton, & .MuiToggleButtonGroup-lastButton': {
+    marginLeft: 0,
+    border: 0
+  }
 });
 
 export const StyledToggleButton = styled(ToggleButton, {
   shouldForwardProp: (prop) => prop !== 'color' && prop !== 'textColor'
-})<StyledToggleButtonProps>(({ backgroundColor, textColor }) => ({
+})<StyledToggleButtonProps>(({ backgroundColor, textColor, theme }) => ({
   borderRadius: 0,
-  color: textColor,
-  backgroundColor: `${backgroundColor}70`,
+  color: theme.palette.primary.contrastText,
 
   '&.Mui-selected': {
-    color: textColor,
-    backgroundColor: backgroundColor
+    color: theme.palette.primary.contrastText
   }
 }));

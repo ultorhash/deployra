@@ -42,10 +42,10 @@ export const Tile = (option: DeployOption) => {
   ];
 
   const tabs = [
-    { value: 0, label: 'Contract', renderIcon: (color: string) => <DescriptionIcon sx={{ color }} /> },
-    { value: 1, label: 'Token', renderIcon: (color: string) => <GeneratingTokensIcon sx={{ color }} /> },
-    { value: 2, label: 'NFT', renderIcon: (color: string) => <ColorLensIcon sx={{ color }} /> },
-    { value: 3, label: 'GM', renderIcon: (color: string) => <WavingHandIcon sx={{ color }} /> }
+    { value: 0, label: 'Contract', icon: <DescriptionIcon /> },
+    { value: 1, label: 'Token', icon: <GeneratingTokensIcon /> },
+    { value: 2, label: 'NFT', icon: <ColorLensIcon /> },
+    { value: 3, label: 'GM', icon: <WavingHandIcon /> }
   ];
 
   const { data: receipt, isLoading: isPending, isSuccess, isError } = useWaitForTransactionReceipt({ hash: txHash });
@@ -214,15 +214,16 @@ export const Tile = (option: DeployOption) => {
           onChange={handleTabChange}
           sx={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)'
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            mb: 1
           }}
         >
-          {tabs.map(({ value, label, renderIcon }) => (
+          {tabs.map(({ value, label, icon }) => (
             <StyledToggleButton
               value={value}
               backgroundColor={option.backgroundColor}
               textColor={option.color}
-              sx={{ textTransform: 'none', width: '100%' }}
+              sx={{ textTransform: 'none' }}
             >
               <Stack
                 direction="row"
@@ -231,7 +232,7 @@ export const Tile = (option: DeployOption) => {
                 gap={1}
               >
                 <span>{label}</span>
-                {renderIcon(option.color)}
+                {icon}
               </Stack>
             </StyledToggleButton>
           ))}
