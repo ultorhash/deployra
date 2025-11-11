@@ -2,19 +2,19 @@ import { defineChain } from "viem";
 
 const sourceId = 1;
 
-export const stableTestnet = defineChain({
-  id: 2201,
-  name: 'Stable Testnet',
-  nativeCurrency: { name: 'gUSDT', symbol: 'gUSDT', decimals: 18 },
+export const raylsTestnet = defineChain({
+  id: 123123,
+  name: 'Rayls Testnet',
+  nativeCurrency: { name: 'USDgas', symbol: 'USDgas', decimals: 18 },
   rpcUrls: {
     default: {
-      http: ['https://rpc.testnet.stable.xyz'],
+      http: ['https://devnet-rpc.rayls.com'],
     },
   },
   blockExplorers: {
     default: {
-      name: 'Stablescan',
-      url: 'https://testnet.stablescan.xyz'
+      name: 'Rayls Explorer',
+      url: 'https://devnet-explorer.rayls.com/'
     },
   },
   contracts: {
@@ -23,7 +23,7 @@ export const stableTestnet = defineChain({
       blockCreated: 0
     }
   },
-  iconUrl: "/assets/chains/stable.jpg",
+  iconUrl: "/assets/chains/rayls.jpg",
   iconBackground: 'transparent',
   sourceId,
 });

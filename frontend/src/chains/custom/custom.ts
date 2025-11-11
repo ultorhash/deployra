@@ -28,12 +28,13 @@ import { sovaTestnet } from "./sova-testnet";
 import { pharosAtlantic } from "./pharos-atlantic-testnet";
 import { arcTestnet } from "./arc-testnet";
 import { iopnTesntet } from "./iopn-testnet";
-import { stableTesntet } from "./stable";
+import { stableTestnet } from "./stable";
+import { raylsTestnet } from "./rayls-testnet";
 
 export const customChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   hyperevm, pharos, citrea, botanix, mocaTestnet, OG, xosTestnet, zeroNetwork,
   blockchainTestnet, fluentTestnet, giwaTestnet, neuraTestnet, katana, kiteai,
   kiiTestnet, mezo, juchain, mitosis, nitrographTestnet, sahara, somnia, plasma,
   gateLayer, humanityProtocol, zora, sovaTestnet, pharosAtlantic, arcTestnet,
-  iopnTesntet, stableTesntet
+  iopnTesntet, stableTestnet, raylsTestnet
 ];
