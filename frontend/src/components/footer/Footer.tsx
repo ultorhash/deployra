@@ -18,6 +18,7 @@ export const Footer = (): JSX.Element => {
   return (
     <Box
       sx={(theme) => ({
+        height: isSmall ? 105 : 48,
         position: 'fixed',
         bottom: 0,
         left: 0,
