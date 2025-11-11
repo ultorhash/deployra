@@ -15,9 +15,7 @@ export const StyledToggleButtonGroup = styled(ToggleButtonGroup)({
   }
 });
 
-export const StyledToggleButton = styled(ToggleButton, {
-  shouldForwardProp: (prop) => prop !== 'color' && prop !== 'textColor'
-})<StyledToggleButtonProps>(({ backgroundColor, textColor, theme }) => ({
+export const StyledToggleButton = styled(ToggleButton)(({ theme }) => ({
   borderRadius: 0,
   color: theme.palette.primary.contrastText,
 

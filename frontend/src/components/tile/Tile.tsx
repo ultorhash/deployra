@@ -221,8 +221,6 @@ export const Tile = (option: DeployOption) => {
           {tabs.map(({ value, label, icon }) => (
             <StyledToggleButton
               value={value}
-              backgroundColor={option.backgroundColor}
-              textColor={option.color}
               sx={{ textTransform: 'none' }}
             >
               <Stack
