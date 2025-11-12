@@ -144,7 +144,7 @@ export const Sidebar = (props: SidebarProps): JSX.Element => {
         </SidebarStatsWrapper>
         <Typography
           variant="caption"
-          sx={{ textAlign: "center" }}
+          sx={{ textAlign: "center", mb: 0.5 }}
         >
           Version 2.0.1
         </Typography>

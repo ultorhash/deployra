@@ -1,11 +1,14 @@
 import { JSX, useState } from 'react';
-import { Box } from '@mui/material';
+import { Box, ThemeProvider } from '@mui/material';
 import { Header, Main, Sidebar } from "@app-components";
 import { sidebarWidthPx } from '@app-utils';
+import { lightTheme, darkTheme } from 'theme';
+
 
 export const App = (): JSX.Element => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   const handleSidebarClose = (): void => {
     setIsClosing(true);
@@ -22,25 +25,34 @@ export const App = (): JSX.Element => {
     }
   };
 
+  const handleThemeToggle = (): void => {
+    setIsDarkMode((prev) => !prev);
+  };
+
   return (
-    <Box sx={{ display: 'flex', height: '100vh' }}>
-      <Header onToggleSidebar={handleSidebarToggle} />
-      <Box
-        component="nav"
-        sx={{ width: { sm: sidebarWidthPx }, flexShrink: { sm: 0 } }}
-      >
-        <Sidebar
-          variant="temporary"
-          open={mobileOpen}
-          onTransitionEnd={handleSidebarTransitionEnd}
-          onClose={handleSidebarClose}
+    <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+      <Box sx={{ display: 'flex', height: '100vh' }}>
+        <Header
+          onToggleSidebar={handleSidebarToggle}
+          onToggleTheme={handleThemeToggle}
         />
-        <Sidebar
-          variant="permanent"
-          open={mobileOpen}
-        />
+        <Box
+          component="nav"
+          sx={{ width: { sm: sidebarWidthPx }, flexShrink: { sm: 0 } }}
+        >
+          <Sidebar
+            variant="temporary"
+            open={mobileOpen}
+            onTransitionEnd={handleSidebarTransitionEnd}
+            onClose={handleSidebarClose}
+          />
+          <Sidebar
+            variant="permanent"
+            open={mobileOpen}
+          />
+        </Box>
+        <Main />
       </Box>
-      <Main />
-    </Box>
+    </ThemeProvider>
   );
 }

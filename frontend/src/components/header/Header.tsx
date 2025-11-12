@@ -4,20 +4,22 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { emojiAvatarForAddress, sidebarWidthPx } from "@app-utils";
 import MenuIcon from '@mui/icons-material/Menu';
 import {
-  StyledHeaderBox,
-  StyledHeaderButton,
-  StyledHeaderDivider,
-  StyledHeaderLogoBox,
-  StyledHeaderTitleBox,
-  StyledHeaderToolbar
+  HeaderBox,
+  HeaderButton,
+  HeaderDivider,
+  HeaderLogoBox,
+  HeaderThemeSwitch,
+  HeaderTitleBox,
+  HeaderToolbar
 } from "./styled";
 
 interface HeaderProps {
   onToggleSidebar: () => void;
+  onToggleTheme: () => void;
 }
 
 export const Header = (props: HeaderProps): JSX.Element => {
-  const { onToggleSidebar } = props;
+  const { onToggleSidebar, onToggleTheme } = props;
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -31,7 +33,7 @@ export const Header = (props: HeaderProps): JSX.Element => {
         borderBottom: (theme) => `1px solid ${theme.palette.text.primary}`
       }}
     >
-      <StyledHeaderToolbar>
+      <HeaderToolbar>
         <IconButton
           color="inherit"
           aria-label="open sidebar"
@@ -43,14 +45,14 @@ export const Header = (props: HeaderProps): JSX.Element => {
         </IconButton>
         {!isSmall && (
           <Fragment>
-            <StyledHeaderLogoBox>
+            <HeaderLogoBox>
               <img
                 src="/assets/icons/logo.svg"
                 alt="logo"
                 style={{ width: '100%', height: '100%', objectFit: 'contain' }}
               />
-            </StyledHeaderLogoBox>
-            <StyledHeaderTitleBox>
+            </HeaderLogoBox>
+            <HeaderTitleBox>
               <Typography
                 variant="h6"
                 sx={{ lineHeight: 1 }}
@@ -67,7 +69,7 @@ export const Header = (props: HeaderProps): JSX.Element => {
               >
                 Your smart contracts
               </Typography>
-            </StyledHeaderTitleBox>
+            </HeaderTitleBox>
           </Fragment>
         )}
         <ConnectButton.Custom>
@@ -98,18 +100,23 @@ export const Header = (props: HeaderProps): JSX.Element => {
                   }
                 })}
               >
-                <StyledHeaderBox>
+                <HeaderBox>
+                  <HeaderThemeSwitch
+                    defaultChecked
+                    onClick={onToggleTheme}
+                    sx={{ m: 1 }}
+                  />
+                  <HeaderDivider
+                    flexItem
+                    orientation="vertical"
+                  />
                   {!connected ? (
-                    <StyledHeaderButton onClick={openConnectModal}>
+                    <HeaderButton onClick={openConnectModal}>
                       <span>Connect Wallet</span>
-                    </StyledHeaderButton>
+                    </HeaderButton>
                   ) : (
                     <Fragment>
-                      <StyledHeaderDivider
-                        flexItem
-                        orientation="vertical"
-                      />
-                      <StyledHeaderButton onClick={openChainModal}>
+                      <HeaderButton onClick={openChainModal}>
                         <img
                           src={chain.iconUrl}
                           alt={chain.name}
@@ -118,12 +125,12 @@ export const Header = (props: HeaderProps): JSX.Element => {
                         {!isSmall && (
                           <Typography>{chain.name}</Typography>
                         )}
-                      </StyledHeaderButton>
-                      <StyledHeaderDivider
+                      </HeaderButton>
+                      <HeaderDivider
                         flexItem
                         orientation="vertical"
                       />
-                      <StyledHeaderButton onClick={openAccountModal}>
+                      <HeaderButton onClick={openAccountModal}>
                         <Box>
                           <Box>
                             <Typography variant="inherit">
@@ -134,15 +141,15 @@ export const Header = (props: HeaderProps): JSX.Element => {
                             {account.balanceFormatted?.slice(0, 5)} {account.balanceSymbol}
                           </Typography>
                         </Box>
-                      </StyledHeaderButton>
+                      </HeaderButton>
                     </Fragment>
                   )}
-                </StyledHeaderBox>
+                </HeaderBox>
               </Box>
             )
           }}
         </ConnectButton.Custom>
-      </StyledHeaderToolbar>
+      </HeaderToolbar>
     </AppBar>
   )
 }

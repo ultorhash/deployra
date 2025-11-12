@@ -1,7 +1,38 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, ThemeOptions } from '@mui/material/styles';
 
-export const theme = createTheme({
+const baseThemeOptions: ThemeOptions = {
+  typography: {
+    fontFamily: '"Montserrat", sans-serif'
+  },
+  components: {
+    MuiTooltip: {
+      defaultProps: {
+        enterDelay: 300,
+        enterNextDelay: 300,
+        leaveDelay: 0
+      }
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none'
+        }
+      }
+    }
+  }
+}
+
+export const lightTheme = createTheme({
+  ...baseThemeOptions,
   palette: {
+    mode: 'light',
+  },
+});
+
+export const darkTheme = createTheme({
+  ...baseThemeOptions,
+  palette: {
+    mode: 'dark',
     primary: {
       main: '#1E2C4D',
       contrastText: '#F5F0E6'
@@ -19,73 +50,4 @@ export const theme = createTheme({
       secondary: '#BBBBBB'
     }
   },
-  typography: {
-    fontFamily: '"Montserrat", sans-serif'
-  },
-  components: {
-    MuiTooltip: {
-      defaultProps: {
-        enterDelay: 300,
-        enterNextDelay: 300,
-        leaveDelay: 0
-      }
-    },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          textTransform: 'none',
-          backgroundColor: '#0A0A0F',
-          '&.Mui-disabled': {
-            backgroundColor: '#0A0A0F',
-            color: '#BBBBBB',
-            opacity: 0.5
-          }
-        }
-      }
-    },
-    MuiTab: {
-      styleOverrides: {
-        root: {
-          textTransform: 'none',
-          color: '#BBBBBB',
-          '&.Mui-selected': {
-            color: '#FFFFFF'
-          }
-        }
-      }
-    },
-    MuiInputLabel: {
-      styleOverrides: {
-        root: {
-          color: 'white',
-          '&.Mui-focused': {
-            color: 'white'
-          }
-        }
-      }
-    },
-    MuiOutlinedInput: {
-      styleOverrides: {
-        root: {
-          backgroundColor: '#1E2C4D',
-          color: 'white',
-          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: '#1E2C4D'
-          },
-          '&:hover': {
-            '.MuiOutlinedInput-notchedOutline': {
-              borderColor: '#1E2C4D'
-            }
-          }
-        }
-      }
-    },
-    MuiSvgIcon: {
-      styleOverrides: {
-        root: {
-          color: 'white'
-        }
-      }
-    }
-  }
 });
