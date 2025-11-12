@@ -6,10 +6,10 @@ import { deployOptions } from 'deploy-options';
 import {
   StyledDrawer,
   SidebarContainer,
-  SidebarListWrapper,
-  SidebarList,
-  SidebarListItemButton,
-  SidebarListItemIcon,
+  SidebarListsWrapper,
+  SidebarFilterList,
+  SidebarFilterListItemButton,
+  SidebarFilterListItemIcon,
   SidebarStatsWrapper,
   SidebarChip
 } from './styled';
@@ -19,6 +19,7 @@ import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import SquareIcon from '@mui/icons-material/Square';
 import StarIcon from '@mui/icons-material/Star';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
+import XIcon from '@mui/icons-material/X';
 
 interface SidebarProps {
   variant: "permanent" | "temporary";
@@ -99,22 +100,30 @@ export const Sidebar = (props: SidebarProps): JSX.Element => {
       }
     >
       <SidebarContainer>
-        <SidebarListWrapper>
-          <SidebarList>
+        <SidebarListsWrapper>
+          <SidebarFilterList>
             {filterOptions.map((option) => (
               <ListItem
                 disablePadding
                 key={option.value}
               >
-                <SidebarListItemButton>
-                  <SidebarListItemIcon>{option.icon}</SidebarListItemIcon>
+                <SidebarFilterListItemButton>
+                  <SidebarFilterListItemIcon>{option.icon}</SidebarFilterListItemIcon>
                   <ListItemText primary={option.label} />
-                </SidebarListItemButton>
+                </SidebarFilterListItemButton>
               </ListItem>
             ))}
-          </SidebarList>
-          <Divider sx={{ borderColor: 'white', mt: 1 }} />
-        </SidebarListWrapper>
+          </SidebarFilterList>
+          <Divider sx={{ borderColor: 'white' }} />
+          <SidebarFilterList>
+            <SidebarFilterListItemButton onClick={() => window.open('https://x.com/deployraxyz', '_blank')}>
+              <SidebarFilterListItemIcon>
+                <XIcon />
+              </SidebarFilterListItemIcon>
+              <ListItemText primary="Follow us!" />
+            </SidebarFilterListItemButton>
+          </SidebarFilterList>
+        </SidebarListsWrapper>
         <SidebarStatsWrapper>
           {chainStats.map((item) => (
             <Tooltip
