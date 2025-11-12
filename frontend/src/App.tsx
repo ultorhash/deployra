@@ -1,7 +1,6 @@
 import { Fragment, useState, type JSX } from 'react';
-import { AppBar, Box, IconButton, Typography } from '@mui/material';
-import { Header, Footer, ChainTiles } from "@app-components";
-import { Sidebar } from 'components/sidebar/Sidebar';
+import { Box, Typography } from '@mui/material';
+import { Header, Sidebar } from "@app-components";
 import { StyledDrawer, StyledToolbar } from 'components/sidebar/styled';
 import { headerHeightPx, sidebarWidthPx } from '@app-utils';
 
@@ -9,12 +8,12 @@ export const App = (): JSX.Element => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
-  const handleDrawerClose = (): void => {
+  const handleSidebarClose = (): void => {
     setIsClosing(true);
     setMobileOpen(false);
   };
 
-  const handleDrawerTransitionEnd = (): void => {
+  const handleSidebarTransitionEnd = (): void => {
     setIsClosing(false);
   };
 
@@ -24,66 +23,23 @@ export const App = (): JSX.Element => {
     }
   };
 
-  const drawer = (
-    <Fragment>
-      Test
-    </Fragment>
-  );
-
   return (
     <Box sx={{ display: 'flex' }}>
-      <Header toggleSidebar={handleSidebarToggle} />
+      <Header onToggleSidebar={handleSidebarToggle} />
       <Box
         component="nav"
         sx={{ width: { sm: sidebarWidthPx }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
       >
-        <StyledDrawer
+        <Sidebar
           variant="temporary"
           open={mobileOpen}
-          onTransitionEnd={handleDrawerTransitionEnd}
-          onClose={handleDrawerClose}
-          ModalProps={{
-            BackdropProps: {
-              style: {
-                top: `${headerHeightPx}px`,
-                display: 'block',
-              },
-            },
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': {
-              boxShadow: 'none',
-              boxSizing: 'border-box',
-              width: sidebarWidthPx,
-              top: `${headerHeightPx}px`,
-            },
-          }}
-          slotProps={{
-            root: {
-              keepMounted: true,
-            },
-          }}
-        >
-          {drawer}
-        </StyledDrawer>
-        <StyledDrawer
+          onTransitionEnd={handleSidebarTransitionEnd}
+          onClose={handleSidebarClose}
+        />
+        <Sidebar
           variant="permanent"
-          elevation={0}
-          sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': {
-              boxShadow: 'none',
-              boxSizing: 'border-box',
-              width: sidebarWidthPx,
-              top: `${headerHeightPx}px`,
-            },
-          }}
-          open
-        >
-          {drawer}
-        </StyledDrawer>
+          open={mobileOpen}
+        />
       </Box>
       <Box
         component="main"

@@ -13,11 +13,11 @@ import {
 } from "./styled";
 
 interface HeaderProps {
-  toggleSidebar: () => void;
+  onToggleSidebar: () => void;
 }
 
 export const Header = (props: HeaderProps): JSX.Element => {
-  const { toggleSidebar } = props;
+  const { onToggleSidebar } = props;
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -26,9 +26,9 @@ export const Header = (props: HeaderProps): JSX.Element => {
       position="fixed"
       sx={{
         ml: { sm: `${sidebarWidthPx}px` },
-        zIndex: (theme) => theme.zIndex.drawer + 1,
         boxShadow: 'none',
-        borderBottom: '1px solid white'
+        zIndex: (theme) => theme.zIndex.drawer + 1,
+        borderBottom: (theme) => `1px solid ${theme.palette.text.primary}`
       }}
     >
       <StyledHeaderToolbar>
@@ -36,7 +36,7 @@ export const Header = (props: HeaderProps): JSX.Element => {
           color="inherit"
           aria-label="open sidebar"
           edge="start"
-          onClick={toggleSidebar}
+          onClick={onToggleSidebar}
           sx={{ display: { sm: 'none' } }}
         >
           <MenuIcon />
