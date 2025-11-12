@@ -1,11 +1,13 @@
-import { Fragment, useState, type JSX } from 'react';
-import { AppBar, Box, IconButton, Typography } from '@mui/material';
-import { Header, Footer, ChainTiles } from "@app-components";
-import { Sidebar } from 'components/sidebar/Sidebar';
-import { StyledDrawer, StyledToolbar } from 'components/sidebar/styled';
+import { Fragment, JSX, useState } from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import Typography from '@mui/material/Typography';
 import { headerHeightPx, sidebarWidthPx } from '@app-utils';
+import { StyledDrawer, StyledToolbar } from './styled';
 
-export const App = (): JSX.Element => {
+export const Sidebar = (): JSX.Element => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
@@ -18,7 +20,7 @@ export const App = (): JSX.Element => {
     setIsClosing(false);
   };
 
-  const handleSidebarToggle = (): void => {
+  const handleDrawerToggle = (): void => {
     if (!isClosing) {
       setMobileOpen(!mobileOpen);
     }
@@ -32,7 +34,29 @@ export const App = (): JSX.Element => {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <Header toggleSidebar={handleSidebarToggle} />
+      <AppBar
+        position="fixed"
+        sx={{
+          ml: { sm: `${sidebarWidthPx}px` },
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          boxShadow: 'none'
+        }}
+      >
+        <StyledToolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: 'none' } }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap component="div">
+            Deployra
+          </Typography>
+        </StyledToolbar>
+      </AppBar>
       <Box
         component="nav"
         sx={{ width: { sm: sidebarWidthPx }, flexShrink: { sm: 0 } }}
@@ -87,7 +111,7 @@ export const App = (): JSX.Element => {
       </Box>
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${sidebarWidthPx}px)`, backgroundColor: '#000' } }}
+        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${sidebarWidthPx}px)` } }}
       >
         <StyledToolbar />
         <Typography sx={{ marginBottom: 2 }}>

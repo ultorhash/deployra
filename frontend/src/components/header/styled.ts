@@ -1,18 +1,16 @@
-import { styled, Button, Divider, Box, AppBar, Stack } from "@mui/material";
+import { headerHeightPx, logoSizePx } from "@app-utils";
+import { Box, Button, Divider, styled, Toolbar } from "@mui/material";
 
-export const StyledHeaderAppBar = styled(AppBar)(({ theme }) => ({
-  height: 60,
-  padding: '0 8px',
-  borderBottom: `1px solid ${theme.palette.text.primary}`
-}));
-
-export const StyledHeaderStack = styled(Stack)({
-  height: '100%'
+export const StyledHeaderToolbar = styled(Toolbar)({
+  minHeight: `${headerHeightPx}px !important`,
+  display: 'flex',
+  justifyContent: 'space-between',
+  padding: '0 12px !important'
 });
 
 export const StyledHeaderLogoBox = styled(Box)({
-  width: 40,
-  height: 60,
+  width: logoSizePx,
+  height: logoSizePx,
   display: "flex",
   justifyContent: "center",
   alignItems: "center"
@@ -28,10 +26,10 @@ export const StyledHeaderTitleBox = styled(Box)({
 });
 
 export const StyledHeaderBox = styled(Box)({
-  height: '100%',
+  height: `${headerHeightPx}px`,
   display: 'flex',
   alignItems: 'center',
-  gap: '8px'
+  gap: '8px',
 });
 
 export const StyledHeaderButton = styled(Button)(({ theme }) => ({
@@ -41,6 +39,6 @@ export const StyledHeaderButton = styled(Button)(({ theme }) => ({
 }));
 
 export const StyledHeaderDivider = styled(Divider)(({ theme }) => ({
-  margin: '0 8px',
+  margin: '0 4px',
   borderColor: theme.palette.text.primary
 }));

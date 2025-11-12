@@ -1,49 +1,75 @@
-import { Fragment, type JSX } from "react";
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Fragment, JSX } from "react";
+import { AppBar, Box, IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { emojiAvatarForAddress } from "@app-utils";
+import { emojiAvatarForAddress, sidebarWidthPx } from "@app-utils";
+import MenuIcon from '@mui/icons-material/Menu';
 import {
-  StyledHeaderAppBar,
-  StyledHeaderBox, StyledHeaderButton,
+  StyledHeaderBox,
+  StyledHeaderButton,
   StyledHeaderDivider,
   StyledHeaderLogoBox,
-  StyledHeaderStack,
-  StyledHeaderTitleBox
+  StyledHeaderTitleBox,
+  StyledHeaderToolbar
 } from "./styled";
 
-export const Header = (): JSX.Element => {
+interface HeaderProps {
+  toggleSidebar: () => void;
+}
+
+export const Header = (props: HeaderProps): JSX.Element => {
+  const { toggleSidebar } = props;
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <StyledHeaderAppBar position="static">
-      <StyledHeaderStack direction="row">
-        <StyledHeaderLogoBox>
-          <img
-            src="/assets/icons/logo.svg"
-            alt="logo"
-            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-          />
-        </StyledHeaderLogoBox>
+    <AppBar
+      position="fixed"
+      sx={{
+        ml: { sm: `${sidebarWidthPx}px` },
+        zIndex: (theme) => theme.zIndex.drawer + 1,
+        boxShadow: 'none',
+        borderBottom: '1px solid white'
+      }}
+    >
+      <StyledHeaderToolbar>
+        <IconButton
+          color="inherit"
+          aria-label="open sidebar"
+          edge="start"
+          onClick={toggleSidebar}
+          sx={{ display: { sm: 'none' } }}
+        >
+          <MenuIcon />
+        </IconButton>
         {!isSmall && (
-          <StyledHeaderTitleBox>
-            <Typography
-              variant="h6"
-              sx={{ lineHeight: 1 }}
-            >
-              Deployra
-            </Typography>
-            {!isSmall && (
+          <Fragment>
+            <StyledHeaderLogoBox>
+              <img
+                src="/assets/icons/logo.svg"
+                alt="logo"
+                style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+              />
+            </StyledHeaderLogoBox>
+            <StyledHeaderTitleBox>
+              <Typography
+                variant="h6"
+                sx={{ lineHeight: 1 }}
+              >
+                Deployra
+              </Typography>
               <Typography
                 variant="caption"
                 component="p"
-                sx={{ color: theme.palette.text.secondary, lineHeight: 1 }}
+                sx={{
+                  lineHeight: 1,
+                  color: theme.palette.text.secondary
+                }}
               >
                 Your smart contracts
               </Typography>
-            )}
-          </StyledHeaderTitleBox>
-          )}
+            </StyledHeaderTitleBox>
+          </Fragment>
+        )}
         <ConnectButton.Custom>
           {({
             account,
@@ -79,26 +105,35 @@ export const Header = (): JSX.Element => {
                     </StyledHeaderButton>
                   ) : (
                     <Fragment>
-                      {!isSmall && (
-                         <Box>
-                          <span>{account.balanceFormatted?.slice(0, 5)} {account.balanceSymbol}</span>
-                        </Box>
-                      )}
                       <StyledHeaderDivider
                         flexItem
                         orientation="vertical"
                       />
                       <StyledHeaderButton onClick={openChainModal}>
-                        <img src={chain.iconUrl} alt={chain.name} style={{ width: 20, height: 20 }} />
-                        <span>{chain.name}</span>
+                        <img
+                          src={chain.iconUrl}
+                          alt={chain.name}
+                          style={{ width: 20, height: 20 }}
+                        />
+                        {!isSmall && (
+                          <Typography>{chain.name}</Typography>
+                        )}
                       </StyledHeaderButton>
                       <StyledHeaderDivider
                         flexItem
                         orientation="vertical"
                       />
                       <StyledHeaderButton onClick={openAccountModal}>
-                        <span>{account.displayName}</span>
-                        {emojiAvatarForAddress(account.address).emoji}
+                        <Box>
+                          <Box>
+                            <Typography variant="inherit">
+                              {account.displayName} {emojiAvatarForAddress(account.address).emoji}
+                            </Typography>
+                          </Box>
+                          <Typography variant="caption">
+                            {account.balanceFormatted?.slice(0, 5)} {account.balanceSymbol}
+                          </Typography>
+                        </Box>
                       </StyledHeaderButton>
                     </Fragment>
                   )}
@@ -107,7 +142,7 @@ export const Header = (): JSX.Element => {
             )
           }}
         </ConnectButton.Custom>
-      </StyledHeaderStack>
-    </StyledHeaderAppBar>
+      </StyledHeaderToolbar>
+    </AppBar>
   )
 }
