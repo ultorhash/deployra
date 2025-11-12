@@ -1,20 +1,63 @@
-import { Drawer, styled, Toolbar } from "@mui/material";
-import { headerHeightPx, sidebarWidthPx } from "@app-utils";
+import { Box, Chip, Drawer, List, ListItemButton, ListItemIcon, styled, Toolbar } from "@mui/material";
+import { buttonBorderRadius, headerHeightPx, sidebarWidthPx } from "@app-utils";
 
 export const StyledToolbar = styled(Toolbar)({
   minHeight: `${headerHeightPx}px !important`
 });
 
 export const StyledDrawer = styled(Drawer)(({ theme }) => ({
-  '& .MuiPaper-root': {
-    boxShadow: 'none'
-  },
-
   '& .MuiDrawer-paper': {
     boxShadow: 'none',
     boxSizing: 'border-box',
     width: sidebarWidthPx,
     top: `${headerHeightPx}px`,
-    borderRight: `1px solid ${theme.palette.text.primary}`
+    borderRight: `1px solid ${theme.palette.text.primary}`,
+    height: `calc(100vh - ${headerHeightPx}px)`,
+    display: 'flex',
+    flexDirection: 'column',
   },
+}));
+
+export const SidebarContainer = styled(Box)({
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  padding: '8px 0'
+});
+
+export const SidebarListWrapper = styled(Box)({
+  flex: '1 1 auto'
+});
+
+export const SidebarList = styled(List)({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+  padding: 0
+});
+
+export const SidebarListItemButton = styled(ListItemButton)({
+  display: 'flex',
+  alignItems: 'center',
+  backgroundColor: '#222',
+  margin: '0 8px',
+  borderRadius: `${buttonBorderRadius}px`
+});
+
+export const SidebarListItemIcon = styled(ListItemIcon)({
+  minWidth: 0,
+  marginRight: 16
+});
+
+export const SidebarStatsWrapper = styled(Box)({
+  display: 'flex',
+  justifyContent: 'space-evenly',
+  gap: 8,
+  marginBottom: 8
+});
+
+export const SidebarChip = styled(Chip)(({ theme }) => ({
+  border: `1px solid ${theme.palette.text.primary}`,
+  padding: 8
 }));
