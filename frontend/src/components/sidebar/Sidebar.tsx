@@ -114,7 +114,7 @@ export const Sidebar = (props: SidebarProps): JSX.Element => {
               </ListItem>
             ))}
           </SidebarFilterList>
-          <Divider sx={{ borderColor: 'white' }} />
+          <Divider sx={{ borderColor: (theme) => theme.palette.text.primary }} />
           <SidebarFilterList>
             <SidebarFilterListItemButton onClick={() => window.open('https://x.com/deployraxyz', '_blank')}>
               <SidebarFilterListItemIcon>

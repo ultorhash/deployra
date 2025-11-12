@@ -26,6 +26,10 @@ export const lightTheme = createTheme({
   ...baseThemeOptions,
   palette: {
     mode: 'light',
+    primary: {
+      main: '#FFF',
+      contrastText: '#000'
+    }
   },
 });
 

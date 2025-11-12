@@ -5,7 +5,6 @@ export const StyledMain = styled(Box)<BoxProps>(({ theme }) => ({
   height: '100%',
   flexGrow: 1,
   padding: 16,
-  backgroundColor: '#000',
 
   [theme.breakpoints.up('sm')]: {
     width: `calc(100% - ${sidebarWidthPx}px)`,
