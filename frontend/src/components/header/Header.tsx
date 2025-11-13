@@ -30,7 +30,7 @@ export const Header = (props: HeaderProps): JSX.Element => {
         ml: { sm: `${sidebarWidthPx}px` },
         boxShadow: 'none',
         zIndex: (theme) => theme.zIndex.drawer + 1,
-        borderBottom: (theme) => `1px solid ${theme.palette.text.primary}`
+        borderBottom: (theme) => `1px solid ${theme.palette.divider}`
       }}
     >
       <HeaderToolbar>
@@ -61,11 +61,7 @@ export const Header = (props: HeaderProps): JSX.Element => {
               </Typography>
               <Typography
                 variant="caption"
-                component="p"
-                sx={{
-                  lineHeight: 1,
-                  color: theme.palette.text.secondary
-                }}
+                sx={{ lineHeight: 1 }}
               >
                 Your smart contracts
               </Typography>

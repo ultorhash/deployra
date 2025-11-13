@@ -1,6 +1,6 @@
 import { createTheme, ThemeOptions } from '@mui/material/styles';
 
-const baseThemeOptions: ThemeOptions = {
+const baseThemeOptions = {
   typography: {
     fontFamily: '"Montserrat", sans-serif'
   },
@@ -20,17 +20,32 @@ const baseThemeOptions: ThemeOptions = {
       }
     }
   }
-}
+} as const;
 
 export const lightTheme = createTheme({
   ...baseThemeOptions,
   palette: {
     mode: 'light',
+    background: {
+      default: '#FFFFFF',
+      paper: '#FFFFFF'
+    },
+    text: {
+      primary: '#000000'
+    },
     primary: {
-      main: '#FFF',
-      contrastText: '#000'
+      main: '#FFFFFF',
+      contrastText: '#000000'
+    },
+    secondary: {
+      main: '#CCCCCC',
+      contrastText: '#000000'
+    },
+    divider: "#000000",
+    action: {
+      hover: "#DDDDDD"
     }
-  },
+  }
 });
 
 export const darkTheme = createTheme({

@@ -12,7 +12,7 @@ export const StyledDrawer = styled(Drawer)(({ theme }) => ({
     flexDirection: 'column',
 
     [theme.breakpoints.up('sm')]: {
-      borderRight: `1px solid ${theme.palette.text.primary}`,
+      borderRight: `1px solid ${theme.palette.divider}`,
     }
   }
 }));
@@ -35,13 +35,13 @@ export const SidebarFilterList = styled(List)({
   gap: 8
 });
 
-export const SidebarFilterListItemButton = styled(ListItemButton)({
+export const SidebarFilterListItemButton = styled(ListItemButton)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  backgroundColor: '#222',
   margin: '0 8px',
+  backgroundColor: theme.palette.background.paper,
   borderRadius: `${buttonBorderRadius}px`
-});
+}));
 
 export const SidebarFilterListItemIcon = styled(ListItemIcon)({
   minWidth: 0,
@@ -56,6 +56,6 @@ export const SidebarStatsWrapper = styled(Box)({
 });
 
 export const SidebarChip = styled(Chip)(({ theme }) => ({
-  border: `1px solid ${theme.palette.text.primary}`,
+  border: `1px solid ${theme.palette.divider}`,
   padding: 8
 }));

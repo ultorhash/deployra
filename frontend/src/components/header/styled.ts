@@ -41,7 +41,7 @@ export const HeaderButton = styled(Button)(({ theme }) => ({
 
 export const HeaderDivider = styled(Divider)(({ theme }) => ({
   margin: 0,
-  borderColor: theme.palette.text.primary
+  borderColor: theme.palette.divider
 }));
 
 export const HeaderThemeSwitch = styled(Switch)(({ theme }) => ({
