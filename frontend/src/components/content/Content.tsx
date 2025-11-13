@@ -71,6 +71,7 @@ export const Content = (props: ContentProps): JSX.Element => {
         container
         rowSpacing={2}
         columnSpacing={2}
+        sx={{ pb: 2 }}
       >
         {filteredOptions.map((option, index) => (
           <Grid

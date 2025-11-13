@@ -44,7 +44,8 @@ export const lightTheme = createTheme({
       paper: '#FFFFFF'
     },
     text: {
-      primary: '#000000'
+      primary: '#000000',
+      secondary: '#333333'
     },
     primary: {
       main: '#FFFFFF',

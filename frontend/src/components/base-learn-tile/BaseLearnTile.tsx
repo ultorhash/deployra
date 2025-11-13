@@ -27,6 +27,7 @@ import HaikuNFT from "@app-contracts/HaikuNFT.json"
 import Salesperson from "@app-contracts/Salesperson.json"
 import EngineeringManager from "@app-contracts/EngineeringManager.json"
 import { ThreeP } from "@mui/icons-material";
+import { StyledBaseLearnTile } from "./styled";
 
 const deployMap: Record<DeployTypes, { abi: any; bytecode: string }> = {
   [DeployTypes.BASIC_MATH]: BasicMath,
@@ -237,16 +238,7 @@ export const BaseLearnTile = (option: DeployOption) => {
   }, [walletClient]);
 
   return (
-    <Card
-      sx={{
-        backgroundColor: "rgba(0, 123, 255, 0.2)",
-        backdropFilter: "blur(10px)",
-        WebkitBackdropFilter: "blur(10px)",
-        border: "1px solid rgba(255, 255, 255, 0.3)",
-        borderRadius: 2,
-        overflow: "visible",
-      }}
-    >
+    <StyledBaseLearnTile>
       <CardHeader
         title={option.chain}
         slotProps={{ title: { variant: "h6" } }}
@@ -303,6 +295,6 @@ export const BaseLearnTile = (option: DeployOption) => {
           </Button>
         </Box>
       </CardContent>
-    </Card>
+    </StyledBaseLearnTile>
   );
 };

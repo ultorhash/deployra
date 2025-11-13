@@ -61,7 +61,10 @@ export const Header = (props: HeaderProps): JSX.Element => {
               </Typography>
               <Typography
                 variant="caption"
-                sx={{ lineHeight: 1 }}
+                sx={{
+                  lineHeight: 1,
+                  color: (theme) => theme.palette.text.secondary
+                }}
               >
                 Your smart contracts
               </Typography>
@@ -108,7 +111,7 @@ export const Header = (props: HeaderProps): JSX.Element => {
                   />
                   {!connected ? (
                     <HeaderButton onClick={openConnectModal}>
-                      <span>Connect Wallet</span>
+                      <Typography>Connect Wallet</Typography>
                     </HeaderButton>
                   ) : (
                     <Fragment>
@@ -133,7 +136,10 @@ export const Header = (props: HeaderProps): JSX.Element => {
                               {account.displayName} {emojiAvatarForAddress(account.address).emoji}
                             </Typography>
                           </Box>
-                          <Typography variant="caption">
+                          <Typography
+                            variant="caption"
+                            sx={{ color: (theme) => theme.palette.text.secondary }}
+                          >
                             {account.balanceFormatted?.slice(0, 5)} {account.balanceSymbol}
                           </Typography>
                         </Box>

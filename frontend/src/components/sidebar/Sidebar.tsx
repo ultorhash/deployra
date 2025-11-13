@@ -43,7 +43,7 @@ export const Sidebar = (props: SidebarProps): JSX.Element => {
     {
       value: 'all',
       label: 'All',
-      icon: <CalendarViewMonthIcon />
+      icon: <CalendarViewMonthIcon sx={{ color: (theme) => theme.palette.text.primary }} />
     },
     {
       value: 'hot',
@@ -127,7 +127,7 @@ export const Sidebar = (props: SidebarProps): JSX.Element => {
           <SidebarFilterList>
             <SidebarFilterListItemButton onClick={() => window.open('https://x.com/deployraxyz', '_blank')}>
               <SidebarFilterListItemIcon>
-                <XIcon />
+                <XIcon sx={{ color: (theme) => theme.palette.text.primary }} />
               </SidebarFilterListItemIcon>
               <ListItemText primary="Follow us!" />
             </SidebarFilterListItemButton>

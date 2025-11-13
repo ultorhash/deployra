@@ -20,8 +20,13 @@ export const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => 
 export const StyledToggleButton = styled(ToggleButton)(({ theme }) => ({
   borderRadius: 0,
   border: 'none',
+  color: theme.palette.text.secondary,
 
   '&:hover': {
+    backgroundColor: theme.palette.action.hover
+  },
+
+  '&.Mui-selected': {
     backgroundColor: theme.palette.action.hover
   },
 
