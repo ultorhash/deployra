@@ -14,12 +14,13 @@ import {
 } from "./styled";
 
 interface HeaderProps {
+  isDarkMode: boolean;
   onToggleSidebar: () => void;
   onToggleTheme: () => void;
 }
 
 export const Header = (props: HeaderProps): JSX.Element => {
-  const { onToggleSidebar, onToggleTheme } = props;
+  const { isDarkMode, onToggleSidebar, onToggleTheme } = props;
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -102,7 +103,7 @@ export const Header = (props: HeaderProps): JSX.Element => {
               >
                 <HeaderBox>
                   <HeaderThemeSwitch
-                    defaultChecked
+                    checked={isDarkMode}
                     onClick={onToggleTheme}
                     sx={{ m: 1 }}
                   />

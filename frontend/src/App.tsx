@@ -7,7 +7,10 @@ import { lightTheme, darkTheme } from 'theme';
 export const App = (): JSX.Element => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const stored = localStorage.getItem("theme");
+    return stored === "dark";
+  });
 
   const [filter, setFilter] = useState(() => {
     return localStorage.getItem("chainFilter") || "all";
@@ -29,7 +32,11 @@ export const App = (): JSX.Element => {
   };
 
   const handleThemeToggle = (): void => {
-    setIsDarkMode((prev) => !prev);
+    setIsDarkMode((prev) => {
+      const next = !prev;
+      localStorage.setItem("theme", next ? "dark" : "light");
+      return next;
+    });
   };
 
   const updateFilter = (value: string) => {
@@ -42,6 +49,7 @@ export const App = (): JSX.Element => {
       <CssBaseline />
       <Box sx={{ display: 'flex', minHeight: '100vh' }}>
         <Header
+          isDarkMode={isDarkMode}
           onToggleSidebar={handleSidebarToggle}
           onToggleTheme={handleThemeToggle}
         />
