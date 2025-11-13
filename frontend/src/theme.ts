@@ -29,6 +29,11 @@ const baseThemeOptions = {
             borderColor: theme.palette.divider,
             borderWidth: '1px'
           }
+        }),
+        input: ({ theme }: { theme: Theme }) => ({
+          '::placeholder': {
+            color: theme.palette.text.secondary
+          }
         })
       }
     }
