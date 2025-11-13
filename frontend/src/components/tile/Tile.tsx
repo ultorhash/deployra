@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from "react";
-import { Avatar, Box, Button, Card, CardContent, CardHeader, IconButton, Stack} from "@mui/material"
+import { Avatar, Box, Button, CardContent, CardHeader, IconButton, Stack, Typography} from "@mui/material"
 import { useAccount, useChainId, useConnect, useSwitchChain, useWaitForTransactionReceipt, useWalletClient } from "wagmi"
 import { Address, parseEther } from "viem"
 import { FieldValues } from "react-hook-form"
@@ -199,7 +199,7 @@ export const Tile = (option: DeployOption) => {
           </IconButton>
         }
       />
-      <CardContent>
+      <CardContent sx={{ pb: 1 }}>
         <StyledToggleButtonGroup
           value={tabIndex}
           exclusive
@@ -260,6 +260,14 @@ export const Tile = (option: DeployOption) => {
           />
         </TogglePanel>
       </CardContent>
+      <Box sx={{ p: 2, pt: 0 }}>
+        <Typography
+          variant="subtitle2"
+          sx={{ fontSize: 10 }}
+        >
+          Fee: {option.fee} {chains.find(c => c.id === option.chainId)?.nativeCurrency.symbol}
+        </Typography>
+      </Box>
     </StyledTile>
   )
 }
