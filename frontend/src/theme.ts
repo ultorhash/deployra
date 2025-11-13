@@ -72,6 +72,7 @@ export const lightTheme = createTheme({
     },
     divider: "#000000",
     action: {
+      active: "#DDDDDD",
       hover: "#DDDDDD"
     }
   }

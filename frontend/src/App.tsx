@@ -4,11 +4,14 @@ import { Header, Content, Sidebar } from "@app-components";
 import { sidebarWidthPx } from '@app-utils';
 import { lightTheme, darkTheme } from 'theme';
 
-
 export const App = (): JSX.Element => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
+
+  const [filter, setFilter] = useState(() => {
+    return localStorage.getItem("chainFilter") || "all";
+  });
 
   const handleSidebarClose = (): void => {
     setIsClosing(true);
@@ -29,6 +32,11 @@ export const App = (): JSX.Element => {
     setIsDarkMode((prev) => !prev);
   };
 
+  const updateFilter = (value: string) => {
+    localStorage.setItem("chainFilter", value);
+    setFilter(value);
+  };
+
   return (
     <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
       <Box sx={{ display: 'flex', height: '100vh' }}>
@@ -43,15 +51,19 @@ export const App = (): JSX.Element => {
           <Sidebar
             variant="temporary"
             open={mobileOpen}
+            filterValue={filter}
+            onFilterChange={updateFilter}
             onTransitionEnd={handleSidebarTransitionEnd}
             onClose={handleSidebarClose}
           />
           <Sidebar
             variant="permanent"
             open={mobileOpen}
+            filterValue={filter}
+            onFilterChange={updateFilter}
           />
         </Box>
-        <Content />
+        <Content filterValue={filter} />
       </Box>
     </ThemeProvider>
   );

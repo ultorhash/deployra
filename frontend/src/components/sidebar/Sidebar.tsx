@@ -24,12 +24,14 @@ import XIcon from '@mui/icons-material/X';
 interface SidebarProps {
   variant: "permanent" | "temporary";
   open: boolean;
+  filterValue: string;
+  onFilterChange: (value: string) => void;
   onTransitionEnd?: () => void;
   onClose?: () => void;
 }
 
 export const Sidebar = (props: SidebarProps): JSX.Element => {
-  const { variant, open, onTransitionEnd, onClose } = props;
+  const { variant, open, filterValue, onTransitionEnd, onClose, onFilterChange } = props;
 
   const chainStats: ChainBreakdown[] = [
     { type: 'Total', count: deployOptions.length, color: '#0084D8' },
@@ -107,7 +109,14 @@ export const Sidebar = (props: SidebarProps): JSX.Element => {
                 disablePadding
                 key={option.value}
               >
-                <SidebarFilterListItemButton>
+                <SidebarFilterListItemButton
+                  onClick={() => onFilterChange(option.value)}
+                  sx={{
+                    backgroundColor: (theme) => {
+                      return filterValue === option.value ? theme.palette.action.active : 'unset'
+                    }
+                  }}
+                >
                   <SidebarFilterListItemIcon>{option.icon}</SidebarFilterListItemIcon>
                   <ListItemText primary={option.label} />
                 </SidebarFilterListItemButton>

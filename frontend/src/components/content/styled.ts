@@ -1,7 +1,7 @@
 import { Box, BoxProps, styled, Toolbar } from '@mui/material';
 import { headerHeightPx, sidebarWidthPx } from '@app-utils';
 
-export const StyledMain = styled(Box)<BoxProps>(({ theme }) => ({
+export const StyledContent = styled(Box)<BoxProps>(({ theme }) => ({
   height: '100%',
   flexGrow: 1,
   padding: 16,
@@ -11,6 +11,6 @@ export const StyledMain = styled(Box)<BoxProps>(({ theme }) => ({
   }
 }));
 
-export const MainToolbar = styled(Toolbar)({
+export const ContentToolbar = styled(Toolbar)({
   minHeight: `${headerHeightPx}px !important`
 });
