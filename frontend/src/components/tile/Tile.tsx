@@ -9,7 +9,7 @@ import { DeployOption, FieldConfig } from "@app-types"
 import { DynamicForm } from "@app-components"
 import { DeployTypes } from "@app-enums"
 import { chains } from "chains";
-import { StyledToggleButton, StyledToggleButtonGroup } from "./styled";
+import { StyledTile, StyledToggleButton, StyledToggleButtonGroup } from "./styled";
 import Token from "@app-contracts/Token.json"
 import Message from "@app-contracts/Message.json"
 import StarIcon from "@mui/icons-material/Star"
@@ -180,15 +180,7 @@ export const Tile = (option: DeployOption) => {
   }, [isSuccess, isError, receipt]);
 
   return (
-    <Card
-      sx={{
-        backgroundColor: 'rgba(0, 123, 255, 0.2)',
-        backdropFilter: 'blur(10px)',
-        WebkitBackdropFilter: 'blur(10px)',
-        border: '1px solid rgba(255, 255, 255, 0.3)',
-        borderRadius: 2
-      }}
-    >
+    <StyledTile>
       <CardHeader
         title={option.chain}
         slotProps={{ title: { variant: 'h6' } }}
@@ -202,7 +194,7 @@ export const Tile = (option: DeployOption) => {
           <IconButton onClick={toggleFavorite}>
             {isFavorite
               ? (<StarIcon sx={{ color: "#FFD700" }} />)
-              : (<StarBorderIcon sx={{ color: "#FFF" }} />)
+              : (<StarBorderIcon sx={{ color: (theme) => theme.palette.text.primary }} />)
             }
           </IconButton>
         }
@@ -220,6 +212,8 @@ export const Tile = (option: DeployOption) => {
         >
           {tabs.map(({ value, label, icon }) => (
             <StyledToggleButton
+              disableRipple
+              disableFocusRipple
               value={value}
               sx={{ textTransform: 'none' }}
             >
@@ -266,6 +260,6 @@ export const Tile = (option: DeployOption) => {
           />
         </TogglePanel>
       </CardContent>
-    </Card>
+    </StyledTile>
   )
 }

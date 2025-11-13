@@ -1,4 +1,4 @@
-import { createTheme, ThemeOptions } from '@mui/material/styles';
+import { createTheme, Theme } from '@mui/material/styles';
 
 const baseThemeOptions = {
   typography: {
@@ -17,6 +17,19 @@ const baseThemeOptions = {
         root: {
           textTransform: 'none'
         }
+      }
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: ({ theme }: { theme: Theme }) => ({
+          borderColor: theme.palette.divider
+        }),
+        root: ({ theme }: { theme: Theme }) => ({
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: theme.palette.divider,
+            borderWidth: '1px'
+          }
+        })
       }
     }
   }
@@ -40,6 +53,22 @@ export const lightTheme = createTheme({
     secondary: {
       main: '#CCCCCC',
       contrastText: '#000000'
+    },
+    success: {
+      main: '#4CAF50',
+      contrastText: '#FFFFFF'
+    },
+    error: {
+      main: '#F44336',
+      contrastText: '#FFFFFF'
+    },
+    warning: {
+      main: '#FF9800',
+      contrastText: '#000000'
+    },
+    info: {
+      main: '#2196F3',
+      contrastText: '#FFFFFF'
     },
     divider: "#000000",
     action: {

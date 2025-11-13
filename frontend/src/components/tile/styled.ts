@@ -1,25 +1,31 @@
 import { styled } from '@mui/material/styles'
-import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Card, ToggleButton, ToggleButtonGroup } from "@mui/material";
 
-interface StyledToggleButtonProps {
-  backgroundColor: string;
-  textColor: string;
-}
+export const StyledTile = styled(Card)(({ theme }) => ({
+  backdropFilter: 'blur(10px)',
+  WebkitBackdropFilter: 'blur(10px)',
+  border: `1px solid ${theme.palette.divider}`
+}));
 
-export const StyledToggleButtonGroup = styled(ToggleButtonGroup)({
+export const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
   borderRadius: 0,
+  border: `1px solid ${theme.palette.divider}`,
 
   '& .MuiToggleButtonGroup-middleButton, & .MuiToggleButtonGroup-lastButton': {
     marginLeft: 0,
     border: 0
   }
-});
+}));
 
 export const StyledToggleButton = styled(ToggleButton)(({ theme }) => ({
   borderRadius: 0,
-  color: theme.palette.primary.contrastText,
+  border: 'none',
 
-  '&.Mui-selected': {
-    color: theme.palette.primary.contrastText
+  '&:hover': {
+    backgroundColor: theme.palette.action.hover
+  },
+
+  '&.Mui-selected:hover': {
+    backgroundColor: theme.palette.action.hover
   }
 }));

@@ -1,6 +1,6 @@
 import { JSX, useState } from 'react';
 import { Box, ThemeProvider } from '@mui/material';
-import { Header, Main, Sidebar } from "@app-components";
+import { Header, Content, Sidebar } from "@app-components";
 import { sidebarWidthPx } from '@app-utils';
 import { lightTheme, darkTheme } from 'theme';
 
@@ -51,7 +51,7 @@ export const App = (): JSX.Element => {
             open={mobileOpen}
           />
         </Box>
-        <Main />
+        <Content />
       </Box>
     </ThemeProvider>
   );
