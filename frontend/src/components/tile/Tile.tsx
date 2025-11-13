@@ -14,7 +14,7 @@ import Token from "@app-contracts/Token.json"
 import Message from "@app-contracts/Message.json"
 import StarIcon from "@mui/icons-material/Star"
 import StarBorderIcon from "@mui/icons-material/StarBorder"
-import DescriptionIcon from "@mui/icons-material/Description"
+import MessageIcon from '@mui/icons-material/Message';
 import GeneratingTokensIcon from "@mui/icons-material/GeneratingTokens"
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import ColorLensIcon from '@mui/icons-material/ColorLens';
@@ -32,7 +32,7 @@ export const Tile = (option: DeployOption) => {
   const [txHash, setTxHash] = useState<Address | undefined>(undefined);
   const explorerRef = useRef<string | undefined>(undefined);
 
-  const contractFields: FieldConfig[] = [
+  const messageFields: FieldConfig[] = [
     { name: 'message', placeholder: 'Message', required: true, defaultValue: `Hello ${option.chain}!` }
   ];
 
@@ -42,7 +42,7 @@ export const Tile = (option: DeployOption) => {
   ];
 
   const tabs = [
-    { value: 0, label: 'Contract', icon: <DescriptionIcon /> },
+    { value: 0, label: 'Message', icon: <MessageIcon /> },
     { value: 1, label: 'Token', icon: <GeneratingTokensIcon /> },
     { value: 2, label: 'NFT', icon: <ColorLensIcon /> },
     { value: 3, label: 'GM', icon: <WavingHandIcon /> }
@@ -234,7 +234,7 @@ export const Tile = (option: DeployOption) => {
           index={0}
         >
           <DynamicForm
-            fields={contractFields}
+            fields={messageFields}
             disabled={isPending || isSwitchPending}
             isConnected={isConnected}
             backgroundColor={option.backgroundColor}
