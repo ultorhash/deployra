@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Avatar, Box, Button, CardContent, CardHeader, IconButton, Stack, Typography} from "@mui/material"
-import { useAccount, useChainId, useConnect, useSwitchChain, useWaitForTransactionReceipt, useWalletClient } from "wagmi"
+import { useAccount, useChainId, useConnect, usePublicClient, useSwitchChain, useWaitForTransactionReceipt, useWalletClient } from "wagmi"
 import { Address, parseEther } from "viem"
 import { FieldValues } from "react-hook-form"
 import { enqueueSnackbar } from "notistack"
@@ -21,6 +21,7 @@ import GeneratingTokensIcon from "@mui/icons-material/GeneratingTokens";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import WavingHandIcon from '@mui/icons-material/WavingHand';
+import axios from "axios";
 
 interface TogglePanelProps {
   index: number;
@@ -62,6 +63,7 @@ export const Tile = (option: DeployOption) => {
   const { isConnected } = useAccount();
   const { connect } = useConnect();
   const chainId = useChainId();
+  const publicClient = usePublicClient({ chainId: option.chainId });
 
   const toggleFavorite = (): void => {
     const stored = localStorage.getItem('favorites');
@@ -85,6 +87,49 @@ export const Tile = (option: DeployOption) => {
     if (isSwitchPending) return "Switching chain...";
     if (option.chainId !== chainId) return "Switch chain"
     return isPending ? "Deploying..." : "Deploy";
+  }
+
+  const uploadToPinata = async (name: string, description: string, image: File): Promise<string> => {
+    try {
+      const imageData = new FormData();
+      imageData.append('file', image);
+
+      const imageRes = await axios.post('https://api.pinata.cloud/pinning/pinFileToIPFS', imageData, {
+        maxBodyLength: Infinity,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            pinata_api_key: import.meta.env.VITE_PINATA_API_KEY,
+            pinata_secret_api_key: import.meta.env.VITE_PINATA_SECRET
+          }
+        });
+
+      const imageHash = imageRes.data.IpfsHash;
+      const imageUri = `ipfs://${imageHash}`;
+
+      const metadata = {
+        name,
+        description,
+        image: imageUri
+      };
+
+      const metadataRes = await axios.post(
+        'https://api.pinata.cloud/pinning/pinJSONToIPFS',
+        metadata,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            pinata_api_key: import.meta.env.VITE_PINATA_API_KEY,
+            pinata_secret_api_key: import.meta.env.VITE_PINATA_SECRET
+          }
+        }
+      );
+
+      const metadataHash = metadataRes.data.IpfsHash;
+      return `ipfs://${metadataHash}`;
+    } catch (error) {
+      console.error('Pinata upload failed:', error);
+      throw new Error('Upload to Pinata failed');
+    }
   }
 
   const onSubmit = async (
@@ -127,8 +172,7 @@ export const Tile = (option: DeployOption) => {
           hash = await walletClient?.deployContract({
             abi: NFT.abi,
             bytecode: NFT.bytecode as Address,
-            args: [parseEther(fee.toString())],
-            value: parseEther(fee.toString())
+            args: [parseEther(fee.toString())]
           });
           break;
         case DeployTypes.GM:
@@ -146,6 +190,37 @@ export const Tile = (option: DeployOption) => {
       if (hash) {
         setTxHash(hash);
         enqueueSnackbar('Deploying...', { variant: 'default' });
+      }
+
+      if (deployType === DeployTypes.NFT) {
+        const tokenURI = await uploadToPinata(formData.name, formData.description, formData.image[0]);
+
+        const receipt = await publicClient!.waitForTransactionReceipt({ hash: hash! });
+        const contractAddress = receipt.contractAddress!;
+
+        const mintTx = await walletClient?.writeContract({
+          address: contractAddress,
+          abi: NFT.abi,
+          functionName: 'mint',
+          args: [tokenURI],
+          value: parseEther(fee.toString())
+        });
+
+        // TODO: Wait for success (currently indexing) and change name NFT by passing args to solidity
+
+        enqueueSnackbar(`Minted successfully!`, { variant: 'success', action: () => (
+          <Button
+            color="inherit"
+            size="small"
+            endIcon={<OpenInNewIcon />}
+            sx={{ fontSize: 14, textTransform: 'none' }}
+            onClick={() => {
+              window.open(`${explorerRef.current}/tx/${mintTx}`, '_blank');
+            }}
+          >
+            View
+          </Button>
+        )});
       }
 
     } catch (error: any) {
