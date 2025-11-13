@@ -180,7 +180,7 @@ export const Tile = (option: DeployOption) => {
   }, [isSuccess, isError, receipt]);
 
   return (
-    <StyledTile>
+    <StyledTile elevation={0}>
       <CardHeader
         title={option.chain}
         slotProps={{ title: { variant: 'h6' } }}

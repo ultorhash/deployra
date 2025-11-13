@@ -238,7 +238,7 @@ export const BaseLearnTile = (option: DeployOption) => {
   }, [walletClient]);
 
   return (
-    <StyledBaseLearnTile>
+    <StyledBaseLearnTile elevation={0}>
       <CardHeader
         title={option.chain}
         slotProps={{ title: { variant: "h6" } }}
@@ -249,7 +249,7 @@ export const BaseLearnTile = (option: DeployOption) => {
             title="Mint the badge to verify your task. Points for Base Learn on Talent Protocol usually sync within 2 days."
           >
             <IconButton sx={{ cursor: "default" }}>
-              <InfoIcon sx={{ color: "#FFF" }} />
+              <InfoIcon sx={{ color: (theme) => theme.palette.text.primary }} />
             </IconButton>
           </Tooltip>
         }

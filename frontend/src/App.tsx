@@ -1,5 +1,5 @@
 import { JSX, useState } from 'react';
-import { Box, ThemeProvider } from '@mui/material';
+import { Box, CssBaseline, ThemeProvider } from '@mui/material';
 import { Header, Content, Sidebar } from "@app-components";
 import { sidebarWidthPx } from '@app-utils';
 import { lightTheme, darkTheme } from 'theme';
@@ -39,7 +39,8 @@ export const App = (): JSX.Element => {
 
   return (
     <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-      <Box sx={{ display: 'flex', height: '100vh' }}>
+      <CssBaseline />
+      <Box sx={{ display: 'flex', minHeight: '100vh' }}>
         <Header
           onToggleSidebar={handleSidebarToggle}
           onToggleTheme={handleThemeToggle}
