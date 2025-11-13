@@ -1,6 +1,8 @@
 export enum DeployTypes {
   TOKEN = "Token",
-  CONTRACT = "Contract",
+  MESSAGE = "Message",
+  GM = "GM",
+  NFT = "NFT",
   BASIC_MATH = "Basic Math",
   CONTROL_STRUCTURES = "Control Structures",
   EMPLOYEE_STORAGE = "Employee Storage",

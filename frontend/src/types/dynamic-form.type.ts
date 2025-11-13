@@ -2,6 +2,7 @@ import { Config } from "wagmi";
 import { ConnectMutate } from "wagmi/query";
 
 export type FieldConfig = {
+  type: "text" | "file";
   name: string;
   placeholder: string;
   required?: boolean;

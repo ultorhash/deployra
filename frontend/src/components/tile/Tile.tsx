@@ -10,13 +10,15 @@ import { DynamicForm } from "@app-components"
 import { DeployTypes } from "@app-enums"
 import { chains } from "chains";
 import { StyledTile, StyledToggleButton, StyledToggleButtonGroup } from "./styled";
-import Token from "@app-contracts/Token.json"
-import Message from "@app-contracts/Message.json"
-import StarIcon from "@mui/icons-material/Star"
-import StarBorderIcon from "@mui/icons-material/StarBorder"
+import Message from "@app-contracts/Message.json";
+import Token from "@app-contracts/Token.json";
+import NFT from "@app-contracts/NFT.json";
+import GM from "@app-contracts/GM.json";
+import StarIcon from "@mui/icons-material/Star";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 import MessageIcon from '@mui/icons-material/Message';
-import GeneratingTokensIcon from "@mui/icons-material/GeneratingTokens"
-import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import GeneratingTokensIcon from "@mui/icons-material/GeneratingTokens";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import WavingHandIcon from '@mui/icons-material/WavingHand';
 
@@ -33,12 +35,18 @@ export const Tile = (option: DeployOption) => {
   const explorerRef = useRef<string | undefined>(undefined);
 
   const messageFields: FieldConfig[] = [
-    { name: 'message', placeholder: 'Message', required: true, defaultValue: `Hello ${option.chain}!` }
+    { type: 'text', name: 'message', placeholder: 'Message', required: true, defaultValue: `Hello ${option.chain}!` }
   ];
 
   const tokenFields: FieldConfig[] = [
-    { name: 'name', placeholder: 'Name', required: true, defaultValue: "" },
-    { name: 'symbol', placeholder: 'Symbol', required: true, defaultValue: "" }
+    { type: 'text', name: 'name', placeholder: 'Name', required: true, defaultValue: "" },
+    { type: 'text', name: 'symbol', placeholder: 'Symbol', required: true, defaultValue: "" }
+  ];
+
+  const nftFields: FieldConfig[] = [
+    { type: 'text', name: 'name', placeholder: 'Name', required: true, defaultValue: "" },
+    { type: 'text', name: 'description', placeholder: 'Description', required: true, defaultValue: "" },
+    { type: 'file', name: 'image', placeholder: 'Description', required: true, defaultValue: "" }
   ];
 
   const tabs = [
@@ -99,6 +107,14 @@ export const Tile = (option: DeployOption) => {
       explorerRef.current = selectedChain!.blockExplorers!.default!.url;
       
       switch (deployType) {
+        case DeployTypes.MESSAGE:
+          hash = await walletClient?.deployContract({
+            abi: Message.abi,
+            bytecode: Message.bytecode as Address,
+            args: [formData.message, parseEther(fee.toString())],
+            value: parseEther(fee.toString())
+          });
+          break;
         case DeployTypes.TOKEN:
           hash = await walletClient?.deployContract({
             abi: Token.abi,
@@ -107,11 +123,19 @@ export const Tile = (option: DeployOption) => {
             value: parseEther(fee.toString())
           });
           break;
-        case DeployTypes.CONTRACT:
+        case DeployTypes.NFT:
           hash = await walletClient?.deployContract({
-            abi: Message.abi,
-            bytecode: Message.bytecode as Address,
-            args: [formData.message, parseEther(fee.toString())],
+            abi: NFT.abi,
+            bytecode: NFT.bytecode as Address,
+            args: [parseEther(fee.toString())],
+            value: parseEther(fee.toString())
+          });
+          break;
+        case DeployTypes.GM:
+          hash = await walletClient?.deployContract({
+            abi: GM.abi,
+            bytecode: GM.bytecode as Address,
+            args: [parseEther(fee.toString())],
             value: parseEther(fee.toString())
           });
           break;
@@ -241,7 +265,7 @@ export const Tile = (option: DeployOption) => {
             color={option.color}
             connect={connect}
             getButtonText={getButtonText}
-            onSubmit={(formData) => onSubmit(formData, option.fee, DeployTypes.CONTRACT)}
+            onSubmit={(formData) => onSubmit(formData, option.fee, DeployTypes.MESSAGE)}
           />
         </TogglePanel>
         <TogglePanel
@@ -257,6 +281,36 @@ export const Tile = (option: DeployOption) => {
             connect={connect}
             getButtonText={getButtonText}
             onSubmit={(formData) => onSubmit(formData, option.fee, DeployTypes.TOKEN)}
+          />
+        </TogglePanel>
+        <TogglePanel
+          value={tabIndex}
+          index={2}
+        >
+          <DynamicForm
+            fields={nftFields}
+            disabled={isPending || isSwitchPending}
+            isConnected={isConnected}
+            backgroundColor={option.backgroundColor}
+            color={option.color}
+            connect={connect}
+            getButtonText={getButtonText}
+            onSubmit={(formData) => onSubmit(formData, option.fee, DeployTypes.NFT)}
+          />
+        </TogglePanel>
+        <TogglePanel
+          value={tabIndex}
+          index={3}
+        >
+          <DynamicForm
+            fields={[]}
+            disabled={isPending || isSwitchPending}
+            isConnected={isConnected}
+            backgroundColor={option.backgroundColor}
+            color={option.color}
+            connect={connect}
+            getButtonText={getButtonText}
+            onSubmit={(formData) => onSubmit(formData, option.fee, DeployTypes.GM)}
           />
         </TogglePanel>
       </CardContent>
