@@ -89,6 +89,7 @@ const testnetOptions: DeployOption[] = [
   { chain: "Citrea Testnet", chainId: 5115, type: "testnet", icon: "citrea.png", fee: 0.000005, backgroundColor: "#E47530", color: "#FFFFFF", tags: [] },
   { chain: "Moca Testnet", chainId: 5151, type: "testnet", icon: "moca.png", fee: 0.00002, backgroundColor: "#C15F97", color: "#FFFFFF", tags: [] },
   { chain: "MegaETH Testnet", chainId: 6342, type: "testnet", icon: "megaeth.png", fee: 0.00001, backgroundColor: "#DFD9D9", color: "#000000", tags: [] },
+  { chain: "MegaETH Timothy Testnet", chainId: 6343, type: "testnet", icon: "megaeth.png", fee: 0.00001, backgroundColor: "#DFD9D9", color: "#000000", tags: ["new"] },
   { chain: "XOS Testnet", chainId: 1267, type: "testnet", icon: "xos.png", fee: 0.00005, backgroundColor: "#000000", color: "#FFFFFF", tags: ["hot"] },
   { chain: "Block Chain Testkek", chainId: 6231991, type: "testnet", icon: "blockchain.jpg", fee: 0.00002, backgroundColor: "#0000FF", color: "#FFFFFF", tags: [] },
   { chain: "Fluent Testnet", chainId: 20994, type: "testnet", icon: "fluent.jpg", fee: 0.000025, backgroundColor: "#000000", color: "#FFFFFF", tags: [] },
