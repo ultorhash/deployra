@@ -49,6 +49,7 @@ export const Content = (props: ContentProps): JSX.Element => {
       <ContentToolbar />
       <TextField
         fullWidth
+        data-testid="chain-search"
         value={searchValue}
         onChange={handleSearchChange}
         placeholder="Search by name or ID..."

@@ -313,6 +313,7 @@ export const Tile = (option: DeployOption) => {
             <StyledToggleButton
               disableRipple
               disableFocusRipple
+              data-testid={label}
               value={value}
               sx={{ textTransform: 'none' }}
             >
