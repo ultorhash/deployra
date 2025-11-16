@@ -271,7 +271,7 @@ export const BaseLearnTile = (option: DeployOption) => {
                         alignItems: 'center',
                         gap: 0.5,
                         textDecoration: 'underline',
-                        '&:visited': {
+                        '&:link, &:visited, &:hover, &:active, &:focus': {
                           color: '#FFFFFF', // TODO: use theme color for tooltips
                           textDecoration: 'underline',
                         }
@@ -302,7 +302,7 @@ export const BaseLearnTile = (option: DeployOption) => {
                         alignItems: 'center',
                         gap: 0.5,
                         textDecoration: 'underline',
-                        '&:visited': {
+                        '&:link, &:visited, &:hover, &:active, &:focus': {
                           color: '#FFFFFF', // TODO: use theme color for tooltips
                           textDecoration: 'underline',
                         }
