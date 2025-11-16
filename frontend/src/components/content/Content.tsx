@@ -62,7 +62,7 @@ export const Content = (props: ContentProps): JSX.Element => {
                 edge="end"
                 onClick={() => setSearchValue('')}
               >
-                <CloseIcon />
+                <CloseIcon sx={{ color: (theme) => theme.palette.text.primary }} />
               </IconButton>
             )
           }
