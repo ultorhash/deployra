@@ -266,7 +266,16 @@ export const BaseLearnTile = (option: DeployOption) => {
                       target="_blank"
                       rel="noopener noreferrer"
                       underline="always"
-                      sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5 }}
+                      sx={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 0.5,
+                        textDecoration: 'underline',
+                        '&:visited': {
+                          color: '#FFFFFF', // TODO: use theme color for tooltips
+                          textDecoration: 'underline',
+                        }
+                      }}
                     >
                       Base server
                     </Link>
@@ -288,7 +297,16 @@ export const BaseLearnTile = (option: DeployOption) => {
                       target="_blank"
                       rel="noopener noreferrer"
                       underline="always"
-                      sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5 }}
+                      sx={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 0.5,
+                        textDecoration: 'underline',
+                        '&:visited': {
+                          color: '#FFFFFF', // TODO: use theme color for tooltips
+                          textDecoration: 'underline',
+                        }
+                      }}
                     >
                       Talent Protocol
                     </Link>
