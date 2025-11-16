@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Avatar, Box, Button, Card, CardContent, CardHeader, CircularProgress, IconButton, Tooltip, Typography } from "@mui/material"
+import { Avatar, Box, Button, CardContent, CardHeader, Chip, CircularProgress, IconButton, Link, SvgIcon, Tooltip, Typography } from "@mui/material"
 import { injected, useAccount, useChainId, useConnect, useSwitchChain, useWaitForTransactionReceipt, useWalletClient, usePublicClient } from "wagmi"
 import { DeployOption } from "@app-types"
 import { DeployTypes } from "@app-enums"
@@ -9,6 +9,7 @@ import { enqueueSnackbar } from "notistack"
 import { RainbowKitChain } from "@rainbow-me/rainbowkit/dist/components/RainbowKitProvider/RainbowKitChainContext"
 import { contractAddresses } from "contract-addresses";
 import { ethers } from "ethers";
+import { StyledBaseLearnTile } from "./styled";
 import InfoIcon from "@mui/icons-material/InfoOutline"
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import BasicMath from "@app-contracts/BasicMath.json"
@@ -26,8 +27,6 @@ import WeightedVoting from "@app-contracts/WeightedVoting.json"
 import HaikuNFT from "@app-contracts/HaikuNFT.json"
 import Salesperson from "@app-contracts/Salesperson.json"
 import EngineeringManager from "@app-contracts/EngineeringManager.json"
-import { ThreeP } from "@mui/icons-material";
-import { StyledBaseLearnTile } from "./styled";
 
 const deployMap: Record<DeployTypes, { abi: any; bytecode: string }> = {
   [DeployTypes.BASIC_MATH]: BasicMath,
@@ -43,12 +42,13 @@ const deployMap: Record<DeployTypes, { abi: any; bytecode: string }> = {
   [DeployTypes.UNBURNABLE_TOKEN]: UnburnableToken,
   [DeployTypes.WEIGHTED_VOTING]: WeightedVoting,
   [DeployTypes.HAIKU_NFT]: HaikuNFT,
+  [DeployTypes.MESSAGE]: { abi: "", bytecode: "" },
   [DeployTypes.TOKEN]: { abi: "", bytecode: "" },
-  [DeployTypes.CONTRACT]: { abi: "", bytecode: "" },
+  [DeployTypes.NFT]: { abi: "", bytecode: "" },
+  [DeployTypes.GM]: { abi: "", bytecode: "" }
 };
 
 export const BaseLearnTile = (option: DeployOption) => {
-  const [isFavorite, setIsFavorite] = useState(false);
   const [txHash, setTxHash] = useState<Address>();
   const [deployType, setDeployType] = useState<DeployTypes>("" as DeployTypes);
   const [enableMint, setEnableMint] = useState(false);
@@ -246,7 +246,57 @@ export const BaseLearnTile = (option: DeployOption) => {
         action={
           <Tooltip
             arrow
-            title="Mint the badge to verify your task. Points for Base Learn on Talent Protocol usually sync within 2 days."
+            title={
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                <Typography variant="caption">
+                  Deploy and mint badge to receive following rewards:
+                </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+                  <Avatar sx={{ width: 24, height: 24 }}>
+                    <img
+                      src="/assets/icons/discord.svg"
+                      alt="discord"
+                      style={{ width: 16, height: 16 }}
+                    />
+                  </Avatar>
+                  <Typography variant="caption">
+                    Discord roles on the official{' '}
+                    <Link
+                      href="https://discord.com/invite/tAKmt2f5Ce"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      underline="always"
+                      sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5 }}
+                    >
+                      Base server
+                    </Link>
+                    . For subsequent roles, you need to deploy and mint next badges.
+                  </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start',  gap: 1 }}>
+                  <Avatar sx={{ width: 24, height: 24 }}>
+                    <img
+                      src="/assets/icons/talent.svg"
+                      alt="talent"
+                      style={{ width: 16, height: 16, borderRadius: 50 }}
+                    />
+                  </Avatar>
+                  <Typography variant="caption">
+                    Builder Score points on{' '}
+                    <Link
+                      href="https://app.talentprotocol.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      underline="always"
+                      sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5 }}
+                    >
+                      Talent Protocol
+                    </Link>
+                    . Points from Base Learn on Talent Protocol usually sync within up to 2 days.
+                  </Typography>
+                </Box>
+              </Box>
+            }
           >
             <IconButton sx={{ cursor: "default" }}>
               <InfoIcon sx={{ color: (theme) => theme.palette.text.primary }} />
@@ -255,8 +305,36 @@ export const BaseLearnTile = (option: DeployOption) => {
         }
       />
       <CardContent>
+        <Box sx={{ display: "flex", gap: 1, my: 1 }}>
+          <Chip
+            label="roles"
+            sx={{ border: (theme) => `1px solid ${theme.palette.divider}` }}
+            avatar={
+              <Avatar sx={{ bgcolor: 'transparent' }}>
+                <img
+                  src="/assets/icons/discord.svg"
+                  alt="discord"
+                  style={{ width: 16, height: 16, borderRadius: 50 }}
+                />
+              </Avatar>
+            }
+          />
+          <Chip
+            label="+1 point"
+            sx={{ border: (theme) => `1px solid ${theme.palette.divider}` }}
+            avatar={
+              <Avatar sx={{ bgcolor: 'transparent' }}>
+                <img
+                  src="/assets/icons/talent.svg"
+                  alt="talent"
+                  style={{ width: 16, height: 16, borderRadius: 50 }}
+                />
+              </Avatar>
+            }
+          />
+        </Box>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-          <Typography sx={{ fontSize: 12 }}>
+          <Typography variant="caption">
             {option.description}
           </Typography>
           <Typography sx={{ display: "flex", alignItems: "center", gap: 1 }}>
