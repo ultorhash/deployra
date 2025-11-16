@@ -252,7 +252,8 @@ export const BaseLearnTile = (option: DeployOption) => {
                   Deploy and mint badge to receive following rewards:
                 </Typography>
                 <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
-                  <Avatar sx={{ width: 24, height: 24 }}>
+                  {/* TODO: Avatar bg color theme palette */}
+                  <Avatar sx={{ width: 24, height: 24, backgroundColor: '#FFFFFF' }}> 
                     <img
                       src="/assets/icons/discord.svg"
                       alt="discord"
@@ -283,7 +284,8 @@ export const BaseLearnTile = (option: DeployOption) => {
                   </Typography>
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'flex-start',  gap: 1 }}>
-                  <Avatar sx={{ width: 24, height: 24 }}>
+                  {/* TODO: Avatar bg color theme palette */}
+                  <Avatar sx={{ width: 24, height: 24, backgroundColor: '#FFFFFF' }}>
                     <img
                       src="/assets/icons/talent.svg"
                       alt="talent"
