@@ -97,19 +97,19 @@ const testnetOptions: DeployOption[] = [
   { chain: "Neura Testnet", chainId: 267, type: "testnet", icon: "neura.jpg", fee: 0.000004, backgroundColor: "#7FFF76", color: "#000000", tags: ["hot"] },
   { chain: "KiteAI Testnet", chainId: 2368, type: "testnet", icon: "kiteai.jpg", fee: 0.0001, backgroundColor: "#000000", color: "#FFFFFF", tags: ["hot"] },
   { chain: "Kii Testnet", chainId: 1336, type: "testnet", icon: "kii.jpg", fee: 0.000025, backgroundColor: "#332976", color: "#FFFFFF", tags: [] },
-  { chain: "Nitro Graph Testnet", chainId: 200024, type: "testnet", icon: "nitrograph.jpg", fee: 0.00005, backgroundColor: "#FC2E00", color: "#FFFFFF", tags: [] },
-  { chain: "Base Sepolia Testnet", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0.00025, backgroundColor: "#0000FF", color: "#FFFFFF", tags: ["hot"] },
-  { chain: "OP Sepolia Testnet", chainId: 11155420, type: "testnet", icon: "optimism.png", fee: 0.00025, backgroundColor: "#FF0420", color: "#FFFFFF", tags: [] },
-  { chain: "Ink Sepolia Testnet", chainId: 763373, type: "testnet", icon: "ink.svg", fee: 0.00025, backgroundColor: "#9E7CEB", color: "#FFFFFF", tags: [] },
-  { chain: "Unichain Sepolia Testnet", chainId: 1301, type: "testnet", icon: "unichain.png", fee: 0.00025, backgroundColor: "#F51BBD", color: "#FFFFFF", tags: [] },
-  { chain: "Soneium Minato Testnet", chainId: 1946, type: "testnet", icon: "soneium.svg", fee: 0.00025, backgroundColor: "#6398C7", color: "#FFFFFF", tags: [] },
-  { chain: "Lisk Sepolia Testnet", chainId: 4202, type: "testnet", icon: "lisk.svg", fee: 0.00025, backgroundColor: "#FFFFFF", color: "#000000", tags: [] },
-  { chain: "Sova Sepolia Testnet", chainId: 120893, type: "testnet", icon: "sova.png", fee: 0.00025, backgroundColor: "#84F29C", color: "#000000", tags: [] },
-  { chain: "Pharos Atlantic Testnet", chainId: 688689, type: "testnet", icon: "pharos.png", fee: 0.003, backgroundColor: "#0007B8", color: "#FFFFFF", tags: ["hot"] },
+  { chain: "Nitro Graph Testnet", chainId: 200024, type: "testnet", icon: "nitrograph.jpg", fee: 0.00003, backgroundColor: "#FC2E00", color: "#FFFFFF", tags: [] },
+  { chain: "Base Sepolia Testnet", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0.0002, backgroundColor: "#0000FF", color: "#FFFFFF", tags: ["hot"] },
+  { chain: "OP Sepolia Testnet", chainId: 11155420, type: "testnet", icon: "optimism.png", fee: 0.0002, backgroundColor: "#FF0420", color: "#FFFFFF", tags: [] },
+  { chain: "Ink Sepolia Testnet", chainId: 763373, type: "testnet", icon: "ink.svg", fee: 0.0002, backgroundColor: "#9E7CEB", color: "#FFFFFF", tags: [] },
+  { chain: "Unichain Sepolia Testnet", chainId: 1301, type: "testnet", icon: "unichain.png", fee: 0.0002, backgroundColor: "#F51BBD", color: "#FFFFFF", tags: [] },
+  { chain: "Soneium Minato Testnet", chainId: 1946, type: "testnet", icon: "soneium.svg", fee: 0.0002, backgroundColor: "#6398C7", color: "#FFFFFF", tags: [] },
+  { chain: "Lisk Sepolia Testnet", chainId: 4202, type: "testnet", icon: "lisk.svg", fee: 0.0002, backgroundColor: "#FFFFFF", color: "#000000", tags: [] },
+  { chain: "Sova Sepolia Testnet", chainId: 120893, type: "testnet", icon: "sova.png", fee: 0.0002, backgroundColor: "#84F29C", color: "#000000", tags: [] },
+  { chain: "Pharos Atlantic Testnet", chainId: 688689, type: "testnet", icon: "pharos.png", fee: 0.002, backgroundColor: "#0007B8", color: "#FFFFFF", tags: ["hot"] },
   { chain: "Arc Testnet", chainId: 5042002, type: "testnet", icon: "arc.jpg", fee: 0.0005, backgroundColor: "#3D6A8D", color: "#FFFFFF", tags: ["hot"] },
-  { chain: "IOPn Testnet", chainId: 984, type: "testnet", icon: "iopn.jpg", fee: 0.005, backgroundColor: "#000000", color: "#FFFFFF", tags: ["hot"] },
-  { chain: "Stable Testnet", chainId: 2201, type: "testnet", icon: "stable.jpg", fee: 0.001, backgroundColor: "#053F30", color: "#FFFFFF", tags: ["new", "hot"] },
-  { chain: "Rayls Testnet", chainId: 123123, type: "testnet", icon: "rayls.jpg", fee: 0.005, backgroundColor: "#EDFB51", color: "#000000", tags: ["new", "hot"] }
+  { chain: "IOPn Testnet", chainId: 984, type: "testnet", icon: "iopn.jpg", fee: 0.0002, backgroundColor: "#000000", color: "#FFFFFF", tags: ["hot"] },
+  { chain: "Stable Testnet", chainId: 2201, type: "testnet", icon: "stable.jpg", fee: 0.0003, backgroundColor: "#053F30", color: "#FFFFFF", tags: ["new", "hot"] },
+  { chain: "Rayls Testnet", chainId: 123123, type: "testnet", icon: "rayls.jpg", fee: 0.001, backgroundColor: "#EDFB51", color: "#000000", tags: ["new", "hot"] }
 ];
 
 const baseLearnOptions: DeployOption[] = [
