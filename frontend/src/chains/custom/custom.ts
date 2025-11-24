@@ -31,11 +31,12 @@ import { iopnTesntet } from "./iopn-testnet";
 import { stableTestnet } from "./stable";
 import { raylsTestnet } from "./rayls-testnet";
 import { megaETHTimothy } from "./megaeth-testnet";
+import { monad } from "./monad";
 
 export const customChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   hyperevm, pharos, citrea, botanix, mocaTestnet, OG, xosTestnet, zeroNetwork,
   blockchainTestnet, fluentTestnet, giwaTestnet, neuraTestnet, katana, kiteai,
   kiiTestnet, mezo, juchain, mitosis, nitrographTestnet, sahara, somnia, plasma,
   gateLayer, humanityProtocol, zora, sovaTestnet, pharosAtlantic, arcTestnet,
-  iopnTesntet, stableTestnet, raylsTestnet, megaETHTimothy
+  iopnTesntet, stableTestnet, raylsTestnet, megaETHTimothy, monad
 ];
