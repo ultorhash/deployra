@@ -14,6 +14,8 @@ export const contractAddresses: Record<DeployTypes, { verifyAddress: string }> =
   [DeployTypes.UNBURNABLE_TOKEN]: { verifyAddress: "0x10Ce928030E136EcC74d4a4416Db9b533e3c694D" },
   [DeployTypes.WEIGHTED_VOTING]: { verifyAddress: "0x4F333c49B820013e5E6Fe86634DC4Da88039CE50" },
   [DeployTypes.HAIKU_NFT]: { verifyAddress: "0x15534ED3d1dBA55148695B2Ba4164F147E47a10c" },
+  [DeployTypes.MESSAGE]: { verifyAddress: "" },
   [DeployTypes.TOKEN]: { verifyAddress: "" },
-  [DeployTypes.CONTRACT]: { verifyAddress: "" }
+  [DeployTypes.NFT]: { verifyAddress: "" },
+  [DeployTypes.GM]: { verifyAddress: "" }
 };
