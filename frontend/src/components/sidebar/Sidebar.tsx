@@ -155,7 +155,7 @@ export const Sidebar = (props: SidebarProps): JSX.Element => {
           variant="caption"
           sx={{ textAlign: "center", mb: 0.5 }}
         >
-          Version 2.0.2
+          Version 2.0.3
         </Typography>
       </SidebarContainer>
     </StyledDrawer>
