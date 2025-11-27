@@ -389,7 +389,9 @@ export const BaseLearnTile = (option: DeployOption) => {
             sx={{ backgroundColor: "#0000FF" }}
             onClick={onMintBadge}
           >
-            Mint Badge
+            <Typography variant="inherit" sx={{ color: "#FFF" }}>
+              Mint Badge
+            </Typography>
           </Button>
         </Box>
       </CardContent>
