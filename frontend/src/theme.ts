@@ -19,6 +19,13 @@ const baseThemeOptions = {
         }
       }
     },
+    MuiTypography: {
+      styleOverrides: {
+        button: {
+          textTransform: 'none'
+        }
+      }
+    },
     MuiOutlinedInput: {
       styleOverrides: {
         notchedOutline: ({ theme }: { theme: Theme }) => ({
@@ -78,8 +85,10 @@ export const lightTheme = createTheme({
     },
     divider: "#777777",
     action: {
+      selected: "#DDDDDD",
       active: "#DDDDDD",
-      hover: "#DDDDDD"
+      hover: "#EEEEEE",
+      disabledBackground: "#DDDDDD"
     }
   }
 });
@@ -122,8 +131,10 @@ export const darkTheme = createTheme({
     },
     divider: "#3a4f75",
     action: {
-      active: "#07276a",
-      hover: "#07276a"
+      selected: "#07276A",
+      active: "#07276A",
+      hover: "#0A3894",
+      disabledBackground: "#07276A"
     }
   }
 });

@@ -27,7 +27,7 @@ export const StyledToggleButton = styled(ToggleButton)(({ theme }) => ({
   },
 
   '&.Mui-selected': {
-    backgroundColor: theme.palette.action.hover
+    backgroundColor: theme.palette.action.selected
   },
 
   '&.Mui-selected:hover': {
