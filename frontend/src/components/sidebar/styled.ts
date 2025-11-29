@@ -43,87 +43,10 @@ export const SidebarListButton = styled(ListItemButton)(({ theme }) => ({
   borderRadius: `${buttonBorderRadius}px`
 }));
 
-export const SidebarButton = styled(Button)(({ theme }) => ({
-  width: '50%',
-  borderRadius: `${buttonBorderRadius}px`,
-  backgroundColor: 'lime'
-}));
-
 export const SidebarFilterListItemIcon = styled(ListItemIcon)({
   minWidth: 0,
   marginRight: 16
 });
-
-export const SidebarReferralBox = styled(Box)({
-  display: 'flex',
-  flexDirection: 'column',
-  margin: 16,
-  gap: 8
-});
-
-export const SidebarCodeBox = styled(Box)({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between"
-});
-
-export const SidebarCharInput = styled(TextField)(({ theme }) => ({
-  "& .MuiInputBase-root": {
-    width: 26,
-    height: 32
-  },
-  "& .MuiInputBase-input": {
-    padding: 0,
-    textAlign: "center",
-    fontSize: theme.typography.button.fontSize,
-    fontWeight: theme.typography.button.fontWeight,
-    textTransform: theme.typography.button.textTransform
-  }
-}));
-
-export const SidebarCharBox = styled(Box)(({ theme }) => ({
-  width: 26,
-  height: 32,
-  border: `1px solid ${theme.palette.divider}`,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  borderRadius: 4
-}));
-
-export const SidebarBindButton = styled(Button)(({ theme }) => ({
-  width: 72,
-  height: 32,
-  backgroundColor: theme.palette.action.selected,
-  color: theme.palette.text.secondary,
-
-  "&:hover": {
-    backgroundColor: theme.palette.action.hover
-  },
-
-  "&.Mui-disabled": {
-    cursor: "not-allowed",
-    pointerEvents: "auto",
-    backgroundColor: theme.palette.action.disabledBackground,
-    color: theme.palette.action.disabled
-  },
-
-  "&.Mui-disabled:hover": {
-    backgroundColor: theme.palette.action.disabledBackground
-  }
-}));
-
-export const SidebarIconButton = styled(IconButton)(({ theme }) => ({
-  width: 32,
-  height: 32,
-  borderRadius: 4,
-  backgroundColor: theme.palette.action.selected,
-  color: theme.palette.text.secondary,
-
-  '&:hover': {
-    backgroundColor: theme.palette.action.hover
-  }
-}));
 
 export const SidebarStatsWrapper = styled(Box)({
   display: 'flex',
