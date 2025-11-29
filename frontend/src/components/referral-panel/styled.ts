@@ -7,36 +7,6 @@ export const ReferralPanelBox = styled(Box)({
   gap: 8
 });
 
-export const CodeBox = styled(Box)({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between"
-});
-
-export const CharBox = styled(Box)(({ theme }) => ({
-  width: 26,
-  height: 32,
-  border: `1px solid ${theme.palette.divider}`,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  borderRadius: 4
-}));
-
-export const CharTextField = styled(TextField)(({ theme }) => ({
-  "& .MuiInputBase-root": {
-    width: 26,
-    height: 32
-  },
-  "& .MuiInputBase-input": {
-    padding: 0,
-    textAlign: "center",
-    fontSize: theme.typography.button.fontSize,
-    fontWeight: theme.typography.button.fontWeight,
-    textTransform: theme.typography.button.textTransform
-  }
-}));
-
 export const ReferralActionButton = styled(Button)(({ theme }) => ({
   width: 72,
   height: 32,
