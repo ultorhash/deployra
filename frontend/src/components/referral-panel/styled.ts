@@ -37,7 +37,7 @@ export const CharTextField = styled(TextField)(({ theme }) => ({
   }
 }));
 
-export const BindButton = styled(Button)(({ theme }) => ({
+export const ReferralActionButton = styled(Button)(({ theme }) => ({
   width: 72,
   height: 32,
   backgroundColor: theme.palette.action.selected,

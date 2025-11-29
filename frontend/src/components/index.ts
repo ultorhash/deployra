@@ -6,3 +6,4 @@ export { ChainTiles } from './chain-tiles/ChainTiles';
 export { Tile } from './tile/Tile';
 export { BaseLearnTile } from './base-learn-tile/BaseLearnTile';
 export { ReferralPanel } from './referral-panel/ReferralPanel';
+export { ReferralSection } from './referral-section/ReferralSection';
