@@ -6,21 +6,21 @@ contract ReferralRegistry {
     mapping(address => bytes6) public userRefCode;
     mapping(address => address) public referredBy;
 
-    bytes32 private constant GLOBAL_SALT = keccak256("DEPLOYRA_UNIVERSAL_REF");
+    bytes6[] public refCodes;
 
-    event CodeRegistered(address indexed user, bytes6 code);
+    event CodeCreated(address indexed user, bytes6 code);
     event Bound(address indexed user, address indexed referrer);
 
-    function registerRefCode() external {
+    function registerRefCode(bytes6 code) external {
         require(userRefCode[msg.sender] == 0x000000000000, "Already has code");
-
-        bytes6 code = _derive(msg.sender);
-        require(refOwner[code] == address(0), "Collision");
+        require(_isValidCode(code), "Invalid code format");
+        require(refOwner[code] == address(0), "Code already taken");
 
         refOwner[code] = msg.sender;
         userRefCode[msg.sender] = code;
+        refCodes.push(code);
 
-        emit CodeRegistered(msg.sender, code);
+        emit CodeCreated(msg.sender, code);
     }
 
     function bindToRefCode(bytes6 code) external {
@@ -35,16 +35,31 @@ contract ReferralRegistry {
         emit Bound(msg.sender, referrer);
     }
 
-    function _derive(address user) internal pure returns (bytes6) {
-        return bytes6(keccak256(abi.encodePacked(user, GLOBAL_SALT)));
+    function getRefCodes() external view returns (bytes6[] memory) {
+        return refCodes;
+    }
+
+    function _isValidCode(bytes6 code) internal pure returns (bool) {
+        for (uint256 i = 0; i < 6; i++) {
+            bytes1 c = code[i];
+
+            bool isNum = (c >= 0x30 && c <= 0x39); // 0–9
+            bool isAZ  = (c >= 0x41 && c <= 0x5A); // A–Z
+
+            if (!isNum && !isAZ) return false;
+        }
+
+        return true;
     }
 
     function _createsLoop(address user, address referrer) internal view returns (bool) {
         address current = referrer;
+
         while (current != address(0)) {
             if (current == user) return true;
             current = referredBy[current];
         }
+
         return false;
     }
 }
