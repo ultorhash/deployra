@@ -5,6 +5,7 @@ contract ReferralRegistry {
     mapping(bytes6 => address) public refOwner;
     mapping(address => bytes6) public userRefCode;
     mapping(address => address) public referredBy;
+    mapping(address => address[]) public referrals;
 
     bytes6[] public refCodes;
 
@@ -31,12 +32,17 @@ contract ReferralRegistry {
         require(!_createsLoop(msg.sender, referrer), "Loop denied");
 
         referredBy[msg.sender] = referrer;
+        referrals[referrer].push(msg.sender);
 
         emit Bound(msg.sender, referrer);
     }
 
     function getRefCodes() external view returns (bytes6[] memory) {
         return refCodes;
+    }
+
+    function getReferralCount(address user) external view returns (uint256) {
+        return referrals[user].length;
     }
 
     function _isValidCode(bytes6 code) internal pure returns (bool) {
