@@ -1,4 +1,4 @@
-import { JSX, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { ReferralSectionBox, ReferralSectionCharInput } from "./styled";
 
@@ -71,6 +71,12 @@ export const ReferralSection = (props: ReferralSectionProps): JSX.Element => {
       }
     }
   }
+
+  useEffect(() => {
+    if (code.length === 6) {
+      setInputChars(code.split(""));
+    }
+  }, [code]);
 
   return (
     <ReferralSectionBox>
