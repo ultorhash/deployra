@@ -15,8 +15,7 @@ contract ReferralRegistryEndpoint is AxelarExecutable {
         string sourceAddress,
         address user,
         bytes6 code,
-        address referrer,
-        bytes32 commandId
+        address referrer
     );
 
     constructor(address gateway, address _localRegistry) AxelarExecutable(gateway) {
@@ -38,8 +37,7 @@ contract ReferralRegistryEndpoint is AxelarExecutable {
             sourceAddress,
             user,
             code,
-            referrer,
-            commandId
+            referrer
         );
     }
 }

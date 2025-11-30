@@ -133,6 +133,8 @@ export const Sidebar = (props: SidebarProps): JSX.Element => {
               <ListItemText primary="Follow us!" />
             </SidebarListButton>
           </SidebarFilterList>
+          <Divider sx={{ borderColor: (theme) => theme.palette.divider }} />
+          <ReferralPanel />
         </SidebarListsWrapper>
         <SidebarStatsWrapper>
           {chainStats.map((item) => (
