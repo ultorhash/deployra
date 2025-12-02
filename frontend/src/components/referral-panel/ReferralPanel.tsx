@@ -1,4 +1,4 @@
-import { JSX, useEffect, useState } from "react";
+import { JSX, useEffect, useMemo, useState } from "react";
 import { useAccount, usePublicClient, useWalletClient, useSwitchChain } from "wagmi";
 import { stringToHex, hexToBytes, createPublicClient, http } from "viem";
 import { readContract, writeContract } from "viem/actions";
@@ -12,16 +12,12 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
-function bytes6ToString(code: `0x${string}`): string {
-  const bytes = hexToBytes(code);
-  return new TextDecoder().decode(bytes);
-}
-
 export const ReferralPanel = (): JSX.Element => {
   const REGISTRY_ADDRESS = "0xEC854a7885FD1F09272aC2fA9E5fFAee6623edc0";
 
   const [userCode, setUserCode] = useState<string>("");
   const [referrerCode, setReferrerCode] = useState<string>("");
+  const [refCodes, setRefCodes] = useState<string[]>([]);
   const [enteredReferrerCode, setEnteredReferrerCode] = useState<string>("");
   const [enteredUserCode, setEnteredUserCode] = useState<string>("");
   const [isBound, setIsBound] = useState<boolean>(false);
@@ -32,10 +28,16 @@ export const ReferralPanel = (): JSX.Element => {
   const { data: walletClient } = useWalletClient({ chainId: baseSepolia.id });
   const { switchChainAsync } = useSwitchChain();
   const publicClient = usePublicClient({ chainId: baseSepolia.id });
-  const viemClient = createPublicClient({
-    chain: baseSepolia,
+
+  const viemClient = useMemo(() => createPublicClient({
+    chain: baseSepolia, // TODO: Change to Base when ready
     transport: http(),
-  });
+  }), []);
+
+  const bytes6ToString = (code: `0x${string}`): string => {
+    const bytes = hexToBytes(code);
+    return new TextDecoder().decode(bytes);
+  }
 
   const handleBindCode = async (): Promise<void> => {
     if (enteredReferrerCode.length !== 6) {
@@ -53,12 +55,17 @@ export const ReferralPanel = (): JSX.Element => {
 
   const handleCreateCode = async (): Promise<void> => {
     if (enteredUserCode.length !== 6) {
-      enqueueSnackbar("Code must be exactly 6 alphanumeric characters", { variant: "warning" })
+      enqueueSnackbar("Code must be exactly 6 alphanumeric characters", { variant: "warning" });
+      return;
+    }
+
+    if (refCodes.includes(enteredUserCode)) {
+      enqueueSnackbar("Code already exists", { variant: "warning" });
       return;
     }
 
     if (!walletClient || !address) {
-      enqueueSnackbar("Wallet not connected", { variant: "error" })
+      enqueueSnackbar("Wallet not connected", { variant: "error" });
       return
     }
 
@@ -106,7 +113,7 @@ export const ReferralPanel = (): JSX.Element => {
   }
 
   useEffect(() => {
-    const fetchUserData = async (): Promise<void> => {
+    const fetchData = async (): Promise<void> => {
       if (!address) return;
 
       try {
@@ -134,12 +141,22 @@ export const ReferralPanel = (): JSX.Element => {
 
         setReferralCount(Number(referralCount));
 
+        const refCodes = await readContract(viemClient, {
+          address: REGISTRY_ADDRESS,
+          abi: ReferralRegistry.abi,
+          functionName: 'getRefCodes',
+          args: []
+        });
+
+        const codes = (refCodes as `0x${string}`[]).map(c => bytes6ToString(c));
+        setRefCodes(codes);
+
       } catch (err: any) {
         console.error("Failed to fetch user code:", err);
       }
     };
 
-    fetchUserData();
+    fetchData();
   }, [address, viemClient]);
 
   return (
