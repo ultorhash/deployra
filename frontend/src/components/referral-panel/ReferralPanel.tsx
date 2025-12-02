@@ -1,6 +1,6 @@
 import { JSX, useEffect, useMemo, useState } from "react";
 import { useAccount, usePublicClient, useWalletClient, useSwitchChain } from "wagmi";
-import { stringToHex, hexToBytes, createPublicClient, http } from "viem";
+import { stringToHex, hexToBytes, createPublicClient, http, parseEther } from "viem";
 import { readContract, writeContract } from "viem/actions";
 import { baseSepolia } from "viem/chains";
 import { enqueueSnackbar } from "notistack";
@@ -72,21 +72,25 @@ export const ReferralPanel = (): JSX.Element => {
       enqueueSnackbar('Binding...', { variant: 'default' });
 
       const receipt = await publicClient!.waitForTransactionReceipt({ hash: txHash });
-      
-      setIsBound(true);
-      enqueueSnackbar(`Referral code bound!`, { variant: 'success', action: () => (
-        <Button
-          color="inherit"
-          size="small"
-          endIcon={<OpenInNewIcon />}
-          sx={{ fontSize: 14, textTransform: 'none' }}
-          onClick={() => {
-            window.open(`${baseSepolia.blockExplorers.default.url}/tx/${receipt.transactionHash}`, '_blank');
-          }}
-        >
-          View
-        </Button>
-      )});
+
+      if (receipt.status === "success") {
+        setIsBound(true);
+        enqueueSnackbar(`Referral code bound!`, { variant: 'success', action: () => (
+          <Button
+            color="inherit"
+            size="small"
+            endIcon={<OpenInNewIcon />}
+            sx={{ fontSize: 14, textTransform: 'none' }}
+            onClick={() => {
+              window.open(`${baseSepolia.blockExplorers.default.url}/tx/${receipt.transactionHash}`, '_blank');
+            }}
+          >
+            View
+          </Button>
+        )});
+      } else {
+        enqueueSnackbar('Failed to bind. Invalid code or loop detected', { variant: 'error' });
+      }
 
     } catch (error: any) {
       if (
@@ -94,7 +98,7 @@ export const ReferralPanel = (): JSX.Element => {
         error?.message?.toLowerCase().includes("user rejected") ||
         error?.message?.toLowerCase().includes("cancelled")
       ) {
-        enqueueSnackbar('Failed to bind. Transaction rejected.', { variant: 'error' });
+        enqueueSnackbar('Failed to bind. Transaction rejected', { variant: 'error' });
       }
     }
   }
@@ -126,27 +130,33 @@ export const ReferralPanel = (): JSX.Element => {
         address: REGISTRY_ADDRESS,
         abi: ReferralRegistry.abi,
         functionName: 'createRefCode',
-        args: [codeBytes]
+        args: [codeBytes],
+        value: parseEther("0.000033")
       });
 
       enqueueSnackbar('Creating...', { variant: 'default' });
 
       const receipt = await publicClient!.waitForTransactionReceipt({ hash: txHash });
-      
-      setIsCreated(true);
-      enqueueSnackbar(`Referral code created!`, { variant: 'success', action: () => (
-        <Button
-          color="inherit"
-          size="small"
-          endIcon={<OpenInNewIcon />}
-          sx={{ fontSize: 14, textTransform: 'none' }}
-          onClick={() => {
-            window.open(`${baseSepolia.blockExplorers.default.url}/tx/${receipt.transactionHash}`, '_blank');
-          }}
-        >
-          View
-        </Button>
-      )});
+
+      if (receipt.status === "success") {
+        setIsCreated(true);
+        setUserCode(enteredUserCode);
+        enqueueSnackbar('Referral code created!', { variant: 'success', action: () => (
+          <Button
+            color="inherit"
+            size="small"
+            endIcon={<OpenInNewIcon />}
+            sx={{ fontSize: 14, textTransform: 'none' }}
+            onClick={() => {
+              window.open(`${baseSepolia.blockExplorers.default.url}/tx/${receipt.transactionHash}`, '_blank');
+            }}
+          >
+            View
+          </Button>
+        )});
+      } else {
+        enqueueSnackbar('Failed to create referral code', { variant: "error" });
+      }
 
     } catch (error: any) {
       if (
@@ -209,6 +219,7 @@ export const ReferralPanel = (): JSX.Element => {
 
         if (referredByCodeHex !== "0x000000000000") {
           setReferredByCode(bytes6ToString(referredByCode));
+          setIsBound(true);
         }
 
       } catch (err: any) {
