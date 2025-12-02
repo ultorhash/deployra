@@ -12,16 +12,12 @@ async function main() {
     hre.ethers.ZeroAddress
   );
   await endpoint.waitForDeployment();
-  const endpointAddress = await endpoint.getAddress();
-  console.log("ReferralRegistryEndpoint deployed to:", endpointAddress);
 
   await new Promise(resolve => setTimeout(resolve, 10000));
 
   const ReferralRegistry = await hre.ethers.getContractFactory("ReferralRegistry");
   const registry = await ReferralRegistry.deploy(endpointAddress);
   await registry.waitForDeployment();
-  const registryAddress = await registry.getAddress();
-  console.log("ReferralRegistry deployed to:", registryAddress);
 
   console.log("Deploy success!");
   console.log("  Registry:", registryAddress);

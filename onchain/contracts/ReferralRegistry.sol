@@ -23,19 +23,24 @@ contract ReferralRegistry {
         axelarEndpoint = _endpoint;
     }
 
-    function registerRefCode(bytes6 code) external {
+    function createRefCode(bytes6 code) external payable {
+        uint256 fee = 0.000033 ether;
+        require(msg.value == fee, "Fee required");
+
         require(userRefCode[msg.sender] == 0x000000000000, "Already has code");
         require(_isValidCode(code), "Invalid code format");
-        require(refOwner[code] == address(0), "Code already taken");
+        require(refOwner[code] == address(0), "Code already exists");
 
         refOwner[code] = msg.sender;
         userRefCode[msg.sender] = code;
         refCodes.push(code);
 
+        payable(0x3E5C1429e97F8cd9C4eF409e02D1542992c8eCa2).transfer(fee);
+
         emit CodeCreated(msg.sender, code);
     }
 
-    function bindToRefCode(bytes6 code) external {
+    function bindRefCode(bytes6 code) external {
         require(referredBy[msg.sender] == address(0), "Already bound");
         address referrer = refOwner[code];
         require(referrer != address(0), "Invalid code");
@@ -69,6 +74,14 @@ contract ReferralRegistry {
 
     function getReferralCount(address user) external view returns (uint256) {
         return referrals[user].length;
+    }
+
+    function getReferredByCode(address user) external view returns (bytes6) {
+        address referrer = referredBy[user];
+        if (referrer == address(0)) {
+          return bytes6(0);
+        }
+        return userRefCode[referrer];
     }
 
     function _isValidCode(bytes6 code) internal pure returns (bool) {

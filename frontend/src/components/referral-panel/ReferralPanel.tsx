@@ -13,12 +13,12 @@ import IosShareIcon from '@mui/icons-material/IosShare';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 export const ReferralPanel = (): JSX.Element => {
-  const REGISTRY_ADDRESS = "0xEC854a7885FD1F09272aC2fA9E5fFAee6623edc0";
+  const REGISTRY_ADDRESS = "0x048f624E56637127f673DF7aeD0fa4C1F009a685";
 
   const [userCode, setUserCode] = useState<string>("");
-  const [referrerCode, setReferrerCode] = useState<string>("");
+  const [referredByCode, setReferredByCode] = useState<string>("");
   const [refCodes, setRefCodes] = useState<string[]>([]);
-  const [enteredReferrerCode, setEnteredReferrerCode] = useState<string>("");
+  const [enteredReferredByCode, setEnteredReferredByCode] = useState<string>("");
   const [enteredUserCode, setEnteredUserCode] = useState<string>("");
   const [isBound, setIsBound] = useState<boolean>(false);
   const [isCreated, setIsCreated] = useState<boolean>(false);
@@ -40,20 +40,71 @@ export const ReferralPanel = (): JSX.Element => {
   }
 
   const handleBindCode = async (): Promise<void> => {
-    if (enteredReferrerCode.length !== 6) {
-      enqueueSnackbar("Code must be exactly 6 alphanumeric characters", { variant: "warning" })
+    if (!walletClient || !address) {
+      enqueueSnackbar("Wallet not connected", { variant: "error" });
+      return;
+    }
+
+    if (enteredReferredByCode.length !== 6) {
+      enqueueSnackbar("Code must be exactly 6 alphanumeric characters", { variant: "warning" });
       return
     }
-    const success = await new Promise<boolean>((resolve) => {
-      setTimeout(() => resolve(true), 2000)
-    })
-    if (success) {
-      setReferrerCode(enteredReferrerCode)
-      setIsBound(true)
+    
+    if (!refCodes.includes(enteredReferredByCode)) {
+      enqueueSnackbar("Invalid referral code", { variant: "warning" });
+      return;
+    }
+
+    await switchChainAsync({ chainId: baseSepolia.id });
+
+    try {
+      const codeBytes = stringToHex(enteredReferredByCode, { size: 6 }) as `0x${string}`;
+
+      enqueueSnackbar('Confirm in your wallet...', { variant: 'default' });
+
+      const txHash = await writeContract(walletClient, {
+        address: REGISTRY_ADDRESS,
+        abi: ReferralRegistry.abi,
+        functionName: 'bindRefCode',
+        args: [codeBytes]
+      });
+
+      enqueueSnackbar('Binding...', { variant: 'default' });
+
+      const receipt = await publicClient!.waitForTransactionReceipt({ hash: txHash });
+      
+      setIsBound(true);
+      enqueueSnackbar(`Referral code bound!`, { variant: 'success', action: () => (
+        <Button
+          color="inherit"
+          size="small"
+          endIcon={<OpenInNewIcon />}
+          sx={{ fontSize: 14, textTransform: 'none' }}
+          onClick={() => {
+            window.open(`${baseSepolia.blockExplorers.default.url}/tx/${receipt.transactionHash}`, '_blank');
+          }}
+        >
+          View
+        </Button>
+      )});
+
+    } catch (error: any) {
+      if (
+        error?.code === 4001 ||
+        error?.message?.toLowerCase().includes("user rejected") ||
+        error?.message?.toLowerCase().includes("cancelled")
+      ) {
+        enqueueSnackbar('Failed to bind. Transaction rejected.', { variant: 'error' });
+      }
     }
   }
 
   const handleCreateCode = async (): Promise<void> => {
+    if (!walletClient || !address) {
+      enqueueSnackbar("Wallet not connected", { variant: "error" });
+      return;
+    }
+
     if (enteredUserCode.length !== 6) {
       enqueueSnackbar("Code must be exactly 6 alphanumeric characters", { variant: "warning" });
       return;
@@ -62,11 +113,6 @@ export const ReferralPanel = (): JSX.Element => {
     if (refCodes.includes(enteredUserCode)) {
       enqueueSnackbar("Code already exists", { variant: "warning" });
       return;
-    }
-
-    if (!walletClient || !address) {
-      enqueueSnackbar("Wallet not connected", { variant: "error" });
-      return
     }
 
     await switchChainAsync({ chainId: baseSepolia.id });
@@ -79,7 +125,7 @@ export const ReferralPanel = (): JSX.Element => {
       const txHash = await writeContract(walletClient, {
         address: REGISTRY_ADDRESS,
         abi: ReferralRegistry.abi,
-        functionName: 'registerRefCode',
+        functionName: 'createRefCode',
         args: [codeBytes]
       });
 
@@ -101,6 +147,7 @@ export const ReferralPanel = (): JSX.Element => {
           View
         </Button>
       )});
+
     } catch (error: any) {
       if (
         error?.code === 4001 ||
@@ -151,6 +198,19 @@ export const ReferralPanel = (): JSX.Element => {
         const codes = (refCodes as `0x${string}`[]).map(c => bytes6ToString(c));
         setRefCodes(codes);
 
+        const referredByCodeHex = await readContract(viemClient, {
+          address: REGISTRY_ADDRESS,
+          abi: ReferralRegistry.abi,
+          functionName: "getReferredByCode",
+          args: [address],
+        });
+
+        const referredByCode = referredByCodeHex as `0x${string}`;
+
+        if (referredByCodeHex !== "0x000000000000") {
+          setReferredByCode(bytes6ToString(referredByCode));
+        }
+
       } catch (err: any) {
         console.error("Failed to fetch user code:", err);
       }
@@ -161,22 +221,28 @@ export const ReferralPanel = (): JSX.Element => {
 
   return (
     <ReferralPanelBox>
-      <Typography variant="caption">Referred by</Typography>
+      <Typography variant="caption">{!isBound ? "Bind your" : "Your"} referrer</Typography>
       <ReferralSection
         id="referrerCode"
-        code={referrerCode}
+        code={referredByCode}
         disabled={isBound}
         initialButtons={[
-          <ReferralActionButton onClick={handleBindCode} key="bind">
+          <ReferralActionButton
+            key="bind"
+            onClick={handleBindCode}
+          >
             <Typography variant="button">Bind</Typography>
           </ReferralActionButton>
         ]}
         resultButtons={[
-          <ReferralActionButton disabled key="bound">
+          <ReferralActionButton
+            disabled
+            key="bound"
+          >
             <Typography variant="button">Bound</Typography>
           </ReferralActionButton>
         ]}
-        onCodeChange={setEnteredReferrerCode}
+        onCodeChange={setEnteredReferredByCode}
       />
 
       <Box display="flex" justifyContent="space-between">
