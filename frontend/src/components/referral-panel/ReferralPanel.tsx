@@ -6,7 +6,7 @@ import { readContract, writeContract } from "viem/actions";
 import { baseSepolia } from "viem/chains";
 import { enqueueSnackbar } from "notistack";
 import { Box, Button, Tooltip, Typography } from "@mui/material";
-import { ReferralSection, Modal } from "@app-components";
+import { ReferralSection } from "@app-components";
 import { ReferralActionButton, ReferralIconButton, ReferralPanelBox } from "./styled";
 import ReferralRegistry from "@app-contracts/ReferralRegistry.json";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -233,75 +233,78 @@ export const ReferralPanel = (): JSX.Element => {
     fetchData();
   }, [address, viemClient]);
 
+  useEffect(() => {
+    const refParam = (searchParams.get("ref") || "").trim();
+
+    if (refParam) {
+      if (refParam.length === 6 && /^[A-Za-z0-9]{6}$/.test(refParam)) {
+        enqueueSnackbar("Referral code detected.", { variant: "info" });
+      } else {
+        enqueueSnackbar("Invalid referral code in link", { variant: "warning" });
+      }
+    }
+  }, []);
+
   return (
-    <Fragment>
-      <ReferralPanelBox>
-        <Typography variant="caption">{!isBound ? "Bind your" : "Your"} referrer</Typography>
-        <ReferralSection
-          id="referrerCode"
-          code={referredByCode}
-          disabled={isBound}
-          initialButtons={[
-            <ReferralActionButton
-              key="bind"
-              onClick={handleBindCode}
-            >
-              <Typography variant="button">Bind</Typography>
-            </ReferralActionButton>
-          ]}
-          resultButtons={[
-            <ReferralActionButton
-              disabled
-              key="bound"
-            >
-              <Typography variant="button">Bound</Typography>
-            </ReferralActionButton>
-          ]}
-          onCodeChange={setEnteredReferredByCode}
-        />
-
-        <Box display="flex" justifyContent="space-between">
-          <Typography variant="caption">{!isCreated ? "Create" : "Your"} referral code</Typography>
-          <Typography variant="caption">Active users: <b>{referralCount}</b></Typography>
-        </Box>
-
-        <ReferralSection
-          id="userCode"
-          code={userCode}
-          disabled={isCreated}
-          initialButtons={[
-            <ReferralActionButton onClick={handleCreateCode} key="create">
-              <Typography variant="button">Create</Typography>
-            </ReferralActionButton>
-          ]}
-          resultButtons={[
-            <Tooltip arrow title="Copy code" key="copy">
-              <ReferralIconButton onClick={() => {
-                navigator.clipboard.writeText(userCode);
-                enqueueSnackbar("Referral code copied!", { variant: "success" });
-              }}>
-                <ContentCopyIcon sx={{ fontSize: 16 }} />
-              </ReferralIconButton>
-            </Tooltip>,
-            <Tooltip arrow title="Share link" key="share">
-              <ReferralIconButton onClick={() => {
-                navigator.clipboard.writeText(`https://app.deployra.xyz?ref=${userCode}`);
-                enqueueSnackbar("Referral link copied!", { variant: "success" });
-              }}>
-                <IosShareIcon sx={{ fontSize: 16 }} />
-              </ReferralIconButton>
-            </Tooltip>
-          ]}
-          onCodeChange={setEnteredUserCode}
-        />
-      </ReferralPanelBox>
-      <Modal
-        open={true}
-        title="Test"
-        message="Test"
-        closeText="Close"
-        onClose={() => {}}
+    <ReferralPanelBox>
+      <Typography variant="caption">{!isBound ? "Bind your" : "Your"} referrer</Typography>
+      <ReferralSection
+        id="referrerCode"
+        code={referredByCode}
+        disabled={isBound}
+        initialButtons={[
+          <ReferralActionButton
+            key="bind"
+            onClick={handleBindCode}
+          >
+            <Typography variant="button">Bind</Typography>
+          </ReferralActionButton>
+        ]}
+        resultButtons={[
+          <ReferralActionButton
+            disabled
+            key="bound"
+          >
+            <Typography variant="button">Bound</Typography>
+          </ReferralActionButton>
+        ]}
+        onCodeChange={setEnteredReferredByCode}
       />
-    </Fragment>
+
+      <Box display="flex" justifyContent="space-between">
+        <Typography variant="caption">{!isCreated ? "Create" : "Your"} referral code</Typography>
+        <Typography variant="caption">Active users: <b>{referralCount}</b></Typography>
+      </Box>
+
+      <ReferralSection
+        id="userCode"
+        code={userCode}
+        disabled={isCreated}
+        initialButtons={[
+          <ReferralActionButton onClick={handleCreateCode} key="create">
+            <Typography variant="button">Create</Typography>
+          </ReferralActionButton>
+        ]}
+        resultButtons={[
+          <Tooltip arrow title="Copy code" key="copy">
+            <ReferralIconButton onClick={() => {
+              navigator.clipboard.writeText(userCode);
+              enqueueSnackbar("Referral code copied!", { variant: "success" });
+            }}>
+              <ContentCopyIcon sx={{ fontSize: 16 }} />
+            </ReferralIconButton>
+          </Tooltip>,
+          <Tooltip arrow title="Share link" key="share">
+            <ReferralIconButton onClick={() => {
+              navigator.clipboard.writeText(`https://app.deployra.xyz?ref=${userCode}`);
+              enqueueSnackbar("Referral link copied!", { variant: "success" });
+            }}>
+              <IosShareIcon sx={{ fontSize: 16 }} />
+            </ReferralIconButton>
+          </Tooltip>
+        ]}
+        onCodeChange={setEnteredUserCode}
+      />
+    </ReferralPanelBox>
   )
 }
