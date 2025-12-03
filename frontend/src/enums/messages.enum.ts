@@ -12,11 +12,13 @@ export enum Messages {
   BIND_PENDING = "Binding...",
   BIND_SUCCESS = "Referral code bound!",
   BIND_ERROR = "Failed to bind. Invalid code or loop detected.",
+  BIND_ALREADY = "You have been already bound to different referred.",
 
   CREATE_PENDING = "Creating...",
   CREATE_SUCCESS = "Referral code created!",
   CREATE_ERROR = "Failed to create referral code.",
 
+  CODE_DETECTED = "Referral code detected.",
   CODE_FORMAT = "Referral code must be 6 uppercase letters or digits.",
   CODE_INVALID = "Invalid referral code.",
   CODE_EXISTS = "Code already exists."

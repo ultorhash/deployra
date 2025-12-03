@@ -4,7 +4,7 @@ import { useAccount, usePublicClient, useWalletClient, useSwitchChain } from "wa
 import { stringToHex, hexToBytes, createPublicClient, http, parseEther } from "viem";
 import { readContract, writeContract } from "viem/actions";
 import { baseSepolia } from "viem/chains";
-import { enqueueSnackbar } from "notistack";
+import { closeSnackbar, enqueueSnackbar } from "notistack";
 import { Box, Button, Tooltip, Typography } from "@mui/material";
 import { ReferralSection } from "@app-components";
 import { Messages } from "@app-enums";
@@ -46,10 +46,6 @@ export const ReferralPanel = (): JSX.Element => {
   const validateCode = (code: string, refCodes: string[], mustExist: boolean) => {
     const validFormat = new RegExp(/^[A-Za-z0-9]{6}$/);
 
-    if (!walletClient || !address) {
-      return { valid: false, message: Messages.NOT_CONNECTED };
-    }
-
     if (code.length !== 6 || !validFormat.test(code)) {
       return { valid: false, message: Messages.CODE_FORMAT };
     }
@@ -67,8 +63,13 @@ export const ReferralPanel = (): JSX.Element => {
     return { valid: true };
   }
 
-  const handleBindCode = async (): Promise<void> => {
-    const { valid, message } = validateCode(enteredReferredByCode, refCodes, true);
+  const handleBindCode = async (code: string): Promise<void> => {
+    if (!walletClient || !address) {
+      enqueueSnackbar(Messages.NOT_CONNECTED, { variant: "warning" });
+      return;
+    }
+
+    const { valid, message } = validateCode(code, refCodes, true);
 
     if (!valid) {
       enqueueSnackbar(message, { variant: "warning" });
@@ -78,7 +79,7 @@ export const ReferralPanel = (): JSX.Element => {
     await switchChainAsync({ chainId: baseSepolia.id });
 
     try {
-      const codeBytes = stringToHex(enteredReferredByCode, { size: 6 }) as `0x${string}`;
+      const codeBytes = stringToHex(code, { size: 6 }) as `0x${string}`;
 
       enqueueSnackbar(Messages.CONFIRM, { variant: 'default' });
 
@@ -95,6 +96,7 @@ export const ReferralPanel = (): JSX.Element => {
 
       if (receipt.status === "success") {
         setIsBound(true);
+        setReferredByCode(code);
         enqueueSnackbar(Messages.BIND_SUCCESS, { variant: 'success', action: () => (
           <Button
             color="inherit"
@@ -124,6 +126,11 @@ export const ReferralPanel = (): JSX.Element => {
   }
 
   const handleCreateCode = async (): Promise<void> => {
+    if (!walletClient || !address) {
+      enqueueSnackbar(Messages.NOT_CONNECTED, { variant: "warning" });
+      return;
+    }
+
     const { valid, message } = validateCode(enteredUserCode, refCodes, false);
 
     if (!valid) {
@@ -243,16 +250,49 @@ export const ReferralPanel = (): JSX.Element => {
   }, [address, viemClient]);
 
   useEffect(() => {
-    const refParam = (searchParams.get("ref") || "").trim();
+    if (!walletClient || !address) return;
+    if (refCodes.length === 0) return;
+    // TODO: Check if already bound to prevent bind proposal
 
-    if (refParam) {
-      if (refParam.length === 6 && /^[A-Za-z0-9]{6}$/.test(refParam)) {
-        enqueueSnackbar("Referral code detected.", { variant: "info" });
-      } else {
-        enqueueSnackbar("Invalid referral code in link", { variant: "warning" });
-      }
+    const refCodeParam = (searchParams.get("ref") || "").trim();
+    if (!refCodeParam) return;
+
+    const { valid } = validateCode(refCodeParam, refCodes, true);
+
+    if (valid) {
+      enqueueSnackbar(Messages.CODE_DETECTED, {
+        variant: "info",
+        persist: true,
+        action: (key) => {
+          return (
+            <Fragment>
+              <Button
+                color="inherit"
+                size="small"
+                sx={{ fontSize: 14, textTransform: 'none' }}
+                onClick={() => {
+                  handleBindCode(refCodeParam);
+                  closeSnackbar(key);
+                }}
+              >
+                Bind
+              </Button>
+              <Button
+                color="inherit"
+                size="small"
+                sx={{ fontSize: 14, textTransform: 'none' }}
+                onClick={() => closeSnackbar(key)}
+              >
+                Dismiss
+              </Button>
+            </Fragment>
+          )
+        }
+      }); 
+    } else {
+      enqueueSnackbar("Invalid referral code in link", { variant: "warning" });
     }
-  }, []);
+  }, [walletClient, address, refCodes, isBound]);
 
   return (
     <ReferralPanelBox>
@@ -264,7 +304,7 @@ export const ReferralPanel = (): JSX.Element => {
         initialButtons={[
           <ReferralActionButton
             key="bind"
-            onClick={handleBindCode}
+            onClick={() => handleBindCode(enteredReferredByCode)}
           >
             <Typography variant="button">Bind</Typography>
           </ReferralActionButton>
