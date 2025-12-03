@@ -12,16 +12,26 @@ async function main() {
     hre.ethers.ZeroAddress
   );
   await endpoint.waitForDeployment();
+  const endpointAddress = await endpoint.getAddress();
 
   await new Promise(resolve => setTimeout(resolve, 10000));
 
   const ReferralRegistry = await hre.ethers.getContractFactory("ReferralRegistry");
   const registry = await ReferralRegistry.deploy(endpointAddress);
   await registry.waitForDeployment();
+  const registryAddress = await registry.getAddress();
+
+  await new Promise(resolve => setTimeout(resolve, 5000));
+
+  const FeeCollector = await hre.ethers.getContractFactory("FeeCollector");
+  const feeCollector = await FeeCollector.deploy();
+  await feeCollector.waitForDeployment();
+  const feeCollectorAddress = await feeCollector.getAddress();
 
   console.log("Deploy success!");
-  console.log("  Registry:", registryAddress);
   console.log("  Endpoint:", endpointAddress);
+  console.log("  Registry:", registryAddress);
+  console.log("  FeeCollector:", feeCollectorAddress);
 }
 
 main().catch((error) => {

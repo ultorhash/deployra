@@ -10,17 +10,31 @@ contract ReferralRegistry {
     bytes6[] public refCodes;
 
     address public axelarEndpoint;
+    address public immutable owner;
 
     event CodeCreated(address indexed user, bytes6 code);
     event CodeBound(address indexed user, address indexed referrer);
+    event EndpointSet(address endpoint);
 
     modifier onlyEndpoint() {
         require(msg.sender == axelarEndpoint, "Not Axelar endpoint");
         _;
     }
 
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Not an owner");
+        _;
+    }
+
     constructor(address _endpoint) {
+        owner = msg.sender;
         axelarEndpoint = _endpoint;
+    }
+
+    function setEndpoint(address _endpoint) external onlyOwner {
+        require(axelarEndpoint == address(0), "Endpoint already set");
+        axelarEndpoint = _endpoint;
+        emit EndpointSet(_endpoint);
     }
 
     function createRefCode(bytes6 code) external payable {
