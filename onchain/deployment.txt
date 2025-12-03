@@ -3,7 +3,8 @@ The deployment order is exactly as follows:
 1. Deploy ReferralRegistry.sol using: npx hardhat run scripts/deployRegistry.js --network network_name
 2. Go to deployEndpoint.js and replace second param in deploy with deployed ReferralRegistry address
 3. Deploy ReferralRegistryEndpoint.sol using: npx hardhat run scripts/deployEndpoint.js --network network_name
-4. Run setEndpoint.js with deployed registry and endpoint addresses [ONLY ONCE]
-5. Go to FeeCollector.sol and replace registry address with deployed ReferralRegistry address
-6. Deploy FeeCollector.sol using: npx hardhat run scripts/deployFeeCollector.js --network network_name
-7. Change feeCollector address in platform contracts [Message, Token, NFT and GM]
+4. Run npx hardhat run scripts/setEndpoint.js --network network_name with deployed registry and endpoint addresses [ONLY ONCE]
+5. Replace json ABIs of contracts on frontend after deploy
+
+Registry: 0x2529b8f3b1D0Bd4cC0971b0A9a44e817A9bbA1D0
+Endpoint: 0x07F08c0fD61D089b69824a17014280BAdfeAa749

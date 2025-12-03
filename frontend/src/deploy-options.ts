@@ -99,7 +99,7 @@ const testnetOptions: DeployOption[] = [
   { chain: "KiteAI Testnet", chainId: 2368, type: "testnet", icon: "kiteai.jpg", fee: 0.0001, backgroundColor: "#000000", color: "#FFFFFF", tags: ["hot"] },
   { chain: "Kii Testnet", chainId: 1336, type: "testnet", icon: "kii.jpg", fee: 0.000025, backgroundColor: "#332976", color: "#FFFFFF", tags: [] },
   { chain: "Nitro Graph Testnet", chainId: 200024, type: "testnet", icon: "nitrograph.jpg", fee: 0.00003, backgroundColor: "#FC2E00", color: "#FFFFFF", tags: [] },
-  { chain: "Base Sepolia Testnet", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0.0002, backgroundColor: "#0000FF", color: "#FFFFFF", tags: ["hot"] },
+  { chain: "Base Sepolia Testnet", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0.00002, backgroundColor: "#0000FF", color: "#FFFFFF", tags: ["hot"] },
   { chain: "OP Sepolia Testnet", chainId: 11155420, type: "testnet", icon: "optimism.png", fee: 0.0002, backgroundColor: "#FF0420", color: "#FFFFFF", tags: [] },
   { chain: "Ink Sepolia Testnet", chainId: 763373, type: "testnet", icon: "ink.svg", fee: 0.0002, backgroundColor: "#9E7CEB", color: "#FFFFFF", tags: [] },
   { chain: "Unichain Sepolia Testnet", chainId: 1301, type: "testnet", icon: "unichain.png", fee: 0.0002, backgroundColor: "#F51BBD", color: "#FFFFFF", tags: [] },
