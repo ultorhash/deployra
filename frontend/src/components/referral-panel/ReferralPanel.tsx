@@ -296,7 +296,7 @@ export const ReferralPanel = (): JSX.Element => {
     } else {
       enqueueSnackbar("Invalid referral code in link", { variant: "warning" });
     }
-  }, [walletClient, address, refCodes, isBound]);
+  }, [walletClient, address, refCodes]);
 
   return (
     <ReferralPanelBox>
