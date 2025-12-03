@@ -21,5 +21,6 @@ export enum Messages {
   CODE_DETECTED = "Referral code detected.",
   CODE_FORMAT = "Referral code must be 6 uppercase letters or digits.",
   CODE_INVALID = "Invalid referral code.",
-  CODE_EXISTS = "Code already exists."
+  CODE_EXISTS = "Referral ode already exists.",
+  CODE_DUPLICATE = "Duplicated referral code."
 }

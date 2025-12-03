@@ -50,6 +50,10 @@ export const ReferralPanel = (): JSX.Element => {
       return { valid: false, message: Messages.CODE_FORMAT };
     }
 
+    if (code === userCode) {
+      return { valid: false, message: Messages.CODE_DUPLICATE };
+    }
+
     if (mustExist) {
       if (!refCodes.includes(code)) {
         return { valid: false, message: Messages.CODE_INVALID };
@@ -252,7 +256,7 @@ export const ReferralPanel = (): JSX.Element => {
   useEffect(() => {
     if (!walletClient || !address) return;
     if (refCodes.length === 0) return;
-    // TODO: Check if already bound to prevent bind proposal
+    // TODO: Check if already bound to prevent bind proposal and user binding his generated code
 
     const refCodeParam = (searchParams.get("ref") || "").trim();
     if (!refCodeParam) return;
