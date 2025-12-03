@@ -1,11 +1,12 @@
-import { JSX, useEffect, useMemo, useState } from "react";
+import { Fragment, JSX, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useAccount, usePublicClient, useWalletClient, useSwitchChain } from "wagmi";
 import { stringToHex, hexToBytes, createPublicClient, http, parseEther } from "viem";
 import { readContract, writeContract } from "viem/actions";
 import { baseSepolia } from "viem/chains";
 import { enqueueSnackbar } from "notistack";
 import { Box, Button, Tooltip, Typography } from "@mui/material";
-import { ReferralSection } from "@app-components";
+import { ReferralSection, Modal } from "@app-components";
 import { ReferralActionButton, ReferralIconButton, ReferralPanelBox } from "./styled";
 import ReferralRegistry from "@app-contracts/ReferralRegistry.json";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -23,6 +24,8 @@ export const ReferralPanel = (): JSX.Element => {
   const [isBound, setIsBound] = useState<boolean>(false);
   const [isCreated, setIsCreated] = useState<boolean>(false);
   const [referralCount, setReferralCount] = useState<number>(0);
+
+  const [searchParams] = useSearchParams();
 
   const { address } = useAccount();
   const { data: walletClient } = useWalletClient({ chainId: baseSepolia.id });
@@ -231,65 +234,74 @@ export const ReferralPanel = (): JSX.Element => {
   }, [address, viemClient]);
 
   return (
-    <ReferralPanelBox>
-      <Typography variant="caption">{!isBound ? "Bind your" : "Your"} referrer</Typography>
-      <ReferralSection
-        id="referrerCode"
-        code={referredByCode}
-        disabled={isBound}
-        initialButtons={[
-          <ReferralActionButton
-            key="bind"
-            onClick={handleBindCode}
-          >
-            <Typography variant="button">Bind</Typography>
-          </ReferralActionButton>
-        ]}
-        resultButtons={[
-          <ReferralActionButton
-            disabled
-            key="bound"
-          >
-            <Typography variant="button">Bound</Typography>
-          </ReferralActionButton>
-        ]}
-        onCodeChange={setEnteredReferredByCode}
-      />
+    <Fragment>
+      <ReferralPanelBox>
+        <Typography variant="caption">{!isBound ? "Bind your" : "Your"} referrer</Typography>
+        <ReferralSection
+          id="referrerCode"
+          code={referredByCode}
+          disabled={isBound}
+          initialButtons={[
+            <ReferralActionButton
+              key="bind"
+              onClick={handleBindCode}
+            >
+              <Typography variant="button">Bind</Typography>
+            </ReferralActionButton>
+          ]}
+          resultButtons={[
+            <ReferralActionButton
+              disabled
+              key="bound"
+            >
+              <Typography variant="button">Bound</Typography>
+            </ReferralActionButton>
+          ]}
+          onCodeChange={setEnteredReferredByCode}
+        />
 
-      <Box display="flex" justifyContent="space-between">
-        <Typography variant="caption">{!isCreated ? "Create" : "Your"} referral code</Typography>
-        <Typography variant="caption">Active users: <b>{referralCount}</b></Typography>
-      </Box>
+        <Box display="flex" justifyContent="space-between">
+          <Typography variant="caption">{!isCreated ? "Create" : "Your"} referral code</Typography>
+          <Typography variant="caption">Active users: <b>{referralCount}</b></Typography>
+        </Box>
 
-      <ReferralSection
-        id="userCode"
-        code={userCode}
-        disabled={isCreated}
-        initialButtons={[
-          <ReferralActionButton onClick={handleCreateCode} key="create">
-            <Typography variant="button">Create</Typography>
-          </ReferralActionButton>
-        ]}
-        resultButtons={[
-          <Tooltip arrow title="Copy code" key="copy">
-            <ReferralIconButton onClick={() => {
-              navigator.clipboard.writeText(userCode);
-              enqueueSnackbar("Referral code copied!", { variant: "success" });
-            }}>
-              <ContentCopyIcon sx={{ fontSize: 16 }} />
-            </ReferralIconButton>
-          </Tooltip>,
-          <Tooltip arrow title="Share link" key="share">
-            <ReferralIconButton onClick={() => {
-              navigator.clipboard.writeText(`https://app.deployra.xyz?ref=${userCode}`);
-              enqueueSnackbar("Referral link copied!", { variant: "success" });
-            }}>
-              <IosShareIcon sx={{ fontSize: 16 }} />
-            </ReferralIconButton>
-          </Tooltip>
-        ]}
-        onCodeChange={setEnteredUserCode}
+        <ReferralSection
+          id="userCode"
+          code={userCode}
+          disabled={isCreated}
+          initialButtons={[
+            <ReferralActionButton onClick={handleCreateCode} key="create">
+              <Typography variant="button">Create</Typography>
+            </ReferralActionButton>
+          ]}
+          resultButtons={[
+            <Tooltip arrow title="Copy code" key="copy">
+              <ReferralIconButton onClick={() => {
+                navigator.clipboard.writeText(userCode);
+                enqueueSnackbar("Referral code copied!", { variant: "success" });
+              }}>
+                <ContentCopyIcon sx={{ fontSize: 16 }} />
+              </ReferralIconButton>
+            </Tooltip>,
+            <Tooltip arrow title="Share link" key="share">
+              <ReferralIconButton onClick={() => {
+                navigator.clipboard.writeText(`https://app.deployra.xyz?ref=${userCode}`);
+                enqueueSnackbar("Referral link copied!", { variant: "success" });
+              }}>
+                <IosShareIcon sx={{ fontSize: 16 }} />
+              </ReferralIconButton>
+            </Tooltip>
+          ]}
+          onCodeChange={setEnteredUserCode}
+        />
+      </ReferralPanelBox>
+      <Modal
+        open={true}
+        title="Test"
+        message="Test"
+        closeText="Close"
+        onClose={() => {}}
       />
-    </ReferralPanelBox>
+    </Fragment>
   )
 }

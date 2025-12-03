@@ -1,4 +1,5 @@
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import { WagmiProvider } from 'wagmi';
 import { SnackbarProvider } from 'notistack';
 import { darkTheme, getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
@@ -29,22 +30,24 @@ const rainbowKitTheme = {
 };
 
 createRoot(document.getElementById('root')!).render(
-  <WagmiProvider config={config}>
-    <QueryClientProvider client={queryClient}>
-      <RainbowKitProvider theme={rainbowKitTheme}>
-        <SnackbarProvider
-          maxSnack={5}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right'
-          }}
-          TransitionComponent={Fade}
-        >
-          <CssBaseline />
-          <App />
-          <Analytics />
-        </SnackbarProvider>
-      </RainbowKitProvider>
-    </QueryClientProvider>
-  </WagmiProvider>
+  <BrowserRouter>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <RainbowKitProvider theme={rainbowKitTheme}>
+          <SnackbarProvider
+            maxSnack={5}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right'
+            }}
+            TransitionComponent={Fade}
+          >
+            <CssBaseline />
+            <App />
+            <Analytics />
+          </SnackbarProvider>
+        </RainbowKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
+  </BrowserRouter>
 );
