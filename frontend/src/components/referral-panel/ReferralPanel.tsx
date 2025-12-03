@@ -7,6 +7,7 @@ import { baseSepolia } from "viem/chains";
 import { enqueueSnackbar } from "notistack";
 import { Box, Button, Tooltip, Typography } from "@mui/material";
 import { ReferralSection } from "@app-components";
+import { Messages } from "@app-enums";
 import { ReferralActionButton, ReferralIconButton, ReferralPanelBox } from "./styled";
 import ReferralRegistry from "@app-contracts/ReferralRegistry.json";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -42,19 +43,35 @@ export const ReferralPanel = (): JSX.Element => {
     return new TextDecoder().decode(bytes);
   }
 
-  const handleBindCode = async (): Promise<void> => {
+  const validateCode = (code: string, refCodes: string[], mustExist: boolean) => {
+    const validFormat = new RegExp(/^[A-Za-z0-9]{6}$/);
+
     if (!walletClient || !address) {
-      enqueueSnackbar("Wallet not connected", { variant: "error" });
-      return;
+      return { valid: false, message: Messages.NOT_CONNECTED };
     }
 
-    if (enteredReferredByCode.length !== 6) {
-      enqueueSnackbar("Code must be exactly 6 alphanumeric characters", { variant: "warning" });
-      return
+    if (code.length !== 6 || !validFormat.test(code)) {
+      return { valid: false, message: Messages.CODE_FORMAT };
     }
-    
-    if (!refCodes.includes(enteredReferredByCode)) {
-      enqueueSnackbar("Invalid referral code", { variant: "warning" });
+
+    if (mustExist) {
+      if (!refCodes.includes(code)) {
+        return { valid: false, message: Messages.CODE_INVALID };
+      }
+    } else {
+      if (refCodes.includes(code)) {
+        return { valid: false, message: Messages.CODE_EXISTS };
+      }
+    }
+
+    return { valid: true };
+  }
+
+  const handleBindCode = async (): Promise<void> => {
+    const { valid, message } = validateCode(enteredReferredByCode, refCodes, true);
+
+    if (!valid) {
+      enqueueSnackbar(message, { variant: "warning" });
       return;
     }
 
@@ -63,22 +80,22 @@ export const ReferralPanel = (): JSX.Element => {
     try {
       const codeBytes = stringToHex(enteredReferredByCode, { size: 6 }) as `0x${string}`;
 
-      enqueueSnackbar('Confirm in your wallet...', { variant: 'default' });
+      enqueueSnackbar(Messages.CONFIRM, { variant: 'default' });
 
-      const txHash = await writeContract(walletClient, {
+      const txHash = await writeContract(walletClient!, {
         address: REGISTRY_ADDRESS,
         abi: ReferralRegistry.abi,
         functionName: 'bindRefCode',
         args: [codeBytes]
       });
 
-      enqueueSnackbar('Binding...', { variant: 'default' });
+      enqueueSnackbar(Messages.BIND_PENDING, { variant: 'default' });
 
       const receipt = await publicClient!.waitForTransactionReceipt({ hash: txHash });
 
       if (receipt.status === "success") {
         setIsBound(true);
-        enqueueSnackbar(`Referral code bound!`, { variant: 'success', action: () => (
+        enqueueSnackbar(Messages.BIND_SUCCESS, { variant: 'success', action: () => (
           <Button
             color="inherit"
             size="small"
@@ -92,7 +109,7 @@ export const ReferralPanel = (): JSX.Element => {
           </Button>
         )});
       } else {
-        enqueueSnackbar('Failed to bind. Invalid code or loop detected', { variant: 'error' });
+        enqueueSnackbar(Messages.BIND_ERROR, { variant: 'error' });
       }
 
     } catch (error: any) {
@@ -101,24 +118,16 @@ export const ReferralPanel = (): JSX.Element => {
         error?.message?.toLowerCase().includes("user rejected") ||
         error?.message?.toLowerCase().includes("cancelled")
       ) {
-        enqueueSnackbar('Failed to bind. Transaction rejected', { variant: 'error' });
+        enqueueSnackbar(Messages.REJECTED, { variant: 'error' });
       }
     }
   }
 
   const handleCreateCode = async (): Promise<void> => {
-    if (!walletClient || !address) {
-      enqueueSnackbar("Wallet not connected", { variant: "error" });
-      return;
-    }
+    const { valid, message } = validateCode(enteredUserCode, refCodes, false);
 
-    if (enteredUserCode.length !== 6) {
-      enqueueSnackbar("Code must be exactly 6 alphanumeric characters", { variant: "warning" });
-      return;
-    }
-
-    if (refCodes.includes(enteredUserCode)) {
-      enqueueSnackbar("Code already exists", { variant: "warning" });
+    if (!valid) {
+      enqueueSnackbar(message, { variant: "warning" });
       return;
     }
 
@@ -127,9 +136,9 @@ export const ReferralPanel = (): JSX.Element => {
     try {
       const codeBytes = stringToHex(enteredUserCode, { size: 6 }) as `0x${string}`;
 
-      enqueueSnackbar('Confirm in your wallet...', { variant: 'default' });
+      enqueueSnackbar(Messages.CONFIRM, { variant: 'default' });
 
-      const txHash = await writeContract(walletClient, {
+      const txHash = await writeContract(walletClient!, {
         address: REGISTRY_ADDRESS,
         abi: ReferralRegistry.abi,
         functionName: 'createRefCode',
@@ -137,14 +146,14 @@ export const ReferralPanel = (): JSX.Element => {
         value: parseEther("0.000033")
       });
 
-      enqueueSnackbar('Creating...', { variant: 'default' });
+      enqueueSnackbar(Messages.CREATE_PENDING, { variant: 'default' });
 
       const receipt = await publicClient!.waitForTransactionReceipt({ hash: txHash });
 
       if (receipt.status === "success") {
         setIsCreated(true);
         setUserCode(enteredUserCode);
-        enqueueSnackbar('Referral code created!', { variant: 'success', action: () => (
+        enqueueSnackbar(Messages.CREATE_SUCCESS, { variant: 'success', action: () => (
           <Button
             color="inherit"
             size="small"
@@ -158,7 +167,7 @@ export const ReferralPanel = (): JSX.Element => {
           </Button>
         )});
       } else {
-        enqueueSnackbar('Failed to create referral code', { variant: "error" });
+        enqueueSnackbar(Messages.CREATE_ERROR, { variant: "error" });
       }
 
     } catch (error: any) {
@@ -167,7 +176,7 @@ export const ReferralPanel = (): JSX.Element => {
         error?.message?.toLowerCase().includes("user rejected") ||
         error?.message?.toLowerCase().includes("cancelled")
       ) {
-        enqueueSnackbar('Failed to create. Transaction rejected.', { variant: 'error' });
+        enqueueSnackbar(Messages.REJECTED, { variant: 'error' });
       }
     }
   }

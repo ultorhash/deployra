@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Avatar, Box, Button, CardContent, CardHeader, Chip, CircularProgress, IconButton, Link, SvgIcon, Tooltip, Typography } from "@mui/material"
 import { injected, useAccount, useChainId, useConnect, useSwitchChain, useWaitForTransactionReceipt, useWalletClient, usePublicClient } from "wagmi"
 import { DeployOption } from "@app-types"
-import { DeployTypes } from "@app-enums"
+import { DeployTypes, Messages } from "@app-enums"
 import { chains } from "chains";
 import { Address } from "viem"
 import { enqueueSnackbar } from "notistack"
@@ -80,7 +80,7 @@ export const BaseLearnTile = (option: DeployOption) => {
     }
 
     try {
-      enqueueSnackbar("Confirm in your wallet...", { variant: "default" });
+      enqueueSnackbar(Messages.CONFIRM, { variant: "default" });
 
       const chain = chains.find(c => (c as RainbowKitChain).id === option.chainId) as RainbowKitChain;
       explorerRef.current = chain.blockExplorers?.default?.url;
@@ -122,8 +122,9 @@ export const BaseLearnTile = (option: DeployOption) => {
       if (hash) {
         setTxHash(hash);
         setDeployType(type);
-        enqueueSnackbar("Deploying...", { variant: "default" });
+        enqueueSnackbar(Messages.DEPLOY_PENDING, { variant: "default" });
       }
+
     } catch (error: any) {
       const msg = error?.message?.toLowerCase() || "";
       if (error?.code === 4001 || msg.includes("user rejected") || msg.includes("cancelled")) {
@@ -142,7 +143,7 @@ export const BaseLearnTile = (option: DeployOption) => {
   const onMintBadge = async () => {
     if (!deploymentAddress) return;
 
-    enqueueSnackbar("Confirm in your wallet...", { variant: "default" });
+    enqueueSnackbar(Messages.CONFIRM, { variant: "default" });
 
     const signer = await getSigner();
     const grader = contractAddresses[deployType].verifyAddress;
@@ -151,11 +152,12 @@ export const BaseLearnTile = (option: DeployOption) => {
     const data = iface.encodeFunctionData("testContract", [deploymentAddress]);
 
     const tx = await signer!.sendTransaction({ to: grader, data });
-    enqueueSnackbar("Minting badge...", { variant: "default" });
+    enqueueSnackbar(Messages.MINT_PENDING, { variant: "default" });
+  
     await tx.wait();
     await checkOwnership();
 
-    enqueueSnackbar("Badge minted successfully!", {
+    enqueueSnackbar(Messages.MINT_SUCCESS, {
       variant: "success",
       action: () => (
         <Button
@@ -205,7 +207,7 @@ export const BaseLearnTile = (option: DeployOption) => {
 
   useEffect(() => {
     if (isSuccess && receipt?.contractAddress && txHash) {
-      enqueueSnackbar("Deployed successfully!", {
+      enqueueSnackbar(Messages.DEPLOY_SUCCESS, {
         variant: "success",
         action: () => (
           <Button
@@ -225,7 +227,7 @@ export const BaseLearnTile = (option: DeployOption) => {
     }
 
     if (isError) {
-      enqueueSnackbar("Failed to deploy. Transaction rejected.", { variant: "error" });
+      enqueueSnackbar(Messages.REJECTED, { variant: "error" });
     }
 
     setTxHash(undefined);

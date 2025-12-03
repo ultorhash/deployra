@@ -7,7 +7,7 @@ import { enqueueSnackbar } from "notistack"
 import { RainbowKitChain } from "@rainbow-me/rainbowkit/dist/components/RainbowKitProvider/RainbowKitChainContext"
 import { DeployOption, FieldConfig } from "@app-types"
 import { DynamicForm } from "@app-components"
-import { DeployTypes } from "@app-enums"
+import { DeployTypes, Messages } from "@app-enums"
 import { chains } from "chains";
 import { StyledTile, StyledToggleButton, StyledToggleButtonGroup } from "./styled";
 import Message from "@app-contracts/Message.json";
@@ -146,7 +146,7 @@ export const Tile = (option: DeployOption) => {
     let hash: Address | undefined = undefined;
 
     try {
-      enqueueSnackbar('Confirm in your wallet...', { variant: 'default' });
+      enqueueSnackbar(Messages.CONFIRM, { variant: 'default' });
 
       const selectedChain = chains.find((c) => (c as RainbowKitChain).id === option.chainId) as RainbowKitChain;
       explorerRef.current = selectedChain!.blockExplorers!.default!.url;
@@ -189,7 +189,7 @@ export const Tile = (option: DeployOption) => {
 
       if (hash) {
         setTxHash(hash);
-        enqueueSnackbar('Deploying...', { variant: 'default' });
+        enqueueSnackbar(Messages.DEPLOY_PENDING, { variant: 'default' });
       }
 
       if (deployType === DeployTypes.NFT) {
@@ -208,7 +208,7 @@ export const Tile = (option: DeployOption) => {
 
         // TODO: Wait for success (currently indexing) and change name NFT by passing args to solidity
 
-        enqueueSnackbar(`Minted successfully!`, { variant: 'success', action: () => (
+        enqueueSnackbar(Messages.MINT_SUCCESS, { variant: 'success', action: () => (
           <Button
             color="inherit"
             size="small"
@@ -229,7 +229,7 @@ export const Tile = (option: DeployOption) => {
         error?.message?.toLowerCase().includes("user rejected") ||
         error?.message?.toLowerCase().includes("cancelled")
       ) {
-        enqueueSnackbar('Failed to deploy. Transaction rejected.', { variant: 'error' });
+        enqueueSnackbar(Messages.REJECTED, { variant: 'error' });
       }
     }
   };
@@ -256,7 +256,7 @@ export const Tile = (option: DeployOption) => {
 
   useEffect(() => {
     if (isSuccess && receipt?.contractAddress && txHash) {
-      enqueueSnackbar(`Deployed successfully!`, { variant: 'success', action: () => (
+      enqueueSnackbar(Messages.DEPLOY_SUCCESS, { variant: 'success', action: () => (
         <Button
           color="inherit"
           size="small"
@@ -272,7 +272,7 @@ export const Tile = (option: DeployOption) => {
     }
 
     if (isError) {
-      enqueueSnackbar('Failed to deploy. Transaction rejected.', { variant: 'error' });
+      enqueueSnackbar(Messages.REJECTED, { variant: 'error' });
     }
 
     setTxHash(undefined);
