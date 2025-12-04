@@ -339,10 +339,9 @@ export const ReferralPanel = (): JSX.Element => {
         ]}
         onCodeChange={setEnteredReferredByCode}
       />
-
       <Box display="flex">
         {isCreated
-          ? <Typography variant="caption">Your referral code</Typography>
+          ? <Typography variant="caption">Share your referral code and earn 25% of fees</Typography>
           : <Fragment>
               <Typography variant="caption">Create referral code</Typography>
               <Tooltip
@@ -377,9 +376,7 @@ export const ReferralPanel = (): JSX.Element => {
               </Tooltip>
             </Fragment>
         }
-        {/* <Typography variant="caption">Active users: <b>{referralCount}</b></Typography> */}
       </Box>
-
       <ReferralSection
         id="userCode"
         code={userCode}
@@ -409,6 +406,9 @@ export const ReferralPanel = (): JSX.Element => {
         ]}
         onCodeChange={setEnteredUserCode}
       />
+      <Box display="flex">
+        <Typography variant="caption">Active users: <b>{referralCount}</b></Typography>
+      </Box>
     </ReferralPanelBox>
   )
 }
