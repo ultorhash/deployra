@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 contract Message {
-    address payable public owner;
+    address payable public immutable owner;
     string public message;
     uint256 public fee;
 

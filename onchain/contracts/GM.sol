@@ -2,11 +2,13 @@
 pragma solidity ^0.8.20;
 
 contract GM {
+    address payable public immutable owner;
     string public message;
-    address public owner;
     uint256 public fee;
 
-    constructor(uint256 fee_) payable {
+    event FeeDistributed(address indexed user, address indexed referrer, uint256 refShare);
+
+    constructor(uint256 fee_, address referrer) payable {
         require(msg.value == fee_, "Incorrect fee sent");
         require(fee_ >= 0.000005 ether, "Fee too low");
 
@@ -14,7 +16,20 @@ contract GM {
         message = "GM";
         fee = fee_;
 
-        (bool sent, ) = owner.call{value: msg.value}("");
-        require(sent, "Failed to send fee");
+        uint256 refShare = (referrer != address(0)) ? (msg.value * 25) / 100 : 0;
+        uint256 ownerShare = msg.value - refShare;
+
+        if (refShare > 0) {
+            (bool rs, ) = payable(referrer).call{value: refShare}("");
+            if (!rs) {
+                ownerShare = msg.value;
+                refShare = 0;
+            }
+        }
+
+        (bool os, ) = owner.call{value: ownerShare}("");
+        require(os, "Failed to send fee");
+
+        emit FeeDistributed(msg.sender, referrer, refShare);
     }
 }

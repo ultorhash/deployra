@@ -6,8 +6,10 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 contract NFT is ERC721URIStorage {
     uint256 private _tokenIds;
 
-    address payable public owner;
+    address payable public immutable owner;
     uint256 public fee;
+
+    event FeeDistributed(address indexed user, address indexed referrer, uint256 refShare);
 
     constructor(uint256 fee_) ERC721("NFT", "NFT") {
         require(fee_ >= 0.000005 ether, "Fee too low");
@@ -15,11 +17,24 @@ contract NFT is ERC721URIStorage {
         fee = fee_;
     }
 
-    function mint(string memory tokenURI) external payable returns (uint256) {
+    function mint(string memory tokenURI, address referrer) external payable returns (uint256) {
         require(msg.value == fee, "Incorrect fee sent");
 
-        (bool sent, ) = owner.call{value: msg.value}("");
-        require(sent, "Failed to send fee");
+        uint256 refShare = (referrer != address(0)) ? (msg.value * 25) / 100 : 0;
+        uint256 ownerShare = msg.value - refShare;
+
+        if (refShare > 0) {
+            (bool rs, ) = payable(referrer).call{value: refShare}("");
+            if (!rs) {
+                ownerShare = msg.value;
+                refShare = 0;
+            }
+        }
+
+        (bool os, ) = owner.call{value: ownerShare}("");
+        require(os, "Failed to send fee");
+
+        emit FeeDistributed(msg.sender, referrer, refShare);
 
         _tokenIds++;
         uint256 newItemId = _tokenIds;
