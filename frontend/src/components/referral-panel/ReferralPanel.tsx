@@ -341,7 +341,7 @@ export const ReferralPanel = (): JSX.Element => {
       />
 
       <Box display="flex">
-        {!isCreated
+        {isCreated
           ? <Typography variant="caption">Your referral code</Typography>
           : <Fragment>
               <Typography variant="caption">Create referral code</Typography>
