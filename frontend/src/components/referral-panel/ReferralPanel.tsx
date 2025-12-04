@@ -8,6 +8,7 @@ import { closeSnackbar, enqueueSnackbar } from "notistack";
 import { Box, Button, Tooltip, Typography } from "@mui/material";
 import { ReferralSection } from "@app-components";
 import { Messages } from "@app-enums";
+import { useReferralStore } from "@app-store";
 import { ReferralActionButton, ReferralIconButton, ReferralPanelBox } from "./styled";
 import ReferralRegistry from "@app-contracts/ReferralRegistry.json";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -25,7 +26,8 @@ export const ReferralPanel = (): JSX.Element => {
   const [isBound, setIsBound] = useState<boolean>(false);
   const [isCreated, setIsCreated] = useState<boolean>(false);
   const [referralCount, setReferralCount] = useState<number>(0);
-  const [referrerAddress, setReferrerAddress] = useState<string>("");
+
+  const setReferrerAddress = useReferralStore((s) => s.setReferrerAddress);
 
   const [searchParams] = useSearchParams();
 
@@ -246,15 +248,15 @@ export const ReferralPanel = (): JSX.Element => {
           setIsBound(true);
         }
 
-        const referrer = await readContract(viemClient, {
+        const referrerAddress = await readContract(viemClient, {
           address: REGISTRY_ADDRESS,
           abi: ReferralRegistry.abi,
           functionName: "referredBy",
           args: [address]
-        });
+        }) as `0x${string}`;
 
-        if (referrer && referrer !== "0x0000000000000000000000000000000000000000") {
-          setReferrerAddress(referrer as string);
+        if (referrerAddress && referrerAddress !== "0x0000000000000000000000000000000000000000") {
+          setReferrerAddress(referrerAddress);
         }
 
       } catch (err: any) {

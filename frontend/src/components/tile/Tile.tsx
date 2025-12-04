@@ -8,6 +8,7 @@ import { RainbowKitChain } from "@rainbow-me/rainbowkit/dist/components/RainbowK
 import { DeployOption, FieldConfig } from "@app-types"
 import { DynamicForm } from "@app-components"
 import { DeployTypes, Messages } from "@app-enums"
+import { useReferralStore } from "@app-store";
 import { chains } from "chains";
 import { StyledTile, StyledToggleButton, StyledToggleButtonGroup } from "./styled";
 import Message from "@app-contracts/Message.json";
@@ -34,6 +35,7 @@ export const Tile = (option: DeployOption) => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [txHash, setTxHash] = useState<Address | undefined>(undefined);
   const explorerRef = useRef<string | undefined>(undefined);
+  const referrerAddress = useReferralStore((s) => s.referrerAddress);
 
   const messageFields: FieldConfig[] = [
     { type: 'text', name: 'message', placeholder: 'Message', required: true, defaultValue: `Hello ${option.chain}!` }
@@ -156,7 +158,7 @@ export const Tile = (option: DeployOption) => {
           hash = await walletClient?.deployContract({
             abi: Message.abi,
             bytecode: Message.bytecode as Address,
-            args: [formData.message, parseEther(fee.toString())],
+            args: [formData.message, parseEther(fee.toString()), referrerAddress],
             value: parseEther(fee.toString())
           });
           break;

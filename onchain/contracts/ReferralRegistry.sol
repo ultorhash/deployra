@@ -17,7 +17,7 @@ contract ReferralRegistry {
     }
 
     function createRefCode(bytes6 code) external payable {
-        uint256 fee = 0.000033 ether;
+        uint256 fee = 0.00003 ether;
         require(msg.value == fee, "Fee required");
 
         require(userRefCode[msg.sender] == 0x000000000000, "Already has code");

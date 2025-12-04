@@ -24,7 +24,8 @@
       "@app-types": ["types/index.ts"],
       "@app-enums": ["enums/index.ts"],
       "@app-hooks": ["hooks/index.ts"],
-      "@app-utils": ["utils/index.ts"]
+      "@app-utils": ["utils/index.ts"],
+      "@app-store": ["store/index.ts"]
     },
     "typeRoots": ["node_modules/@types", "./types"]
   },

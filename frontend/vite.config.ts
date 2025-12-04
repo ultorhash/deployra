@@ -18,6 +18,7 @@ export default defineConfig({
       "@app-enums": path.resolve(__dirname, "src/enums/index.ts"),
       "@app-hooks": path.resolve(__dirname, "src/hooks/index.ts"),
       "@app-utils": path.resolve(__dirname, "src/utils/index.ts"),
+      "@app-store": path.resolve(__dirname, "src/store/index.ts")
     }
   }
 });
