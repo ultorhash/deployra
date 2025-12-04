@@ -30,7 +30,7 @@ export const Content = (props: ContentProps): JSX.Element => {
       base = base.filter((option) => option.tags.includes("baseLearn"));
     } else if (filterValue === "favorites") {
       const favorites = JSON.parse(localStorage.getItem("favorites") || "{}");
-      base = base.filter((option) => favorites[option.chainId] === true);
+      base = base.filter((option) => favorites[option.chainId] === true && !option.tags.includes("baseLearn"));
     }
 
     if (searchValue.trim()) {
