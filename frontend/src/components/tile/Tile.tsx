@@ -166,7 +166,7 @@ export const Tile = (option: DeployOption) => {
           hash = await walletClient?.deployContract({
             abi: Token.abi,
             bytecode: Token.bytecode as Address,
-            args: [formData.name, formData.symbol, parseEther(fee.toString())],
+            args: [formData.name, formData.symbol, parseEther(fee.toString()), referrerAddress],
             value: parseEther(fee.toString())
           });
           break;
@@ -174,14 +174,14 @@ export const Tile = (option: DeployOption) => {
           hash = await walletClient?.deployContract({
             abi: NFT.abi,
             bytecode: NFT.bytecode as Address,
-            args: [parseEther(fee.toString())]
+            args: [parseEther(fee.toString()), referrerAddress]
           });
           break;
         case DeployTypes.GM:
           hash = await walletClient?.deployContract({
             abi: GM.abi,
             bytecode: GM.bytecode as Address,
-            args: [parseEther(fee.toString())],
+            args: [parseEther(fee.toString()), referrerAddress],
             value: parseEther(fee.toString())
           });
           break;
