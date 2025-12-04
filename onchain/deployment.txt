@@ -2,5 +2,5 @@ The deployment order is exactly as follows:
 
 1. Deploy ReferralRegistry.sol using: npx hardhat run scripts/deployRegistry.js --network network_name
 2. Replace json ABIs of contracts on frontend after deploy
-
-Registry: 0x2529b8f3b1D0Bd4cC0971b0A9a44e817A9bbA1D0
+3. Replace registry address in .env file on frontend site
+4. Update registry address variables on Vercel

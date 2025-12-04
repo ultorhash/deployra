@@ -16,7 +16,7 @@ import IosShareIcon from '@mui/icons-material/IosShare';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 export const ReferralPanel = (): JSX.Element => {
-  const REGISTRY_ADDRESS = "0x0D4B0fe4017BCd32868E9921a6E2aC56586c0CBe";
+  const REGISTRY_ADDRESS = import.meta.env.VITE_REGISTRY_ADDRESS;
 
   const [userCode, setUserCode] = useState<string>("");
   const [referredByCode, setReferredByCode] = useState<string>("");
