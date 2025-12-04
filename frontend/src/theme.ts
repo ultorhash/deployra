@@ -10,6 +10,14 @@ const baseThemeOptions = {
         enterDelay: 300,
         enterNextDelay: 300,
         leaveDelay: 0
+      },
+      styleOverrides: {
+        tooltip: {
+          backgroundColor: 'rgba(0, 0, 0, 0.8)'
+        },
+        arrow: {
+          color: 'rgba(0, 0, 0, 0.8)'
+        }
       }
     },
     MuiButton: {
@@ -114,7 +122,7 @@ export const darkTheme = createTheme({
       contrastText: '#CCCCCC'
     },
     success: {
-      main: '#4CAF50',
+      main: '#1DB954',
       contrastText: '#FFFFFF'
     },
     error: {

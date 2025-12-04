@@ -5,7 +5,7 @@ import { stringToHex, hexToBytes, createPublicClient, http, parseEther } from "v
 import { readContract, writeContract } from "viem/actions";
 import { baseSepolia } from "viem/chains";
 import { closeSnackbar, enqueueSnackbar } from "notistack";
-import { Box, Button, Tooltip, Typography } from "@mui/material";
+import { Box, Button, IconButton, Tooltip, Typography } from "@mui/material";
 import { ReferralSection } from "@app-components";
 import { Messages } from "@app-enums";
 import { useReferralStore } from "@app-store";
@@ -14,9 +14,11 @@ import ReferralRegistry from "@app-contracts/ReferralRegistry.json";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 export const ReferralPanel = (): JSX.Element => {
   const REGISTRY_ADDRESS = import.meta.env.VITE_REGISTRY_ADDRESS;
+  const REGISTRY_CHAIN = baseSepolia; // TODO: Change to Base when ready
 
   const [userCode, setUserCode] = useState<string>("");
   const [referredByCode, setReferredByCode] = useState<string>("");
@@ -32,12 +34,12 @@ export const ReferralPanel = (): JSX.Element => {
   const [searchParams] = useSearchParams();
 
   const { address } = useAccount();
-  const { data: walletClient } = useWalletClient({ chainId: baseSepolia.id });
   const { switchChainAsync } = useSwitchChain();
-  const publicClient = usePublicClient({ chainId: baseSepolia.id });
+  const { data: walletClient } = useWalletClient({ chainId: REGISTRY_CHAIN.id });
+  const publicClient = usePublicClient({ chainId: REGISTRY_CHAIN.id });
 
   const viemClient = useMemo(() => createPublicClient({
-    chain: baseSepolia, // TODO: Change to Base when ready
+    chain: REGISTRY_CHAIN,
     transport: http(),
   }), []);
 
@@ -83,7 +85,7 @@ export const ReferralPanel = (): JSX.Element => {
       return;
     }
 
-    await switchChainAsync({ chainId: baseSepolia.id });
+    await switchChainAsync({ chainId: REGISTRY_CHAIN.id });
 
     try {
       const codeBytes = stringToHex(code, { size: 6 }) as `0x${string}`;
@@ -111,7 +113,7 @@ export const ReferralPanel = (): JSX.Element => {
             endIcon={<OpenInNewIcon />}
             sx={{ fontSize: 14, textTransform: 'none' }}
             onClick={() => {
-              window.open(`${baseSepolia.blockExplorers.default.url}/tx/${receipt.transactionHash}`, '_blank');
+              window.open(`${REGISTRY_CHAIN.blockExplorers.default.url}/tx/${receipt.transactionHash}`, '_blank');
             }}
           >
             View
@@ -145,7 +147,7 @@ export const ReferralPanel = (): JSX.Element => {
       return;
     }
 
-    await switchChainAsync({ chainId: baseSepolia.id });
+    await switchChainAsync({ chainId: REGISTRY_CHAIN.id });
 
     try {
       const codeBytes = stringToHex(enteredUserCode, { size: 6 }) as `0x${string}`;
@@ -174,7 +176,7 @@ export const ReferralPanel = (): JSX.Element => {
             endIcon={<OpenInNewIcon />}
             sx={{ fontSize: 14, textTransform: 'none' }}
             onClick={() => {
-              window.open(`${baseSepolia.blockExplorers.default.url}/tx/${receipt.transactionHash}`, '_blank');
+              window.open(`${REGISTRY_CHAIN.blockExplorers.default.url}/tx/${receipt.transactionHash}`, '_blank');
             }}
           >
             View
@@ -338,9 +340,44 @@ export const ReferralPanel = (): JSX.Element => {
         onCodeChange={setEnteredReferredByCode}
       />
 
-      <Box display="flex" justifyContent="space-between">
-        <Typography variant="caption">{!isCreated ? "Create" : "Your"} referral code</Typography>
-        <Typography variant="caption">Active users: <b>{referralCount}</b></Typography>
+      <Box display="flex">
+        {!isCreated
+          ? <Typography variant="caption">Your referral code</Typography>
+          : <Fragment>
+              <Typography variant="caption">Create referral code</Typography>
+              <Tooltip
+                arrow
+                title={
+                  <Typography variant="caption">
+                    You'll earn
+                    <Typography variant="caption" component="span" fontWeight="bold" color="success.main"> 25% </Typography> 
+                    of the
+                    <Typography variant="caption" component="span" fontWeight="bold"> fees </Typography> 
+                    on each contract deployed by your referrals on the chosen network. Activation costs
+                    <Typography variant="caption" component="span" fontWeight="bold"> 0.00003 </Typography>
+                    ETH on
+                    <Typography variant="caption" component="span" fontWeight="bold"> Base </Typography>
+                    network to prevent abuse from bot spam.
+                  </Typography>
+                }
+              >
+                <IconButton
+                  size="small"
+                  sx={{
+                    p: 0,
+                    ml: 0.5,
+                    cursor: "default"
+                  }}
+                >
+                  <HelpOutlineIcon
+                    fontSize="inherit"
+                    sx={{ color: 'text.primary' }}
+                  />
+                </IconButton>
+              </Tooltip>
+            </Fragment>
+        }
+        {/* <Typography variant="caption">Active users: <b>{referralCount}</b></Typography> */}
       </Box>
 
       <ReferralSection
