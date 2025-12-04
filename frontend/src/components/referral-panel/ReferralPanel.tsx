@@ -15,7 +15,7 @@ import IosShareIcon from '@mui/icons-material/IosShare';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 export const ReferralPanel = (): JSX.Element => {
-  const REGISTRY_ADDRESS = "0x2529b8f3b1D0Bd4cC0971b0A9a44e817A9bbA1D0";
+  const REGISTRY_ADDRESS = "0x0D4B0fe4017BCd32868E9921a6E2aC56586c0CBe";
 
   const [userCode, setUserCode] = useState<string>("");
   const [referredByCode, setReferredByCode] = useState<string>("");
@@ -25,6 +25,7 @@ export const ReferralPanel = (): JSX.Element => {
   const [isBound, setIsBound] = useState<boolean>(false);
   const [isCreated, setIsCreated] = useState<boolean>(false);
   const [referralCount, setReferralCount] = useState<number>(0);
+  const [referrerAddress, setReferrerAddress] = useState<string>("");
 
   const [searchParams] = useSearchParams();
 
@@ -243,6 +244,17 @@ export const ReferralPanel = (): JSX.Element => {
         if (referredByCodeHex !== "0x000000000000") {
           setReferredByCode(bytes6ToString(referredByCode));
           setIsBound(true);
+        }
+
+        const referrer = await readContract(viemClient, {
+          address: REGISTRY_ADDRESS,
+          abi: ReferralRegistry.abi,
+          functionName: "referredBy",
+          args: [address]
+        });
+
+        if (referrer && referrer !== "0x0000000000000000000000000000000000000000") {
+          setReferrerAddress(referrer as string);
         }
 
       } catch (err: any) {

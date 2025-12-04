@@ -9,32 +9,11 @@ contract ReferralRegistry {
 
     bytes6[] public refCodes;
 
-    address public axelarEndpoint;
-    address public immutable owner;
-
     event CodeCreated(address indexed user, bytes6 code);
     event CodeBound(address indexed user, address indexed referrer);
-    event EndpointSet(address endpoint);
 
-    modifier onlyEndpoint() {
-        require(msg.sender == axelarEndpoint, "Not Axelar endpoint");
-        _;
-    }
-
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Not an owner");
-        _;
-    }
-
-    constructor(address _endpoint) {
-        owner = msg.sender;
-        axelarEndpoint = _endpoint;
-    }
-
-    function setEndpoint(address _endpoint) external onlyOwner {
-        require(axelarEndpoint == address(0), "Endpoint already set");
-        axelarEndpoint = _endpoint;
-        emit EndpointSet(_endpoint);
+    constructor() {
+      
     }
 
     function createRefCode(bytes6 code) external payable {
@@ -65,21 +44,6 @@ contract ReferralRegistry {
         referrals[referrer].push(msg.sender);
 
         emit CodeBound(msg.sender, referrer);
-    }
-
-    function axelarSync(address user, bytes6 code, address referrer) external onlyEndpoint {
-        if (code != bytes6(0) && userRefCode[user] == 0x000000000000) {
-            refOwner[code] = user;
-            userRefCode[user] = code;
-            refCodes.push(code);
-            emit CodeCreated(user, code);
-        }
-
-        if (referrer != address(0) && referredBy[user] == address(0)) {
-            referredBy[user] = referrer;
-            referrals[referrer].push(user);
-            emit CodeBound(user, referrer);
-        }
     }
 
     function getRefCodes() external view returns (bytes6[] memory) {
