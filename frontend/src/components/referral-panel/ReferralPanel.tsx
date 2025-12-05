@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { useAccount, usePublicClient, useWalletClient, useSwitchChain } from "wagmi";
 import { stringToHex, hexToBytes, createPublicClient, http, parseEther } from "viem";
 import { readContract, writeContract } from "viem/actions";
-import { baseSepolia } from "viem/chains";
+import { base } from "viem/chains";
 import { closeSnackbar, enqueueSnackbar } from "notistack";
 import { Box, Button, IconButton, Tooltip, Typography } from "@mui/material";
 import { ReferralSection } from "@app-components";
@@ -17,8 +17,8 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 export const ReferralPanel = (): JSX.Element => {
-  const REGISTRY_ADDRESS = import.meta.env.VITE_REGISTRY_ADDRESS;
-  const REGISTRY_CHAIN = baseSepolia; // TODO: Change to Base when ready
+  const REGISTRY_ADDRESS = import.meta.env.VITE_REGISTRY_BASE_ADDRESS;
+  const REGISTRY_CHAIN = base;
 
   const [userCode, setUserCode] = useState<string>("");
   const [referredByCode, setReferredByCode] = useState<string>("");
