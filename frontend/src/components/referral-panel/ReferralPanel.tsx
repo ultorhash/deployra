@@ -17,7 +17,7 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 export const ReferralPanel = (): JSX.Element => {
-  const REGISTRY_ADDRESS = import.meta.env.VITE_REGISTRY_BASE_ADDRESS;
+  const REGISTRY_ADDRESS = import.meta.env.VITE_REGISTRY_ADDRESS_BASE;
   const REGISTRY_CHAIN = base;
 
   const [userCode, setUserCode] = useState<string>("");
