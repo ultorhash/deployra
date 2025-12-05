@@ -159,7 +159,7 @@ export const ReferralPanel = (): JSX.Element => {
         abi: ReferralRegistry.abi,
         functionName: 'createRefCode',
         args: [codeBytes],
-        value: parseEther("0.000033")
+        value: parseEther("0.00003")
       });
 
       enqueueSnackbar(Messages.CREATE_PENDING, { variant: 'default' });
@@ -407,7 +407,7 @@ export const ReferralPanel = (): JSX.Element => {
         onCodeChange={setEnteredUserCode}
       />
       <Box display="flex">
-        <Typography variant="caption">Active users: <b>{referralCount}</b></Typography>
+        <Typography variant="caption">Referred users: <b>{referralCount}</b></Typography>
       </Box>
     </ReferralPanelBox>
   )
