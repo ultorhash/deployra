@@ -9,7 +9,7 @@ export const App = (): JSX.Element => {
   const [isClosing, setIsClosing] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const stored = localStorage.getItem("theme");
-    return stored === "dark";
+    return stored ? stored === "dark" : true;
   });
 
   const [filter, setFilter] = useState(() => {
