@@ -1,6 +1,6 @@
 import { RainbowKitChain } from '@rainbow-me/rainbowkit/dist/components/RainbowKitProvider/RainbowKitChainContext';
 import {
-  base, optimism, unichain, soneium, sonic, polygon, sei, scroll, lens, linea, morph,
+  mainnet, base, optimism, unichain, soneium, sonic, polygon, sei, scroll, lens, linea, morph,
   berachain, abstract, mantle, sepolia, monadTestnet, riseTestnet,
   ink, mode, orderly, apeChain, zksync, hemi, lisk, taiko, mint, blast, polygonZkEvm,
   manta, fraxtal, bob, story, avalanche, canto, bsc, moonbeam, moonriver, astar,
@@ -9,6 +9,7 @@ import {
   baseSepolia, optimismSepolia, inkSepolia, unichainSepolia, soneiumMinato, liskSepolia
 } from 'wagmi/chains';
 
+const ethereumUX = { ...mainnet, iconUrl: "/assets/chains/sepolia.png", iconBackground: 'transparent' };
 const baseUX = { ...base, iconUrl: "/assets/chains/base.jpg", iconBackground: 'transparent' };
 const soneiumUX = { ...soneium, iconUrl: "/assets/chains/soneium.svg", iconBackground: 'transparent' };
 const sonicUX = { ...sonic, iconUrl: "/assets/chains/sonic.svg", iconBackground: 'transparent' };
@@ -47,8 +48,8 @@ const soneiumMinatoUX = { ...soneiumMinato, iconUrl: "/assets/chains/soneium.svg
 const liskSepoliatUX = { ...liskSepolia, iconUrl: "/assets/chains/lisk.svg", iconBackground: 'transparent' };
 
 export const supportedChains: [RainbowKitChain, ...RainbowKitChain[]] = [
-  baseUX, optimism, unichain, soneiumUX, sonicUX, polygon, seiUX, scroll, lensUX, linea, morphUX,
-  berachain, abstractUX, mantle, sepolia, monadTestnetUX, riseTestnetUX, ink,
+  ethereumUX, baseUX, optimism, unichain, soneiumUX, sonicUX, polygon, seiUX, scroll, lensUX, linea,
+  morphUX, berachain, abstractUX, mantle, sepolia, monadTestnetUX, riseTestnetUX, ink,
   modeUX, orderlyUX, apeChain, zksync, hemiUX, liskUX, taikoUX, mintUX, blast, polygonZkEvmUX,
   manta, fraxtalUX, bobUX, storyUX, avalanche, cantoUX, bsc, moonbeamUX, moonriverUX, astarUX,
   confluxESpaceUX, beamUX, chilizUX, worldchainUX, shibariumUX, flareUX, degen, xaiUX, kavaUX,

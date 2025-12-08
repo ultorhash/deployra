@@ -14,6 +14,7 @@ const approvedRecords = [
 ];
 
 const mainnetOptions: DeployOption[] = [
+  { chain: "Ethereum", chainId: 1, type: "mainnet", icon: "sepolia.png", fee: 0.000025, backgroundColor: "#627EEB", color: "#FFFFFF", tags: [] },
   { chain: "Base", chainId: 8453, type: "mainnet", icon: "base.jpg", fee: 0.000025, backgroundColor: "#0000FF", color: "#FFFFFF", tags: ["hot"] },
   { chain: "Optimism", chainId: 10, type: "mainnet", icon: "optimism.png", fee: 0.000025, backgroundColor: "#FF0420", color: "#FFFFFF", tags: ["hot"] },
   { chain: "Unichain", chainId: 130, type: "mainnet", icon: "unichain.png", fee: 0.000025, backgroundColor: "#F51BBD", color: "#FFFFFF", tags: ["hot"] },
