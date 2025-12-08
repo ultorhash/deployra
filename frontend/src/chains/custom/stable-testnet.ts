@@ -2,19 +2,19 @@ import { defineChain } from "viem";
 
 const sourceId = 1;
 
-export const stable = defineChain({
-  id: 988,
-  name: 'Stable',
+export const stableTestnet = defineChain({
+  id: 2201,
+  name: 'Stable Testnet',
   nativeCurrency: { name: 'gUSDT', symbol: 'gUSDT', decimals: 18 },
   rpcUrls: {
     default: {
-      http: ['https://rpc.stable.xyz'],
+      http: ['https://rpc.testnet.stable.xyz'],
     },
   },
   blockExplorers: {
     default: {
       name: 'Stablescan',
-      url: 'https://stablescan.xyz/'
+      url: 'https://testnet.stablescan.xyz'
     },
   },
   contracts: {
