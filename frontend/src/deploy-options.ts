@@ -81,7 +81,7 @@ const mainnetOptions: DeployOption[] = [
   { chain: "Humanity Protocol", chainId: 6985385, type: "mainnet", icon: "humanityprotocol.jpg", fee: 0.3, backgroundColor: "#BA5400", color: "#FFFFFF", tags: [] },
   { chain: "Zora", chainId: 7777777, type: "mainnet", icon: "zora.jpg", fee: 0.000025, backgroundColor: "#3566E6", color: "#FFFFFF", tags: [] },
   { chain: "Monad", chainId: 143, type: "mainnet", icon: "monad.png", fee: 1, backgroundColor: "#8070F2", color: "#FFFFFF", tags: ["new", "hot"] },
-  { chain: "Stable", chainId: 988, type: "mainnet", icon: "stable.jpg", fee: 1, backgroundColor: "#053F30", color: "#FFFFFF", tags: ["new"] }
+  { chain: "Stable", chainId: 988, type: "mainnet", icon: "stable.jpg", fee: 0.05, backgroundColor: "#053F30", color: "#FFFFFF", tags: ["new"] }
 ];
 
 const testnetOptions: DeployOption[] = [
