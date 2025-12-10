@@ -80,7 +80,7 @@ const mainnetOptions: DeployOption[] = [
   { chain: "Zero Network", chainId: 543210, type: "mainnet", icon: "zeronetwork.jpg", fee: 0.000025, backgroundColor: "#000000", color: "#FFFFFF", tags: [] },
   { chain: "Humanity Protocol", chainId: 6985385, type: "mainnet", icon: "humanityprotocol.jpg", fee: 0.3, backgroundColor: "#BA5400", color: "#FFFFFF", tags: [] },
   { chain: "Zora", chainId: 7777777, type: "mainnet", icon: "zora.jpg", fee: 0.000025, backgroundColor: "#3566E6", color: "#FFFFFF", tags: [] },
-  { chain: "Monad", chainId: 143, type: "mainnet", icon: "monad.png", fee: 1, backgroundColor: "#8070F2", color: "#FFFFFF", tags: ["new", "hot"] },
+  { chain: "Monad", chainId: 143, type: "mainnet", icon: "monad.png", fee: 1, backgroundColor: "#8070F2", color: "#FFFFFF", tags: ["hot"] },
   { chain: "Stable", chainId: 988, type: "mainnet", icon: "stable.jpg", fee: 0.05, backgroundColor: "#053F30", color: "#FFFFFF", tags: ["new"] }
 ];
 
@@ -113,7 +113,8 @@ const testnetOptions: DeployOption[] = [
   { chain: "IOPn Testnet", chainId: 984, type: "testnet", icon: "iopn.jpg", fee: 0.0002, backgroundColor: "#000000", color: "#FFFFFF", tags: ["hot"] },
   { chain: "Stable Testnet", chainId: 2201, type: "testnet", icon: "stable.jpg", fee: 0.0003, backgroundColor: "#053F30", color: "#FFFFFF", tags: ["hot"] },
   { chain: "Rayls Testnet", chainId: 123123, type: "testnet", icon: "rayls.jpg", fee: 0.001, backgroundColor: "#EDFB51", color: "#000000", tags: [] },
-  { chain: "Codex Testnet", chainId: 812242, type: "testnet", icon: "codex.jpg", fee: 0.00005, backgroundColor: "#161B14", color: "#FFFFFF", tags: ["new"] }
+  { chain: "Codex Testnet", chainId: 812242, type: "testnet", icon: "codex.jpg", fee: 0.00005, backgroundColor: "#161B14", color: "#FFFFFF", tags: [] },
+  { chain: "EcoChain Testnet", chainId: 10778, type: "testnet", icon: "ecochain.png", fee: 0.1, backgroundColor: "#3B584C", color: "#FFFFFF", tags: ["new"] }
 ];
 
 const baseLearnOptions: DeployOption[] = [
