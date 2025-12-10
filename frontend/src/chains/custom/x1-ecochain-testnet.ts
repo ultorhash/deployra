@@ -2,9 +2,9 @@ import { defineChain } from "viem";
 
 const sourceId = 1;
 
-export const ecoChainTestnet = defineChain({
+export const x1EcoChainTestnet = defineChain({
   id: 10778,
-  name: 'EcoChain Testnet',
+  name: 'X1 EcoChain Testnet',
   nativeCurrency: { name: 'X1T', symbol: 'X1T', decimals: 18 },
   rpcUrls: {
     default: {
@@ -23,7 +23,7 @@ export const ecoChainTestnet = defineChain({
       blockCreated: 0
     }
   },
-  iconUrl: "/assets/chains/ecochain.png",
+  iconUrl: "/assets/chains/x1ecochain.png",
   iconBackground: 'transparent',
   sourceId,
 });
