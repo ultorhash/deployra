@@ -35,6 +35,7 @@ import { megaETHTimothy } from "./megaeth-testnet";
 import { monad } from "./monad";
 import { codexTestnet } from "./codex-testnet";
 import { x1EcoChainTestnet } from "./x1-ecochain-testnet";
+import { pushChainDonutTestnet } from "./push-chain-donut-testnet";
 
 export const customChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   hyperevm, pharos, citrea, botanix, mocaTestnet, OG, xosTestnet, zeroNetwork,
@@ -42,5 +43,5 @@ export const customChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   kiiTestnet, mezo, juchain, mitosis, nitrographTestnet, sahara, somnia, plasma,
   gateLayer, humanityProtocol, zora, sovaTestnet, pharosAtlantic, arcTestnet,
   iopnTesntet, stableTestnet, raylsTestnet, megaETHTimothy, monad, codexTestnet,
-  stable, x1EcoChainTestnet
+  stable, x1EcoChainTestnet, pushChainDonutTestnet
 ];

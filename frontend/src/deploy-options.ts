@@ -87,7 +87,7 @@ const mainnetOptions: DeployOption[] = [
 const testnetOptions: DeployOption[] = [
   { chain: "Sepolia Testnet", chainId: 11155111, type: "testnet", icon: "sepolia.png", fee: 0.00005, backgroundColor: "#627EEA", color: "#FFFFFF", tags: [] },
   { chain: "Monad Testnet", chainId: 10143, type: "testnet", icon: "monad.png", fee: 0.01, backgroundColor: "#8070F2", color: "#FFFFFF", tags: [] },
-  { chain: "Rise Testnet", chainId: 11155931, type: "testnet", icon: "rise.svg", fee: 0.0001, backgroundColor: "#7A67E5", color: "#FFFFFF", tags: [] },
+  { chain: "Rise Testnet", chainId: 11155931, type: "testnet", icon: "rise.svg", fee: 0.0001, backgroundColor: "#7A67E5", color: "#FFFFFF", tags: ["hot"] },
   { chain: "Pharos Testnet", chainId: 688688, type: "testnet", icon: "pharos.png", fee: 0.005, backgroundColor: "#0007B8", color: "#FFFFFF", tags: [] },
   { chain: "Citrea Testnet", chainId: 5115, type: "testnet", icon: "citrea.png", fee: 0.000005, backgroundColor: "#E47530", color: "#FFFFFF", tags: [] },
   { chain: "Moca Testnet", chainId: 5151, type: "testnet", icon: "moca.png", fee: 0.00002, backgroundColor: "#C15F97", color: "#FFFFFF", tags: [] },
@@ -97,8 +97,8 @@ const testnetOptions: DeployOption[] = [
   { chain: "Block Chain Testkek", chainId: 6231991, type: "testnet", icon: "blockchain.jpg", fee: 0.00002, backgroundColor: "#0000FF", color: "#FFFFFF", tags: [] },
   { chain: "Fluent Testnet", chainId: 20994, type: "testnet", icon: "fluent.jpg", fee: 0.000025, backgroundColor: "#000000", color: "#FFFFFF", tags: [] },
   { chain: "Giwa Testnet", chainId: 91342, type: "testnet", icon: "giwa.jpg", fee: 0.000015, backgroundColor: "#FFFFFF", color: "#000000", tags: [] },
-  { chain: "Neura Testnet", chainId: 267, type: "testnet", icon: "neura.jpg", fee: 0.000004, backgroundColor: "#7FFF76", color: "#000000", tags: ["hot"] },
-  { chain: "KiteAI Testnet", chainId: 2368, type: "testnet", icon: "kiteai.jpg", fee: 0.0001, backgroundColor: "#000000", color: "#FFFFFF", tags: ["hot"] },
+  { chain: "Neura Testnet", chainId: 267, type: "testnet", icon: "neura.jpg", fee: 0.000004, backgroundColor: "#7FFF76", color: "#000000", tags: [] },
+  { chain: "KiteAI Testnet", chainId: 2368, type: "testnet", icon: "kiteai.jpg", fee: 0.0001, backgroundColor: "#000000", color: "#FFFFFF", tags: [] },
   { chain: "Kii Testnet", chainId: 1336, type: "testnet", icon: "kii.jpg", fee: 0.000025, backgroundColor: "#332976", color: "#FFFFFF", tags: [] },
   { chain: "Nitro Graph Testnet", chainId: 200024, type: "testnet", icon: "nitrograph.jpg", fee: 0.00003, backgroundColor: "#FC2E00", color: "#FFFFFF", tags: [] },
   { chain: "Base Sepolia Testnet", chainId: 84532, type: "testnet", icon: "base.jpg", fee: 0.00002, backgroundColor: "#0000FF", color: "#FFFFFF", tags: ["hot"] },
@@ -111,10 +111,11 @@ const testnetOptions: DeployOption[] = [
   { chain: "Pharos Atlantic Testnet", chainId: 688689, type: "testnet", icon: "pharos.png", fee: 0.002, backgroundColor: "#0007B8", color: "#FFFFFF", tags: ["hot"] },
   { chain: "Arc Testnet", chainId: 5042002, type: "testnet", icon: "arc.jpg", fee: 0.0005, backgroundColor: "#3D6A8D", color: "#FFFFFF", tags: ["hot"] },
   { chain: "IOPn Testnet", chainId: 984, type: "testnet", icon: "iopn.jpg", fee: 0.0002, backgroundColor: "#000000", color: "#FFFFFF", tags: ["hot"] },
-  { chain: "Stable Testnet", chainId: 2201, type: "testnet", icon: "stable.jpg", fee: 0.0003, backgroundColor: "#053F30", color: "#FFFFFF", tags: ["hot"] },
+  { chain: "Stable Testnet", chainId: 2201, type: "testnet", icon: "stable.jpg", fee: 0.0003, backgroundColor: "#053F30", color: "#FFFFFF", tags: [] },
   { chain: "Rayls Testnet", chainId: 123123, type: "testnet", icon: "rayls.jpg", fee: 0.001, backgroundColor: "#EDFB51", color: "#000000", tags: [] },
   { chain: "Codex Testnet", chainId: 812242, type: "testnet", icon: "codex.jpg", fee: 0.00005, backgroundColor: "#161B14", color: "#FFFFFF", tags: [] },
-  { chain: "X1 EcoChain Testnet", chainId: 10778, type: "testnet", icon: "x1ecochain.png", fee: 0.1, backgroundColor: "#3B584C", color: "#FFFFFF", tags: ["new"] }
+  { chain: "X1 EcoChain Testnet", chainId: 10778, type: "testnet", icon: "x1ecochain.png", fee: 0.1, backgroundColor: "#3B584C", color: "#FFFFFF", tags: ["new", "hot"] },
+  { chain: "Push Chain Donut Testnet", chainId: 42101, type: "testnet", icon: "pushchain.jpg", fee: 0.05, backgroundColor: "#D648EC", color: "#FFFFFF", tags: ["new", "hot"] }
 ];
 
 const baseLearnOptions: DeployOption[] = [
