@@ -115,7 +115,8 @@ const testnetOptions: DeployOption[] = [
   { chain: "Rayls Testnet", chainId: 123123, type: "testnet", icon: "rayls.jpg", fee: 0.001, backgroundColor: "#EDFB51", color: "#000000", tags: [] },
   { chain: "Codex Testnet", chainId: 812242, type: "testnet", icon: "codex.jpg", fee: 0.00005, backgroundColor: "#161B14", color: "#FFFFFF", tags: [] },
   { chain: "X1 EcoChain Testnet", chainId: 10778, type: "testnet", icon: "x1ecochain.png", fee: 0.1, backgroundColor: "#3B584C", color: "#FFFFFF", tags: ["new", "hot"] },
-  { chain: "Push Chain Donut Testnet", chainId: 42101, type: "testnet", icon: "pushchain.jpg", fee: 0.05, backgroundColor: "#D648EC", color: "#FFFFFF", tags: ["new", "hot"] }
+  { chain: "Push Chain Donut Testnet", chainId: 42101, type: "testnet", icon: "pushchain.jpg", fee: 0.05, backgroundColor: "#D648EC", color: "#FFFFFF", tags: ["new", "hot"] },
+  { chain: "DataHaven Testnet", chainId: 55931, type: "testnet", icon: "datahaven.jpg", fee: 1, backgroundColor: "#24635B", color: "#FFFFFF", tags: ["new", "hot"] }
 ];
 
 const baseLearnOptions: DeployOption[] = [
