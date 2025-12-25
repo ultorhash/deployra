@@ -81,7 +81,8 @@ const mainnetOptions: DeployOption[] = [
   { chain: "Humanity Protocol", chainId: 6985385, type: "mainnet", icon: "humanityprotocol.jpg", fee: 0.3, backgroundColor: "#BA5400", color: "#FFFFFF", tags: [] },
   { chain: "Zora", chainId: 7777777, type: "mainnet", icon: "zora.jpg", fee: 0.000025, backgroundColor: "#3566E6", color: "#FFFFFF", tags: [] },
   { chain: "Monad", chainId: 143, type: "mainnet", icon: "monad.png", fee: 1, backgroundColor: "#8070F2", color: "#FFFFFF", tags: ["hot"] },
-  { chain: "Stable", chainId: 988, type: "mainnet", icon: "stable.jpg", fee: 0.05, backgroundColor: "#053F30", color: "#FFFFFF", tags: ["new"] }
+  { chain: "Stable", chainId: 988, type: "mainnet", icon: "stable.jpg", fee: 0.05, backgroundColor: "#053F30", color: "#FFFFFF", tags: [""] },
+  { chain: "Shardeum", chainId: 8118, type: "mainnet", icon: "shardeum.jpg", fee: 25, backgroundColor: "#3041FB", color: "#FFFFFF", tags: ["new", "hot"] }
 ];
 
 const testnetOptions: DeployOption[] = [
@@ -114,8 +115,8 @@ const testnetOptions: DeployOption[] = [
   { chain: "Stable Testnet", chainId: 2201, type: "testnet", icon: "stable.jpg", fee: 0.0003, backgroundColor: "#053F30", color: "#FFFFFF", tags: [] },
   { chain: "Rayls Testnet", chainId: 123123, type: "testnet", icon: "rayls.jpg", fee: 0.001, backgroundColor: "#EDFB51", color: "#000000", tags: [] },
   { chain: "Codex Testnet", chainId: 812242, type: "testnet", icon: "codex.jpg", fee: 0.00005, backgroundColor: "#161B14", color: "#FFFFFF", tags: [] },
-  { chain: "X1 EcoChain Testnet", chainId: 10778, type: "testnet", icon: "x1ecochain.png", fee: 0.1, backgroundColor: "#3B584C", color: "#FFFFFF", tags: ["new", "hot"] },
-  { chain: "Push Chain Donut Testnet", chainId: 42101, type: "testnet", icon: "pushchain.jpg", fee: 0.05, backgroundColor: "#D648EC", color: "#FFFFFF", tags: ["new", "hot"] },
+  { chain: "X1 EcoChain Testnet", chainId: 10778, type: "testnet", icon: "x1ecochain.png", fee: 0.1, backgroundColor: "#3B584C", color: "#FFFFFF", tags: ["", "hot"] },
+  { chain: "Push Chain Donut Testnet", chainId: 42101, type: "testnet", icon: "pushchain.jpg", fee: 0.05, backgroundColor: "#D648EC", color: "#FFFFFF", tags: ["", "hot"] },
   { chain: "DataHaven Testnet", chainId: 55931, type: "testnet", icon: "datahaven.jpg", fee: 1, backgroundColor: "#24635B", color: "#FFFFFF", tags: ["new", "hot"] }
 ];
 

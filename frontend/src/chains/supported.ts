@@ -6,7 +6,8 @@ import {
   manta, fraxtal, bob, story, avalanche, canto, bsc, moonbeam, moonriver, astar,
   confluxESpace, beam, chiliz, worldchain, shibarium, flare, degen, xai, kava,
   aurora, zetachain, cronos, megaethTestnet, plumeMainnet, xdc, kaia, arbitrum,
-  baseSepolia, optimismSepolia, inkSepolia, unichainSepolia, soneiumMinato, liskSepolia
+  baseSepolia, optimismSepolia, inkSepolia, unichainSepolia, soneiumMinato, liskSepolia,
+  shardeum
 } from 'wagmi/chains';
 
 const ethereumUX = { ...mainnet, iconUrl: "/assets/chains/sepolia.png", iconBackground: 'transparent' };
@@ -46,6 +47,7 @@ const auroraUX = { ...aurora, iconUrl: "/assets/chains/aurora.svg", iconBackgrou
 const plumeMainnetUX = { ...plumeMainnet, iconUrl: "/assets/chains/plume.jpg", iconBackground: 'transparent' };
 const soneiumMinatoUX = { ...soneiumMinato, iconUrl: "/assets/chains/soneium.svg", iconBackground: 'transparent' };
 const liskSepoliatUX = { ...liskSepolia, iconUrl: "/assets/chains/lisk.svg", iconBackground: 'transparent' };
+const shardeumUX = { ...shardeum, iconUrl: "/assets/chains/shardeum.jpg", iconBackground: 'transparent' };
 
 export const supportedChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   ethereumUX, baseUX, optimism, unichain, soneiumUX, sonicUX, polygon, seiUX, scroll, lensUX, linea,
@@ -54,5 +56,5 @@ export const supportedChains: [RainbowKitChain, ...RainbowKitChain[]] = [
   manta, fraxtalUX, bobUX, storyUX, avalanche, cantoUX, bsc, moonbeamUX, moonriverUX, astarUX,
   confluxESpaceUX, beamUX, chilizUX, worldchainUX, shibariumUX, flareUX, degen, xaiUX, kavaUX,
   auroraUX, zetachain, cronos, megaethTestnetUX, plumeMainnetUX, xdc, kaia, arbitrum, baseSepolia,
-  optimismSepolia, inkSepolia, unichainSepolia, soneiumMinatoUX, liskSepoliatUX
+  optimismSepolia, inkSepolia, unichainSepolia, soneiumMinatoUX, liskSepoliatUX, shardeumUX
 ];
